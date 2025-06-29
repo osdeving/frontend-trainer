@@ -93,7 +93,7 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
     // Generate questions based on challenge config (only once)
     const [questions] = useState<Question[]>(() => {
         if (!challenge) return [];
-        
+
         let questionsArray: Question[] = [];
 
         if (challenge.config.categories) {
@@ -260,11 +260,11 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
     };
 
     const checkAnswer = () => {
-        console.log('🔍 checkAnswer chamado, userAnswer:', userAnswer);
-        console.log('📝 currentQuestion:', currentQuestion?.tailwindClass);
-        
+        console.log("🔍 checkAnswer chamado, userAnswer:", userAnswer);
+        console.log("📝 currentQuestion:", currentQuestion?.tailwindClass);
+
         if (!currentQuestion) {
-            console.warn('⚠️ Sem questão atual!');
+            console.warn("⚠️ Sem questão atual!");
             return;
         }
 
@@ -275,11 +275,14 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
         const isAnswerCorrect =
             normalizeAnswer(userAnswer) ===
             normalizeAnswer(currentQuestion.tailwindClass);
-        
-        console.log('✅ Resposta correta?', isAnswerCorrect);
-        console.log('📊 Resposta normalizada:', normalizeAnswer(userAnswer));
-        console.log('📊 Resposta esperada:', normalizeAnswer(currentQuestion.tailwindClass));
-        
+
+        console.log("✅ Resposta correta?", isAnswerCorrect);
+        console.log("📊 Resposta normalizada:", normalizeAnswer(userAnswer));
+        console.log(
+            "📊 Resposta esperada:",
+            normalizeAnswer(currentQuestion.tailwindClass)
+        );
+
         setIsCorrect(isAnswerCorrect);
         setShowResult(true);
 
@@ -328,11 +331,16 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
     };
 
     const nextQuestion = () => {
-        console.log('➡️ nextQuestion chamado');
-        console.log('📍 Questão atual:', currentQuestionIndex, '/', totalQuestions);
-        
+        console.log("➡️ nextQuestion chamado");
+        console.log(
+            "📍 Questão atual:",
+            currentQuestionIndex,
+            "/",
+            totalQuestions
+        );
+
         if (currentQuestionIndex < totalQuestions - 1) {
-            console.log('🔄 Avançando para próxima questão');
+            console.log("🔄 Avançando para próxima questão");
             setCurrentQuestionIndex(currentQuestionIndex + 1);
             setUserAnswer("");
             setShowResult(false);
@@ -341,7 +349,7 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
             setQuestionStartTime(Date.now());
             setUsedHintThisQuestion(false);
         } else {
-            console.log('🏁 Completando challenge');
+            console.log("🏁 Completando challenge");
             completeChallenge();
         }
     };
@@ -730,19 +738,33 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
                                     type="text"
                                     value={userAnswer}
                                     onChange={(e) => {
-                                        console.log('⌨️ Input onChange:', e.target.value);
+                                        console.log(
+                                            "⌨️ Input onChange:",
+                                            e.target.value
+                                        );
                                         setUserAnswer(e.target.value);
                                     }}
                                     placeholder="Enter TailwindCSS class(es)..."
                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono"
                                     disabled={showResult || isPaused}
                                     onKeyPress={(e) => {
-                                        console.log('🔑 KeyPress:', e.key, 'showResult:', showResult, 'userAnswer:', userAnswer.trim());
-                                        if (e.key === "Enter" &&
+                                        console.log(
+                                            "🔑 KeyPress:",
+                                            e.key,
+                                            "showResult:",
+                                            showResult,
+                                            "userAnswer:",
+                                            userAnswer.trim()
+                                        );
+                                        if (
+                                            e.key === "Enter" &&
                                             !showResult &&
                                             userAnswer.trim() &&
-                                            !isPaused) {
-                                            console.log('✅ Enter pressionado, chamando checkAnswer');
+                                            !isPaused
+                                        ) {
+                                            console.log(
+                                                "✅ Enter pressionado, chamando checkAnswer"
+                                            );
                                             checkAnswer();
                                         }
                                     }}
@@ -834,7 +856,9 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
                                     {!showResult ? (
                                         <Button
                                             onClick={() => {
-                                                console.log('🖱️ Botão Check Answer clicado');
+                                                console.log(
+                                                    "🖱️ Botão Check Answer clicado"
+                                                );
                                                 checkAnswer();
                                             }}
                                             disabled={
@@ -847,7 +871,9 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
                                     ) : (
                                         <Button
                                             onClick={() => {
-                                                console.log('🖱️ Botão Next Question clicado');
+                                                console.log(
+                                                    "🖱️ Botão Next Question clicado"
+                                                );
                                                 nextQuestion();
                                             }}
                                             className={`flex-1 ${
