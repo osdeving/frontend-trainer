@@ -137,7 +137,9 @@ export default function ChallengeClient({ challenge, questions }: ChallengeClien
       'Backdrop Filter': 'This applies effects to the background - backdrop- prefix.'
     };
 
-    return hints[category] || 'Think about what CSS property this represents and its Tailwind equivalent.';
+    return Object.prototype.hasOwnProperty.call(hints, category) 
+      ? hints[category as keyof typeof hints]
+      : 'Think about what CSS property this represents and its Tailwind equivalent.';
   };
 
   const generatePreview = (css: string) => {
