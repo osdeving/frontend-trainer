@@ -29,7 +29,7 @@ import {
   Gift
 } from 'lucide-react';
 import Link from 'next/link';
-import { leaderboardStore, LeaderboardEntry, Competition, LeaderboardStats } from '@/lib/leaderboardStore';
+import { leaderboardStore, LeaderboardEntry, Competition, LeaderboardStats, UserProfile } from '@/lib/leaderboardStore';
 
 const leagueIcons = {
   Bronze: Shield,
@@ -54,7 +54,7 @@ export default function LeaderboardPage() {
   const [weeklyRankings, setWeeklyRankings] = useState<LeaderboardEntry[]>([]);
   const [monthlyRankings, setMonthlyRankings] = useState<LeaderboardEntry[]>([]);
   const [friendsRankings, setFriendsRankings] = useState<LeaderboardEntry[]>([]);
-  const [currentUser, setCurrentUser] = useState<LeaderboardEntry | null>(null);
+  const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
   const [activeCompetitions, setActiveCompetitions] = useState<Competition[]>([]);
   const [stats, setStats] = useState<LeaderboardStats>({
     userRank: 0,
