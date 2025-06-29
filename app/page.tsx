@@ -24,12 +24,16 @@ import {
   Crown,
   Swords,
   Clock,
-  Skull
+  Skull,
+  Users,
+  TrendingUp,
+  User
 } from 'lucide-react';
 import Link from 'next/link';
 import { progressStore } from '@/lib/progressStore';
 import { achievementsStore } from '@/lib/achievementsStore';
 import { challengeStore } from '@/lib/challengeStore';
+import { leaderboardStore } from '@/lib/leaderboardStore';
 import AchievementsModal from '@/components/ui/achievements-modal';
 
 interface ClassGroup {
@@ -117,11 +121,16 @@ export default function Home() {
   // Challenge stats
   const challengeStats = challengeStore.getCompletionStats();
 
+  // Leaderboard stats
+  const leaderboardStats = leaderboardStore.getLeaderboardStats();
+  const currentUser = leaderboardStore.getCurrentUser();
+
   const resetProgress = () => {
     if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
       progressStore.resetProgress();
       achievementsStore.resetProgress();
       challengeStore.resetProgress();
+      leaderboardStore.resetData();
       setProgress(progressStore.getProgress());
     }
   };
@@ -172,6 +181,11 @@ export default function Home() {
                 <Trophy className="w-4 h-4 mr-1" />
                 <span className="text-sm">{unlockedAchievements}/{totalAchievements}</span>
               </Button>
+              <Link href="/profile">
+                <Button variant="ghost" size="sm" className="text-gray-600 hover:text-blue-600">
+                  <User className="w-4 h-4" />
+                </Button>
+              </Link>
               <Button
                 variant="ghost"
                 size="sm"
@@ -220,8 +234,8 @@ export default function Home() {
                   <div className="text-sm text-blue-100">Lessons Done</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold">{unlockedAchievements}</div>
-                  <div className="text-sm text-blue-100">Achievements</div>
+                  <div className="text-2xl font-bold">#{leaderboardStats.userRank}</div>
+                  <div className="text-sm text-blue-100">Global Rank</div>
                 </div>
               </div>
             </div>
@@ -272,7 +286,7 @@ export default function Home() {
         </div>
 
         {/* Action Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {/* Challenges Card */}
           <Card className="border-0 shadow-lg bg-gradient-to-r from-red-500 to-pink-600 text-white overflow-hidden">
             <CardContent className="p-6">
@@ -303,6 +317,35 @@ export default function Home() {
                 <Button className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30">
                   <Swords className="w-4 h-4 mr-2" />
                   Enter Challenges
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          {/* Leaderboard Card */}
+          <Card className="border-0 shadow-lg bg-gradient-to-r from-blue-500 to-indigo-600 text-white overflow-hidden">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-bold mb-2">Leaderboards</h3>
+                  <p className="text-blue-100 text-sm">Compete with learners worldwide</p>
+                </div>
+                <TrendingUp className="w-12 h-12 text-blue-200" />
+              </div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-sm">
+                  <div className="text-blue-100">Global Rank</div>
+                  <div className="text-2xl font-bold">#{leaderboardStats.userRank}</div>
+                </div>
+                <div className="text-right text-sm">
+                  <div className="text-blue-100">League</div>
+                  <div className="font-semibold">{currentUser.league}</div>
+                </div>
+              </div>
+              <Link href="/leaderboard">
+                <Button className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30">
+                  <TrendingUp className="w-4 h-4 mr-2" />
+                  View Rankings
                 </Button>
               </Link>
             </CardContent>
