@@ -17,7 +17,13 @@ import {
   Code,
   Palette,
   Trophy,
-  Zap
+  Zap,
+  Lightbulb,
+  Eye,
+  EyeOff,
+  BookOpen,
+  RotateCcw,
+  HelpCircle
 } from 'lucide-react';
 import Link from 'next/link';
 import { progressStore } from '@/lib/progressStore';
@@ -49,9 +55,97 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
   const [streak, setStreak] = useState(0);
   const [showCompletion, setShowCompletion] = useState(false);
   const [totalXPGained, setTotalXPGained] = useState(0);
+  const [showHint, setShowHint] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
+  const [reviewMode, setReviewMode] = useState(false);
+  const [incorrectAnswers, setIncorrectAnswers] = useState<number[]>([]);
+  const [reviewQuestions, setReviewQuestions] = useState<Question[]>([]);
 
-  const currentQuestion = questions[currentQuestionIndex];
-  const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+  const currentQuestion = reviewMode ? reviewQuestions[currentQuestionIndex] : questions[currentQuestionIndex];
+  const totalQuestions = reviewMode ? reviewQuestions.length : questions.length;
+  const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+
+  // Generate hint based on the correct answer
+  const generateHint = (tailwindClass: string, category: string) => {
+    const hints = {
+      'Flexbox': 'Think about flex properties - this controls how flex items behave.',
+      'Grid': 'This is a CSS Grid property - consider columns, rows, or gaps.',
+      'Positioning': 'This relates to element positioning - absolute, relative, or fixed.',
+      'Font Size': 'This controls text size - remember Tailwind uses t-shirt sizing (xs, sm, lg, xl, etc.).',
+      'Font Weight': 'This controls how bold or light the text appears.',
+      'Text Color': 'This sets the color of text - use the text- prefix.',
+      'Background Color': 'This sets the background color - use the bg- prefix.',
+      'Margin': 'This adds space outside the element - use m- prefix.',
+      'Padding': 'This adds space inside the element - use p- prefix.',
+      'Width': 'This controls element width - use w- prefix.',
+      'Height': 'This controls element height - use h- prefix.',
+      'Shadows': 'This adds depth with shadows - use shadow- prefix.',
+      'Transform': 'This transforms the element - scale, rotate, translate, or skew.',
+      'Transitions': 'This creates smooth animations - use transition- prefix.',
+      'Border Radius': 'This rounds corners - use rounded- prefix.',
+      'Display': 'This controls how elements are displayed - block, flex, grid, etc.',
+      'Gradients': 'This creates color gradients - use bg-gradient- prefix.',
+      'Opacity': 'This controls transparency - use opacity- or color/opacity syntax.',
+      'Filters': 'This applies visual effects - blur, grayscale, etc.',
+      'Backdrop Filter': 'This applies effects to the background - backdrop- prefix.'
+    };
+
+    const specificHints = {
+      'flex': 'Creates a flex container',
+      'grid': 'Creates a grid container',
+      'block': 'Makes element display as block',
+      'hidden': 'Hides the element',
+      'text-': 'For text colors, use text-[color]-[shade]',
+      'bg-': 'For backgrounds, use bg-[color]-[shade]',
+      'p-': 'For padding, use p-[size] or py-/px- for specific sides',
+      'm-': 'For margins, use m-[size] or my-/mx- for specific sides',
+      'rounded': 'For border radius, use rounded, rounded-lg, rounded-full, etc.',
+      'shadow': 'For shadows, use shadow-sm, shadow, shadow-lg, shadow-xl, etc.'
+    };
+
+    // Check for specific hints first
+    for (const [key, hint] of Object.entries(specificHints)) {
+      if (tailwindClass.includes(key)) {
+        return hint;
+      }
+    }
+
+    return hints[category] || 'Think about what CSS property this represents and its Tailwind equivalent.';
+  };
+
+  // Generate visual preview of the CSS
+  const generatePreview = (css: string, tailwindClass: string) => {
+    const previewElement = {
+      width: '100px',
+      height: '60px',
+      backgroundColor: '#f3f4f6',
+      border: '2px solid #e5e7eb',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: '12px',
+      color: '#374151',
+      ...parseCSS(css)
+    };
+
+    return previewElement;
+  };
+
+  // Simple CSS parser for preview
+  const parseCSS = (css: string) => {
+    const styles: any = {};
+    const rules = css.split(';').filter(rule => rule.trim());
+    
+    rules.forEach(rule => {
+      const [property, value] = rule.split(':').map(s => s.trim());
+      if (property && value) {
+        const camelCaseProperty = property.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+        styles[camelCaseProperty] = value;
+      }
+    });
+
+    return styles;
+  };
 
   const checkAnswer = () => {
     if (!currentQuestion) return;
@@ -73,19 +167,49 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
     } else {
       setHearts(Math.max(0, hearts - 1));
       setStreak(0);
+      // Add to incorrect answers for review
+      if (!incorrectAnswers.includes(currentQuestionIndex)) {
+        setIncorrectAnswers([...incorrectAnswers, currentQuestionIndex]);
+      }
     }
   };
 
   const nextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
+    if (currentQuestionIndex < totalQuestions - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setUserAnswer('');
       setShowResult(false);
+      setShowHint(false);
+      setShowPreview(false);
     } else {
-      // Quiz completed - save progress
-      progressStore.completeLesson(groupId, totalXPGained);
-      setShowCompletion(true);
+      if (reviewMode) {
+        // Completed review mode
+        setShowCompletion(true);
+      } else if (incorrectAnswers.length > 0) {
+        // Offer review mode
+        const reviewQs = incorrectAnswers.map(index => questions[index]);
+        setReviewQuestions(reviewQs);
+        setShowCompletion(true);
+      } else {
+        // Quiz completed perfectly - save progress
+        progressStore.completeLesson(groupId, totalXPGained);
+        setShowCompletion(true);
+      }
     }
+  };
+
+  const startReviewMode = () => {
+    const reviewQs = incorrectAnswers.map(index => questions[index]);
+    setReviewQuestions(reviewQs);
+    setReviewMode(true);
+    setCurrentQuestionIndex(0);
+    setUserAnswer('');
+    setShowResult(false);
+    setShowCompletion(false);
+    setShowHint(false);
+    setShowPreview(false);
+    setHearts(5);
+    setStreak(0);
   };
 
   const resetQuiz = () => {
@@ -97,9 +221,17 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
     setStreak(0);
     setShowCompletion(false);
     setTotalXPGained(0);
+    setShowHint(false);
+    setShowPreview(false);
+    setReviewMode(false);
+    setIncorrectAnswers([]);
+    setReviewQuestions([]);
   };
 
   const goHome = () => {
+    if (!reviewMode) {
+      progressStore.completeLesson(groupId, totalXPGained);
+    }
     router.push('/');
   };
 
@@ -111,8 +243,15 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
             <div className="w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <Trophy className="w-10 h-10 text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">Congratulations!</h2>
-            <p className="text-gray-600 mb-4">You completed {groupName}!</p>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">
+              {reviewMode ? 'Review Complete!' : 'Congratulations!'}
+            </h2>
+            <p className="text-gray-600 mb-4">
+              {reviewMode 
+                ? 'You\'ve reviewed your missed questions!' 
+                : `You completed ${groupName}!`
+              }
+            </p>
             
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 mb-6">
               <div className="grid grid-cols-2 gap-4 text-center">
@@ -126,6 +265,24 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
                 </div>
               </div>
             </div>
+            
+            {!reviewMode && incorrectAnswers.length > 0 && (
+              <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p className="text-sm text-yellow-800 mb-2">
+                  You missed {incorrectAnswers.length} question{incorrectAnswers.length > 1 ? 's' : ''}. 
+                  Want to review them?
+                </p>
+                <Button 
+                  onClick={startReviewMode} 
+                  variant="outline" 
+                  size="sm"
+                  className="w-full border-yellow-300 text-yellow-700 hover:bg-yellow-100"
+                >
+                  <BookOpen className="w-4 h-4 mr-2" />
+                  Review Missed Questions
+                </Button>
+              </div>
+            )}
             
             <div className="space-y-3">
               <Button onClick={goHome} className="w-full bg-gradient-to-r from-blue-500 to-purple-600">
@@ -183,8 +340,12 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
                 </Button>
               </Link>
               <div>
-                <h1 className="text-xl font-bold text-gray-800">{groupName}</h1>
-                <p className="text-sm text-gray-600">Question {currentQuestionIndex + 1} of {questions.length}</p>
+                <h1 className="text-xl font-bold text-gray-800">
+                  {groupName} {reviewMode && '(Review Mode)'}
+                </h1>
+                <p className="text-sm text-gray-600">
+                  Question {currentQuestionIndex + 1} of {totalQuestions}
+                </p>
               </div>
             </div>
             
@@ -232,12 +393,37 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
               </div>
             </CardHeader>
             <CardContent>
-              <div className="bg-gray-900 rounded-lg p-4 font-mono text-sm">
+              <div className="bg-gray-900 rounded-lg p-4 font-mono text-sm mb-4">
                 <pre className="text-green-400 whitespace-pre-wrap">
                   {currentQuestion.css}
                 </pre>
               </div>
-              <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+
+              {/* Visual Preview */}
+              <div className="mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-gray-700">Visual Preview</span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowPreview(!showPreview)}
+                  >
+                    {showPreview ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </Button>
+                </div>
+                {showPreview && (
+                  <div className="bg-white border-2 border-dashed border-gray-300 rounded-lg p-4 flex items-center justify-center">
+                    <div 
+                      style={generatePreview(currentQuestion.css, currentQuestion.tailwindClass)}
+                      className="transition-all duration-300"
+                    >
+                      Preview
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="p-4 bg-blue-50 rounded-lg">
                 <p className="text-sm text-blue-700">
                   <strong>Task:</strong> What TailwindCSS class(es) would produce this CSS?
                 </p>
@@ -268,6 +454,39 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
                   disabled={showResult}
                   onKeyPress={(e) => e.key === 'Enter' && !showResult && userAnswer.trim() && checkAnswer()}
                 />
+
+                {/* Hint System */}
+                {!showResult && (
+                  <div className="flex items-center space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowHint(!showHint)}
+                      className="flex-1"
+                    >
+                      <Lightbulb className="w-4 h-4 mr-2" />
+                      {showHint ? 'Hide Hint' : 'Show Hint'}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowPreview(!showPreview)}
+                    >
+                      <Eye className="w-4 h-4" />
+                    </Button>
+                  </div>
+                )}
+
+                {showHint && !showResult && (
+                  <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                    <div className="flex items-start space-x-2">
+                      <HelpCircle className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm text-yellow-800">
+                        {generateHint(currentQuestion.tailwindClass, currentQuestion.category)}
+                      </p>
+                    </div>
+                  </div>
+                )}
                 
                 {showResult && (
                   <div className={`p-4 rounded-lg ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
@@ -294,9 +513,12 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
                       </p>
                     )}
                     
-                    <p className="text-sm text-gray-700">
-                      {currentQuestion.explanation}
-                    </p>
+                    <div className="bg-white/50 p-3 rounded border-l-4 border-l-blue-400">
+                      <p className="text-sm text-gray-700 font-medium mb-1">Explanation:</p>
+                      <p className="text-sm text-gray-600">
+                        {currentQuestion.explanation}
+                      </p>
+                    </div>
                   </div>
                 )}
                 
@@ -314,7 +536,7 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
                       onClick={nextQuestion}
                       className={`flex-1 ${isCorrect ? 'bg-green-500 hover:bg-green-600' : 'bg-blue-500 hover:bg-blue-600'}`}
                     >
-                      {currentQuestionIndex < questions.length - 1 ? 'Next Question' : 'Complete'}
+                      {currentQuestionIndex < totalQuestions - 1 ? 'Next Question' : 'Complete'}
                     </Button>
                   )}
                 </div>
