@@ -29,7 +29,7 @@ import {
   Gift
 } from 'lucide-react';
 import Link from 'next/link';
-import { leaderboardStore } from '@/lib/leaderboardStore';
+import { leaderboardStore, LeaderboardEntry, Competition, LeaderboardStats } from '@/lib/leaderboardStore';
 
 const leagueIcons = {
   Bronze: Shield,
@@ -50,13 +50,17 @@ const leagueColors = {
 export default function LeaderboardPage() {
   const [mounted, setMounted] = useState(false);
   const [selectedTab, setSelectedTab] = useState('global');
-  const [globalRankings, setGlobalRankings] = useState<any[]>([]);
-  const [weeklyRankings, setWeeklyRankings] = useState<any[]>([]);
-  const [monthlyRankings, setMonthlyRankings] = useState<any[]>([]);
-  const [friendsRankings, setFriendsRankings] = useState<any[]>([]);
-  const [currentUser, setCurrentUser] = useState<any>(null);
-  const [activeCompetitions, setActiveCompetitions] = useState<any[]>([]);
-  const [stats, setStats] = useState<any>({});
+  const [globalRankings, setGlobalRankings] = useState<LeaderboardEntry[]>([]);
+  const [weeklyRankings, setWeeklyRankings] = useState<LeaderboardEntry[]>([]);
+  const [monthlyRankings, setMonthlyRankings] = useState<LeaderboardEntry[]>([]);
+  const [friendsRankings, setFriendsRankings] = useState<LeaderboardEntry[]>([]);
+  const [currentUser, setCurrentUser] = useState<LeaderboardEntry | null>(null);
+  const [activeCompetitions, setActiveCompetitions] = useState<Competition[]>([]);
+  const [stats, setStats] = useState<LeaderboardStats>({
+    userRank: 0,
+    weeklyRank: 0,
+    league: 'Bronze'
+  });
 
   useEffect(() => {
     setMounted(true);
@@ -96,7 +100,7 @@ export default function LeaderboardPage() {
     return `${hours}h`;
   };
 
-  const renderRankingList = (rankings: any[], showXP: 'total' | 'weekly' | 'monthly' = 'total') => {
+  const renderRankingList = (rankings: LeaderboardEntry[], showXP: 'total' | 'weekly' | 'monthly' = 'total') => {
     return (
       <div className="space-y-3">
         {rankings.slice(0, 10).map((user, index) => {
@@ -383,7 +387,7 @@ export default function LeaderboardPage() {
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               {Object.entries(leagueIcons).map(([league, Icon]) => {
                 const isCurrentLeague = league === currentUser?.league;
-                const leagueRankings = leaderboardStore.getLeagueRankings(league);
+                const leagueRankings = leaderboardStore.getLeagueRankings(league as keyof typeof leagueIcons);
                 
                 return (
                   <Card 
@@ -395,7 +399,7 @@ export default function LeaderboardPage() {
                     }`}
                   >
                     <CardContent className="p-4 text-center">
-                      <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${leagueColors[league]} flex items-center justify-center mx-auto mb-2`}>
+                      <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${leagueColors[league as keyof typeof leagueColors]} flex items-center justify-center mx-auto mb-2`}>
                         <Icon className="w-6 h-6 text-white" />
                       </div>
                       <h3 className="font-semibold text-gray-800">{league}</h3>
