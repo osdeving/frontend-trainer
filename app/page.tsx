@@ -21,11 +21,15 @@ import {
   Sparkles,
   Settings,
   Award,
-  Crown
+  Crown,
+  Swords,
+  Clock,
+  Skull
 } from 'lucide-react';
 import Link from 'next/link';
 import { progressStore } from '@/lib/progressStore';
 import { achievementsStore } from '@/lib/achievementsStore';
+import { challengeStore } from '@/lib/challengeStore';
 import AchievementsModal from '@/components/ui/achievements-modal';
 
 interface ClassGroup {
@@ -110,10 +114,14 @@ export default function Home() {
   const totalAchievements = achievementsStore.getTotalAchievements();
   const activeTitle = achievementsStore.getActiveTitle();
 
+  // Challenge stats
+  const challengeStats = challengeStore.getCompletionStats();
+
   const resetProgress = () => {
     if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
       progressStore.resetProgress();
       achievementsStore.resetProgress();
+      challengeStore.resetProgress();
       setProgress(progressStore.getProgress());
     }
   };
@@ -221,7 +229,7 @@ export default function Home() {
         </Card>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card className="border-0 shadow-lg">
             <CardContent className="p-4 text-center">
               <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
@@ -251,20 +259,90 @@ export default function Home() {
               <div className="text-sm text-gray-600">Perfect Quizzes</div>
             </CardContent>
           </Card>
+
+          <Card className="border-0 shadow-lg">
+            <CardContent className="p-4 text-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-red-400 to-red-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                <Swords className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-2xl font-bold text-red-600">{challengeStats.completed}</div>
+              <div className="text-sm text-gray-600">Challenges Won</div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Action Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Challenges Card */}
+          <Card className="border-0 shadow-lg bg-gradient-to-r from-red-500 to-pink-600 text-white overflow-hidden">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-bold mb-2">Special Challenges</h3>
+                  <p className="text-red-100 text-sm">Test your skills with timed and survival modes</p>
+                </div>
+                <Swords className="w-12 h-12 text-red-200" />
+              </div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-sm">
+                  <div className="text-red-100">Completed</div>
+                  <div className="text-2xl font-bold">{challengeStats.completed}/{challengeStats.total}</div>
+                </div>
+                <div className="flex space-x-2">
+                  <div className="flex items-center space-x-1 bg-red-400/30 px-2 py-1 rounded">
+                    <Clock className="w-3 h-3" />
+                    <span className="text-xs">Timed</span>
+                  </div>
+                  <div className="flex items-center space-x-1 bg-red-400/30 px-2 py-1 rounded">
+                    <Skull className="w-3 h-3" />
+                    <span className="text-xs">Survival</span>
+                  </div>
+                </div>
+              </div>
+              <Link href="/challenges">
+                <Button className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30">
+                  <Swords className="w-4 h-4 mr-2" />
+                  Enter Challenges
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          {/* Achievements Card */}
+          <Card className="border-0 shadow-lg bg-gradient-to-r from-yellow-500 to-orange-600 text-white overflow-hidden">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-xl font-bold mb-2">Achievements</h3>
+                  <p className="text-yellow-100 text-sm">Unlock badges and earn exclusive titles</p>
+                </div>
+                <Crown className="w-12 h-12 text-yellow-200" />
+              </div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-sm">
+                  <div className="text-yellow-100">Unlocked</div>
+                  <div className="text-2xl font-bold">{unlockedAchievements}/{totalAchievements}</div>
+                </div>
+                <div className="text-right text-sm">
+                  <div className="text-yellow-100">Active Title</div>
+                  <div className="font-semibold">{activeTitle || 'None'}</div>
+                </div>
+              </div>
+              <Button 
+                onClick={() => setShowAchievements(true)}
+                className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30"
+              >
+                <Crown className="w-4 h-4 mr-2" />
+                View Achievements
+              </Button>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Learning Path */}
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-3xl font-bold text-gray-800">Learning Path</h2>
-            <Button
-              variant="outline"
-              onClick={() => setShowAchievements(true)}
-              className="flex items-center space-x-2"
-            >
-              <Crown className="w-4 h-4" />
-              <span>View Achievements</span>
-            </Button>
           </div>
           
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
