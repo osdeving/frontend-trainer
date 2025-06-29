@@ -59,7 +59,10 @@ export default function LeaderboardPage() {
   const [stats, setStats] = useState<LeaderboardStats>({
     userRank: 0,
     weeklyRank: 0,
-    league: 'Bronze'
+    monthlyRank: 0,
+    league: 'Bronze',
+    totalUsers: 0,
+    leaguePosition: 0
   });
 
   useEffect(() => {
