@@ -254,7 +254,13 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
     };
 
     const checkAnswer = () => {
-        if (!currentQuestion) return;
+        console.log('🔍 checkAnswer chamado, userAnswer:', userAnswer);
+        console.log('📝 currentQuestion:', currentQuestion?.tailwindClass);
+        
+        if (!currentQuestion) {
+            console.warn('⚠️ Sem questão atual!');
+            return;
+        }
 
         const normalizeAnswer = (answer: string) => {
             return answer.toLowerCase().trim().replace(/\s+/g, " ");
@@ -263,6 +269,11 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
         const isAnswerCorrect =
             normalizeAnswer(userAnswer) ===
             normalizeAnswer(currentQuestion.tailwindClass);
+        
+        console.log('✅ Resposta correta?', isAnswerCorrect);
+        console.log('📊 Resposta normalizada:', normalizeAnswer(userAnswer));
+        console.log('📊 Resposta esperada:', normalizeAnswer(currentQuestion.tailwindClass));
+        
         setIsCorrect(isAnswerCorrect);
         setShowResult(true);
 
@@ -311,7 +322,11 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
     };
 
     const nextQuestion = () => {
+        console.log('➡️ nextQuestion chamado');
+        console.log('📍 Questão atual:', currentQuestionIndex, '/', totalQuestions);
+        
         if (currentQuestionIndex < totalQuestions - 1) {
+            console.log('🔄 Avançando para próxima questão');
             setCurrentQuestionIndex(currentQuestionIndex + 1);
             setUserAnswer("");
             setShowResult(false);
@@ -320,6 +335,7 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
             setQuestionStartTime(Date.now());
             setUsedHintThisQuestion(false);
         } else {
+            console.log('🏁 Completando challenge');
             completeChallenge();
         }
     };
@@ -707,18 +723,23 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
                                 <input
                                     type="text"
                                     value={userAnswer}
-                                    onChange={(e) =>
-                                        setUserAnswer(e.target.value)
-                                    }
+                                    onChange={(e) => {
+                                        console.log('⌨️ Input onChange:', e.target.value);
+                                        setUserAnswer(e.target.value);
+                                    }}
                                     placeholder="Enter TailwindCSS class(es)..."
                                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono"
                                     disabled={showResult || isPaused}
-                                    onKeyPress={(e) =>
-                                        e.key === "Enter" &&
-                                        !showResult &&
-                                        userAnswer.trim() &&
-                                        checkAnswer()
-                                    }
+                                    onKeyPress={(e) => {
+                                        console.log('🔑 KeyPress:', e.key, 'showResult:', showResult, 'userAnswer:', userAnswer.trim());
+                                        if (e.key === "Enter" &&
+                                            !showResult &&
+                                            userAnswer.trim() &&
+                                            !isPaused) {
+                                            console.log('✅ Enter pressionado, chamando checkAnswer');
+                                            checkAnswer();
+                                        }
+                                    }}
                                 />
 
                                 {/* Hint System */}
@@ -806,7 +827,10 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
                                 <div className="flex space-x-3">
                                     {!showResult ? (
                                         <Button
-                                            onClick={checkAnswer}
+                                            onClick={() => {
+                                                console.log('🖱️ Botão Check Answer clicado');
+                                                checkAnswer();
+                                            }}
                                             disabled={
                                                 !userAnswer.trim() || isPaused
                                             }
@@ -816,7 +840,10 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
                                         </Button>
                                     ) : (
                                         <Button
-                                            onClick={nextQuestion}
+                                            onClick={() => {
+                                                console.log('🖱️ Botão Next Question clicado');
+                                                nextQuestion();
+                                            }}
                                             className={`flex-1 ${
                                                 isCorrect
                                                     ? "bg-green-500 hover:bg-green-600"
