@@ -68,70 +68,18 @@ interface ChallengeClientProps {
 export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
     const router = useRouter();
 
-    // Get challenge and questions
+    // Get challenge
     const challenge = challengeStore.getChallenge(challengeId);
 
-    if (!challenge) {
-        return (
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
-                <div className="text-center">
-                    <p className="text-gray-600">Challenge not found.</p>
-                    <Link href="/challenges">
-                        <Button className="mt-4">Back to Challenges</Button>
-                    </Link>
-                </div>
-            </div>
-        );
-    }
-
-    // Generate questions based on challenge config
-    let questionsArray: Question[] = [];
-
-    if (challenge.config.categories) {
-        // Filter questions by categories
-        const allQuestions = Object.values(questionSets).flat();
-        questionsArray = allQuestions.filter((q) =>
-            challenge.config.categories!.includes(q.category)
-        );
-    } else {
-        // Use all questions
-        questionsArray = Object.values(questionSets).flat();
-    }
-
-    // Shuffle and limit questions
-    questionsArray = questionsArray.sort(() => Math.random() - 0.5);
-    if (challenge.config.questionCount) {
-        questionsArray = questionsArray.slice(
-            0,
-            challenge.config.questionCount
-        );
-    }
-
-    if (questionsArray.length === 0) {
-        return (
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
-                <div className="text-center">
-                    <p className="text-gray-600">
-                        No questions available for this challenge.
-                    </p>
-                    <Link href="/challenges">
-                        <Button className="mt-4">Back to Challenges</Button>
-                    </Link>
-                </div>
-            </div>
-        );
-    }
-
-    const questions = questionsArray;
-
+    // All hooks must be called before any early returns
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [userAnswer, setUserAnswer] = useState("");
     const [showResult, setShowResult] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
-    const [lives, setLives] = useState(challenge.config.lives || 5);
+    const [lives, setLives] = useState(challenge?.config.lives || 5);
     const [score, setScore] = useState(0);
     const [streak, setStreak] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(challenge.config.timeLimit || 0);
+    const [timeLeft, setTimeLeft] = useState(challenge?.config.timeLimit || 0);
     const [isPaused, setIsPaused] = useState(false);
     const [showCompletion, setShowCompletion] = useState(false);
     const [showHint, setShowHint] = useState(false);
@@ -142,14 +90,39 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
     const [usedHintThisQuestion, setUsedHintThisQuestion] = useState(false);
     const [newAchievements, setNewAchievements] = useState<any[]>([]);
 
-    const currentQuestion = questions[currentQuestionIndex];
-    const totalQuestions = questions.length;
-    const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
+    // Generate questions based on challenge config (only once)
+    const [questions] = useState<Question[]>(() => {
+        if (!challenge) return [];
+        
+        let questionsArray: Question[] = [];
+
+        if (challenge.config.categories) {
+            // Filter questions by categories
+            const allQuestions = Object.values(questionSets).flat();
+            questionsArray = allQuestions.filter((q) =>
+                challenge.config.categories!.includes(q.category)
+            );
+        } else {
+            // Use all questions
+            questionsArray = Object.values(questionSets).flat();
+        }
+
+        // Shuffle and limit questions (only once on component mount)
+        questionsArray = questionsArray.sort(() => Math.random() - 0.5);
+        if (challenge.config.questionCount) {
+            questionsArray = questionsArray.slice(
+                0,
+                challenge.config.questionCount
+            );
+        }
+
+        return questionsArray;
+    });
 
     // Timer effect
     useEffect(() => {
         if (
-            challenge.config.timeLimit &&
+            challenge?.config.timeLimit &&
             timeLeft > 0 &&
             !isPaused &&
             !showResult &&
@@ -168,12 +141,45 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
             return () => clearInterval(timer);
         }
     }, [
-        challenge.config.timeLimit,
+        challenge?.config.timeLimit,
         timeLeft,
         isPaused,
         showResult,
         showCompletion,
     ]);
+
+    // Early returns after all hooks
+    if (!challenge) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
+                <div className="text-center">
+                    <p className="text-gray-600">Challenge not found.</p>
+                    <Link href="/challenges">
+                        <Button className="mt-4">Back to Challenges</Button>
+                    </Link>
+                </div>
+            </div>
+        );
+    }
+
+    if (questions.length === 0) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
+                <div className="text-center">
+                    <p className="text-gray-600">
+                        No questions available for this challenge.
+                    </p>
+                    <Link href="/challenges">
+                        <Button className="mt-4">Back to Challenges</Button>
+                    </Link>
+                </div>
+            </div>
+        );
+    }
+
+    const currentQuestion = questions[currentQuestionIndex];
+    const totalQuestions = questions.length;
+    const progress = ((currentQuestionIndex + 1) / totalQuestions) * 100;
 
     const formatTime = (seconds: number) => {
         const mins = Math.floor(seconds / 60);
