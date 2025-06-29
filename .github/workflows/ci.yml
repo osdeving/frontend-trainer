@@ -3,8 +3,26 @@ name: 🚀 CI/CD Pipeline
 on:
     push:
         branches: [main, develop]
+        paths-ignore:
+            - '*.md'
+            - 'docs/**'
+            - '.github/**/*.md'
+            - 'CHANGELOG.md'
+            - 'README.md'
+            - 'CONTRIBUTING.md'
+            - 'LICENSE'
+            - '.gitignore'
     pull_request:
         branches: [main, develop]
+        paths-ignore:
+            - '*.md'
+            - 'docs/**'
+            - '.github/**/*.md'
+            - 'CHANGELOG.md'
+            - 'README.md'
+            - 'CONTRIBUTING.md'
+            - 'LICENSE'
+            - '.gitignore'
 
 jobs:
     # Job 1: Lint and Type Check

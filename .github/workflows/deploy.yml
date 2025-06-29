@@ -3,6 +3,15 @@ name: 🚀 Deploy to Production
 on:
     push:
         branches: [main]
+        paths-ignore:
+            - '*.md'
+            - 'docs/**'
+            - '.github/**/*.md'
+            - 'CHANGELOG.md'
+            - 'README.md'
+            - 'CONTRIBUTING.md'
+            - 'LICENSE'
+            - '.gitignore'
     workflow_run:
         workflows: ["🚀 CI/CD Pipeline"]
         branches: [main]
