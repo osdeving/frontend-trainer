@@ -22,10 +22,10 @@ const DEFAULT_PROGRESS: UserProgress = {
   streak: 0,
   lastStudyDate: '',
   groupProgress: {
-    layout: { progress: 0, completedLessons: 0, totalLessons: 5 },
-    typography: { progress: 0, completedLessons: 0, totalLessons: 5 },
-    colors: { progress: 0, completedLessons: 0, totalLessons: 5 },
-    spacing: { progress: 0, completedLessons: 0, totalLessons: 8 },
+    layout: { progress: 0, completedLessons: 0, totalLessons: 15 },
+    typography: { progress: 0, completedLessons: 0, totalLessons: 15 },
+    colors: { progress: 0, completedLessons: 0, totalLessons: 15 },
+    spacing: { progress: 0, completedLessons: 0, totalLessons: 15 },
     effects: { progress: 0, completedLessons: 0, totalLessons: 20 },
     responsive: { progress: 0, completedLessons: 0, totalLessons: 12 }
   },
