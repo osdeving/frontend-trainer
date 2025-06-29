@@ -133,11 +133,78 @@ export const questionSets: Record<string, Question[]> = {
       category: 'Opacity',
       difficulty: 'medium'
     }
+  ],
+  spacing: [
+    {
+      id: '1',
+      css: 'margin: 1rem;',
+      tailwindClass: 'm-4',
+      explanation: 'm-4 applies margin of 1rem (16px) on all sides.',
+      category: 'Margin',
+      difficulty: 'easy'
+    },
+    {
+      id: '2',
+      css: 'padding: 0.5rem 1rem;',
+      tailwindClass: 'py-2 px-4',
+      explanation: 'py-2 adds vertical padding, px-4 adds horizontal padding.',
+      category: 'Padding',
+      difficulty: 'easy'
+    },
+    {
+      id: '3',
+      css: 'width: 100%;',
+      tailwindClass: 'w-full',
+      explanation: 'w-full sets width to 100%.',
+      category: 'Width',
+      difficulty: 'easy'
+    },
+    {
+      id: '4',
+      css: 'height: 50vh;',
+      tailwindClass: 'h-screen/2',
+      explanation: 'h-screen/2 sets height to 50% of viewport height.',
+      category: 'Height',
+      difficulty: 'medium'
+    },
+    {
+      id: '5',
+      css: 'max-width: 28rem;',
+      tailwindClass: 'max-w-md',
+      explanation: 'max-w-md sets maximum width to 28rem (448px).',
+      category: 'Max Width',
+      difficulty: 'medium'
+    },
+    {
+      id: '6',
+      css: 'gap: 1rem;',
+      tailwindClass: 'gap-4',
+      explanation: 'gap-4 sets gap between flex/grid items to 1rem.',
+      category: 'Gap',
+      difficulty: 'medium'
+    },
+    {
+      id: '7',
+      css: 'margin-left: auto;\nmargin-right: auto;',
+      tailwindClass: 'mx-auto',
+      explanation: 'mx-auto centers an element horizontally.',
+      category: 'Centering',
+      difficulty: 'medium'
+    },
+    {
+      id: '8',
+      css: 'padding-top: 2rem;\npadding-bottom: 2rem;',
+      tailwindClass: 'py-8',
+      explanation: 'py-8 applies padding of 2rem to top and bottom.',
+      category: 'Padding',
+      difficulty: 'easy'
+    }
   ]
 };
 
 export const groupNames: Record<string, string> = {
   layout: 'Layout & Positioning',
   typography: 'Typography',
-  colors: 'Colors & Backgrounds'
+  colors: 'Colors & Backgrounds',
+  spacing: 'Spacing & Sizing'
 };

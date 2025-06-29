@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -18,9 +18,11 @@ import {
   Layout,
   Type,
   Move,
-  Sparkles
+  Sparkles,
+  Settings
 } from 'lucide-react';
 import Link from 'next/link';
+import { progressStore } from '@/lib/progressStore';
 
 interface ClassGroup {
   id: string;
@@ -28,10 +30,6 @@ interface ClassGroup {
   description: string;
   icon: React.ComponentType<any>;
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
-  progress: number;
-  totalLessons: number;
-  completedLessons: number;
-  isUnlocked: boolean;
   color: string;
 }
 
@@ -42,10 +40,6 @@ const classGroups: ClassGroup[] = [
     description: 'Master flexbox, grid, and positioning',
     icon: Layout,
     difficulty: 'Beginner',
-    progress: 75,
-    totalLessons: 12,
-    completedLessons: 9,
-    isUnlocked: true,
     color: 'from-blue-500 to-blue-600'
   },
   {
@@ -54,10 +48,6 @@ const classGroups: ClassGroup[] = [
     description: 'Text styling, fonts, and spacing',
     icon: Type,
     difficulty: 'Beginner',
-    progress: 100,
-    totalLessons: 10,
-    completedLessons: 10,
-    isUnlocked: true,
     color: 'from-green-500 to-green-600'
   },
   {
@@ -66,10 +56,6 @@ const classGroups: ClassGroup[] = [
     description: 'Color system and background utilities',
     icon: Palette,
     difficulty: 'Intermediate',
-    progress: 40,
-    totalLessons: 15,
-    completedLessons: 6,
-    isUnlocked: true,
     color: 'from-purple-500 to-purple-600'
   },
   {
@@ -78,10 +64,6 @@ const classGroups: ClassGroup[] = [
     description: 'Margins, padding, and dimensions',
     icon: Move,
     difficulty: 'Beginner',
-    progress: 0,
-    totalLessons: 8,
-    completedLessons: 0,
-    isUnlocked: true,
     color: 'from-orange-500 to-orange-600'
   },
   {
@@ -90,10 +72,6 @@ const classGroups: ClassGroup[] = [
     description: 'Shadows, transforms, and transitions',
     icon: Sparkles,
     difficulty: 'Advanced',
-    progress: 0,
-    totalLessons: 20,
-    completedLessons: 0,
-    isUnlocked: false,
     color: 'from-pink-500 to-pink-600'
   },
   {
@@ -102,21 +80,39 @@ const classGroups: ClassGroup[] = [
     description: 'Breakpoints and responsive utilities',
     icon: Target,
     difficulty: 'Advanced',
-    progress: 0,
-    totalLessons: 12,
-    completedLessons: 0,
-    isUnlocked: false,
     color: 'from-indigo-500 to-indigo-600'
   }
 ];
 
 export default function Home() {
-  const [streak, setStreak] = useState(7);
-  const [totalXP, setTotalXP] = useState(1250);
-  
-  const totalProgress = Math.round(
-    classGroups.reduce((acc, group) => acc + group.progress, 0) / classGroups.length
-  );
+  const [progress, setProgress] = useState(progressStore.getProgress());
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    // Refresh progress when component mounts
+    setProgress(progressStore.getProgress());
+  }, []);
+
+  const totalProgress = progressStore.getTotalProgress();
+  const completedGroups = progressStore.getCompletedGroups();
+  const inProgressGroups = progressStore.getInProgressGroups();
+  const totalCompletedLessons = progressStore.getTotalCompletedLessons();
+
+  const resetProgress = () => {
+    if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+      progressStore.resetProgress();
+      setProgress(progressStore.getProgress());
+    }
+  };
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
@@ -139,12 +135,20 @@ export default function Home() {
             <div className="flex items-center space-x-6">
               <div className="flex items-center space-x-2">
                 <Flame className="w-5 h-5 text-orange-500" />
-                <span className="font-semibold text-gray-700">{streak}</span>
+                <span className="font-semibold text-gray-700">{progress.streak}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Star className="w-5 h-5 text-yellow-500" />
-                <span className="font-semibold text-gray-700">{totalXP.toLocaleString()}</span>
+                <span className="font-semibold text-gray-700">{progress.totalXP.toLocaleString()}</span>
               </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={resetProgress}
+                className="text-gray-500 hover:text-red-500"
+              >
+                <Settings className="w-4 h-4" />
+              </Button>
             </div>
           </div>
         </div>
@@ -173,15 +177,15 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <div className="text-2xl font-bold">{classGroups.filter(g => g.progress === 100).length}</div>
+                  <div className="text-2xl font-bold">{completedGroups}</div>
                   <div className="text-sm text-blue-100">Completed</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold">{classGroups.filter(g => g.progress > 0 && g.progress < 100).length}</div>
+                  <div className="text-2xl font-bold">{inProgressGroups}</div>
                   <div className="text-sm text-blue-100">In Progress</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold">{classGroups.reduce((acc, g) => acc + g.completedLessons, 0)}</div>
+                  <div className="text-2xl font-bold">{totalCompletedLessons}</div>
                   <div className="text-sm text-blue-100">Lessons Done</div>
                 </div>
               </div>
@@ -196,19 +200,21 @@ export default function Home() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {classGroups.map((group, index) => {
               const Icon = group.icon;
-              const isCompleted = group.progress === 100;
-              const isInProgress = group.progress > 0 && group.progress < 100;
+              const groupProgress = progressStore.getGroupProgress(group.id);
+              const isCompleted = groupProgress.progress === 100;
+              const isInProgress = groupProgress.progress > 0 && groupProgress.progress < 100;
+              const isUnlocked = progressStore.isGroupUnlocked(group.id);
               
               return (
                 <Card 
                   key={group.id} 
                   className={`relative overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl border-0 ${
-                    group.isUnlocked 
+                    isUnlocked 
                       ? 'cursor-pointer bg-white shadow-lg' 
                       : 'cursor-not-allowed bg-gray-100 opacity-60'
                   }`}
                 >
-                  {group.isUnlocked ? (
+                  {isUnlocked ? (
                     <Link href={`/learn/${group.id}`}>
                       <CardHeader className="pb-3">
                         <div className="flex items-center justify-between">
@@ -232,10 +238,10 @@ export default function Home() {
                       <CardContent>
                         <div className="space-y-3">
                           <div className="flex justify-between text-sm">
-                            <span>{group.completedLessons}/{group.totalLessons} lessons</span>
-                            <span className="font-semibold">{group.progress}%</span>
+                            <span>{groupProgress.completedLessons}/{groupProgress.totalLessons} lessons</span>
+                            <span className="font-semibold">{groupProgress.progress}%</span>
                           </div>
-                          <Progress value={group.progress} className="h-2" />
+                          <Progress value={groupProgress.progress} className="h-2" />
                           <Button 
                             className={`w-full ${isCompleted ? 'bg-green-500 hover:bg-green-600' : isInProgress ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700'}`}
                           >
@@ -261,7 +267,7 @@ export default function Home() {
                       <CardContent>
                         <div className="space-y-3">
                           <div className="flex justify-between text-sm text-gray-400">
-                            <span>{group.totalLessons} lessons</span>
+                            <span>{groupProgress.totalLessons} lessons</span>
                             <span>Complete previous sections to unlock</span>
                           </div>
                           <Progress value={0} className="h-2" />
@@ -278,7 +284,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Quick Stats */}
+        {/* Daily Goals */}
         <Card className="mt-8 border-0 shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
@@ -289,17 +295,31 @@ export default function Home() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
-                <div className="text-2xl font-bold text-green-600">5/5</div>
+                <div className="text-2xl font-bold text-green-600">
+                  {progress.dailyGoals.lessonsToday}/{progress.dailyGoals.targetLessons}
+                </div>
                 <div className="text-sm text-green-700">Lessons Today</div>
-                <CheckCircle className="w-6 h-6 text-green-500 mx-auto mt-2" />
+                {progress.dailyGoals.lessonsToday >= progress.dailyGoals.targetLessons ? (
+                  <CheckCircle className="w-6 h-6 text-green-500 mx-auto mt-2" />
+                ) : (
+                  <Progress 
+                    value={(progress.dailyGoals.lessonsToday / progress.dailyGoals.targetLessons) * 100} 
+                    className="mt-2 h-2" 
+                  />
+                )}
               </div>
               <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
-                <div className="text-2xl font-bold text-blue-600">150/200</div>
+                <div className="text-2xl font-bold text-blue-600">
+                  {progress.dailyGoals.xpToday}/{progress.dailyGoals.targetXP}
+                </div>
                 <div className="text-sm text-blue-700">XP Today</div>
-                <Progress value={75} className="mt-2 h-2" />
+                <Progress 
+                  value={(progress.dailyGoals.xpToday / progress.dailyGoals.targetXP) * 100} 
+                  className="mt-2 h-2" 
+                />
               </div>
               <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg">
-                <div className="text-2xl font-bold text-orange-600">{streak}</div>
+                <div className="text-2xl font-bold text-orange-600">{progress.streak}</div>
                 <div className="text-sm text-orange-700">Day Streak</div>
                 <Flame className="w-6 h-6 text-orange-500 mx-auto mt-2" />
               </div>

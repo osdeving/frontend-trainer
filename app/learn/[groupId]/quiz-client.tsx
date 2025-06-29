@@ -15,9 +15,12 @@ import {
   RefreshCw,
   Target,
   Code,
-  Palette
+  Palette,
+  Trophy,
+  Zap
 } from 'lucide-react';
 import Link from 'next/link';
+import { progressStore } from '@/lib/progressStore';
 
 interface Question {
   id: string;
@@ -44,6 +47,8 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
   const [hearts, setHearts] = useState(5);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [showCompletion, setShowCompletion] = useState(false);
+  const [totalXPGained, setTotalXPGained] = useState(0);
 
   const currentQuestion = questions[currentQuestionIndex];
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
@@ -51,13 +56,20 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
   const checkAnswer = () => {
     if (!currentQuestion) return;
     
-    const isAnswerCorrect = userAnswer.toLowerCase().trim() === currentQuestion.tailwindClass.toLowerCase().trim();
+    const normalizeAnswer = (answer: string) => {
+      return answer.toLowerCase().trim().replace(/\s+/g, ' ');
+    };
+    
+    const isAnswerCorrect = normalizeAnswer(userAnswer) === normalizeAnswer(currentQuestion.tailwindClass);
     setIsCorrect(isAnswerCorrect);
     setShowResult(true);
     
     if (isAnswerCorrect) {
-      setScore(score + 10);
+      const xpGained = currentQuestion.difficulty === 'easy' ? 10 : 
+                      currentQuestion.difficulty === 'medium' ? 15 : 20;
+      setScore(score + xpGained);
       setStreak(streak + 1);
+      setTotalXPGained(totalXPGained + xpGained);
     } else {
       setHearts(Math.max(0, hearts - 1));
       setStreak(0);
@@ -70,8 +82,9 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
       setUserAnswer('');
       setShowResult(false);
     } else {
-      // Quiz completed
-      router.push('/');
+      // Quiz completed - save progress
+      progressStore.completeLesson(groupId, totalXPGained);
+      setShowCompletion(true);
     }
   };
 
@@ -82,7 +95,53 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
     setHearts(5);
     setScore(0);
     setStreak(0);
+    setShowCompletion(false);
+    setTotalXPGained(0);
   };
+
+  const goHome = () => {
+    router.push('/');
+  };
+
+  if (showCompletion) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 flex items-center justify-center">
+        <Card className="w-full max-w-md text-center border-0 shadow-xl">
+          <CardContent className="pt-8 pb-6">
+            <div className="w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Trophy className="w-10 h-10 text-white" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">Congratulations!</h2>
+            <p className="text-gray-600 mb-4">You completed {groupName}!</p>
+            
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 mb-6">
+              <div className="grid grid-cols-2 gap-4 text-center">
+                <div>
+                  <div className="text-2xl font-bold text-blue-600">{totalXPGained}</div>
+                  <div className="text-sm text-blue-700">XP Gained</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-green-600">{score}</div>
+                  <div className="text-sm text-green-700">Final Score</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="space-y-3">
+              <Button onClick={goHome} className="w-full bg-gradient-to-r from-blue-500 to-purple-600">
+                <Zap className="w-4 h-4 mr-2" />
+                Continue Learning
+              </Button>
+              <Button onClick={resetQuiz} variant="outline" className="w-full">
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Practice Again
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   if (hearts === 0) {
     return (
@@ -159,9 +218,17 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
                   <Code className="w-5 h-5" />
                   <span>CSS Code</span>
                 </CardTitle>
-                <Badge variant="outline">
-                  {currentQuestion.category}
-                </Badge>
+                <div className="flex items-center space-x-2">
+                  <Badge variant="outline">
+                    {currentQuestion.category}
+                  </Badge>
+                  <Badge 
+                    variant={currentQuestion.difficulty === 'easy' ? 'secondary' : 
+                            currentQuestion.difficulty === 'medium' ? 'default' : 'destructive'}
+                  >
+                    {currentQuestion.difficulty}
+                  </Badge>
+                </div>
               </div>
             </CardHeader>
             <CardContent>
@@ -173,6 +240,10 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
               <div className="mt-4 p-4 bg-blue-50 rounded-lg">
                 <p className="text-sm text-blue-700">
                   <strong>Task:</strong> What TailwindCSS class(es) would produce this CSS?
+                </p>
+                <p className="text-xs text-blue-600 mt-1">
+                  XP: {currentQuestion.difficulty === 'easy' ? '10' : 
+                       currentQuestion.difficulty === 'medium' ? '15' : '20'}
                 </p>
               </div>
             </CardContent>
@@ -195,7 +266,7 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
                   placeholder="Enter TailwindCSS class(es)..."
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono"
                   disabled={showResult}
-                  onKeyPress={(e) => e.key === 'Enter' && !showResult && checkAnswer()}
+                  onKeyPress={(e) => e.key === 'Enter' && !showResult && userAnswer.trim() && checkAnswer()}
                 />
                 
                 {showResult && (
@@ -209,6 +280,12 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
                       <span className={`font-semibold ${isCorrect ? 'text-green-700' : 'text-red-700'}`}>
                         {isCorrect ? 'Correct!' : 'Incorrect'}
                       </span>
+                      {isCorrect && (
+                        <Badge className="bg-green-100 text-green-700">
+                          +{currentQuestion.difficulty === 'easy' ? '10' : 
+                            currentQuestion.difficulty === 'medium' ? '15' : '20'} XP
+                        </Badge>
+                      )}
                     </div>
                     
                     {!isCorrect && (
