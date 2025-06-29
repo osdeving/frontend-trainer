@@ -212,7 +212,7 @@ export default function Home() {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-2xl mb-2">Your Progress</CardTitle>
-                <p className="text-blue-100">Keep going! You're doing great!</p>
+                <p className="text-blue-100">Keep going! You&apos;re doing great!</p>
               </div>
               <Trophy className="w-12 h-12 text-yellow-300" />
             </div>

@@ -134,7 +134,7 @@ export default function HelpPage() {
               <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">1</div>
               <div>
                 <h4 className="font-semibold text-green-800 mb-1">Escolha um Grupo de Aprendizado</h4>
-                <p className="text-green-700 text-sm">Comece com "Layout & Positioning" - é perfeito para iniciantes e ensina os fundamentos do Flexbox e Grid.</p>
+                <p className="text-green-700 text-sm">Comece com &quot;Layout &amp; Positioning&quot; - é perfeito para iniciantes e ensina os fundamentos do Flexbox e Grid.</p>
               </div>
             </div>
 
@@ -150,7 +150,7 @@ export default function HelpPage() {
               <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">3</div>
               <div>
                 <h4 className="font-semibold text-purple-800 mb-1">Ganhe sua Primeira Conquista</h4>
-                <p className="text-purple-700 text-sm">Ao completar a primeira questão, você ganhará a conquista "First Steps" e 10 XP!</p>
+                <p className="text-purple-700 text-sm">Ao completar a primeira questão, você ganhará a conquista &quot;First Steps&quot; e 10 XP!</p>
               </div>
             </div>
 
@@ -546,7 +546,7 @@ export default function HelpPage() {
                   </div>
                   <p className="text-sm text-yellow-700 mb-2">Competição semanal pelo maior XP ganho</p>
                   <div className="text-xs text-yellow-600">
-                    <strong>Recompensas:</strong> 1º lugar: 500 XP + Badge "Weekly Champion" + Título "Sprint Master"
+                    <strong>Recompensas:</strong> 1º lugar: 500 XP + Badge &quot;Weekly Champion&quot; + Título &quot;Sprint Master&quot;
                   </div>
                 </div>
 
@@ -557,7 +557,7 @@ export default function HelpPage() {
                   </div>
                   <p className="text-sm text-purple-700 mb-2">Torneio temático focado em questões de Flexbox</p>
                   <div className="text-xs text-purple-600">
-                    <strong>Recompensas:</strong> 1º lugar: 1000 XP + Badge "Flexbox Champion" + Título "Flexbox Grandmaster"
+                    <strong>Recompensas:</strong> 1º lugar: 1000 XP + Badge &quot;Flexbox Champion&quot; + Título &quot;Flexbox Grandmaster&quot;
                   </div>
                 </div>
               </div>
@@ -679,7 +679,7 @@ export default function HelpPage() {
               </div>
               <p className="text-blue-700 text-sm">
                 Use as estatísticas do perfil para identificar pontos fracos e focar seus estudos. 
-                Se sua precisão em "Effects" está baixa, dedique mais tempo a esse grupo!
+                Se sua precisão em &quot;Effects&quot; está baixa, dedique mais tempo a esse grupo!
               </p>
             </div>
           </div>
