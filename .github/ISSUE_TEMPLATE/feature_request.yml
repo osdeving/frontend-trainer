@@ -4,171 +4,171 @@ title: "[FEATURE] "
 labels: ["enhancement", "needs-triage"]
 
 body:
-  - type: markdown
-    attributes:
-      value: |
-        # ✨ Feature Request
-        
-        Thank you for suggesting a new feature! Please provide detailed information to help us understand your request.
+    - type: markdown
+      attributes:
+          value: |
+              # ✨ Feature Request
 
-  - type: checkboxes
-    id: preliminary-checks
-    attributes:
-      label: ✅ Preliminary Checks
-      description: Please confirm you have done the following
-      options:
-        - label: I have searched existing issues to ensure this is not a duplicate
+              Thank you for suggesting a new feature! Please provide detailed information to help us understand your request.
+
+    - type: checkboxes
+      id: preliminary-checks
+      attributes:
+          label: ✅ Preliminary Checks
+          description: Please confirm you have done the following
+          options:
+              - label: I have searched existing issues to ensure this is not a duplicate
+                required: true
+              - label: I have checked the roadmap and existing documentation
+                required: true
+              - label: This feature would benefit multiple users, not just my specific use case
+                required: true
+
+    - type: textarea
+      id: feature-summary
+      attributes:
+          label: 🎯 Feature Summary
+          description: A brief, clear summary of the feature you're requesting
+          placeholder: In one sentence, what feature would you like to see?
+      validations:
           required: true
-        - label: I have checked the roadmap and existing documentation
+
+    - type: textarea
+      id: problem-statement
+      attributes:
+          label: 🔍 Problem Statement
+          description: What problem does this feature solve?
+          placeholder: |
+              Describe the problem you're trying to solve:
+              - What's the current pain point?
+              - Who does this affect?
+              - How often does this issue occur?
+      validations:
           required: true
-        - label: This feature would benefit multiple users, not just my specific use case
+
+    - type: textarea
+      id: proposed-solution
+      attributes:
+          label: 💡 Proposed Solution
+          description: Describe your proposed solution in detail
+          placeholder: |
+              Describe how you envision this feature working:
+              - What would the user experience look like?
+              - How should it integrate with existing features?
+              - Any specific implementation ideas?
+      validations:
           required: true
 
-  - type: textarea
-    id: feature-summary
-    attributes:
-      label: 🎯 Feature Summary
-      description: A brief, clear summary of the feature you're requesting
-      placeholder: In one sentence, what feature would you like to see?
-    validations:
-      required: true
+    - type: textarea
+      id: alternatives
+      attributes:
+          label: 🔄 Alternatives Considered
+          description: What alternatives have you considered?
+          placeholder: |
+              Have you considered any alternative solutions or workarounds?
+              - Other approaches you've thought about
+              - Why they don't work as well
+              - Existing tools or features that partially solve this
 
-  - type: textarea
-    id: problem-statement
-    attributes:
-      label: 🔍 Problem Statement
-      description: What problem does this feature solve?
-      placeholder: |
-        Describe the problem you're trying to solve:
-        - What's the current pain point?
-        - Who does this affect?
-        - How often does this issue occur?
-    validations:
-      required: true
+    - type: dropdown
+      id: feature-category
+      attributes:
+          label: 📂 Feature Category
+          description: What type of feature is this?
+          options:
+              - Learning Experience - New ways to learn TailwindCSS
+              - Gamification - Achievements, points, leaderboards
+              - User Interface - UI/UX improvements
+              - Performance - Speed and optimization
+              - Accessibility - A11Y improvements
+              - Mobile Experience - Mobile-specific features
+              - Analytics - Tracking and insights
+              - Social Features - Sharing, community features
+              - Content - New questions, challenges, tutorials
+              - Developer Experience - Tools for contributors
+              - Other (specify in additional context)
+      validations:
+          required: true
 
-  - type: textarea
-    id: proposed-solution
-    attributes:
-      label: 💡 Proposed Solution
-      description: Describe your proposed solution in detail
-      placeholder: |
-        Describe how you envision this feature working:
-        - What would the user experience look like?
-        - How should it integrate with existing features?
-        - Any specific implementation ideas?
-    validations:
-      required: true
+    - type: dropdown
+      id: priority
+      attributes:
+          label: ⭐ Priority
+          description: How important is this feature to you?
+          options:
+              - Nice to have - Would be cool but not essential
+              - Important - Would significantly improve my experience
+              - Critical - I need this to use the application effectively
+      validations:
+          required: true
 
-  - type: textarea
-    id: alternatives
-    attributes:
-      label: 🔄 Alternatives Considered
-      description: What alternatives have you considered?
-      placeholder: |
-        Have you considered any alternative solutions or workarounds?
-        - Other approaches you've thought about
-        - Why they don't work as well
-        - Existing tools or features that partially solve this
+    - type: dropdown
+      id: complexity
+      attributes:
+          label: 🛠️ Estimated Complexity
+          description: How complex do you think this feature would be to implement?
+          options:
+              - Small - Could be done in a few hours
+              - Medium - Would take a few days
+              - Large - Would take weeks or require significant changes
+              - Not sure - I don't have enough technical knowledge to estimate
 
-  - type: dropdown
-    id: feature-category
-    attributes:
-      label: 📂 Feature Category
-      description: What type of feature is this?
-      options:
-        - Learning Experience - New ways to learn TailwindCSS
-        - Gamification - Achievements, points, leaderboards
-        - User Interface - UI/UX improvements
-        - Performance - Speed and optimization
-        - Accessibility - A11Y improvements
-        - Mobile Experience - Mobile-specific features
-        - Analytics - Tracking and insights
-        - Social Features - Sharing, community features
-        - Content - New questions, challenges, tutorials
-        - Developer Experience - Tools for contributors
-        - Other (specify in additional context)
-    validations:
-      required: true
+    - type: textarea
+      id: user-stories
+      attributes:
+          label: 👤 User Stories
+          description: Write user stories for this feature
+          placeholder: |
+              As a [type of user], I want [feature] so that [benefit].
 
-  - type: dropdown
-    id: priority
-    attributes:
-      label: ⭐ Priority
-      description: How important is this feature to you?
-      options:
-        - Nice to have - Would be cool but not essential
-        - Important - Would significantly improve my experience
-        - Critical - I need this to use the application effectively
-    validations:
-      required: true
+              Example:
+              As a beginner learner, I want to see visual previews of CSS properties so that I can better understand how they work.
 
-  - type: dropdown
-    id: complexity
-    attributes:
-      label: 🛠️ Estimated Complexity
-      description: How complex do you think this feature would be to implement?
-      options:
-        - Small - Could be done in a few hours
-        - Medium - Would take a few days
-        - Large - Would take weeks or require significant changes
-        - Not sure - I don't have enough technical knowledge to estimate
+              As a competitive learner, I want weekly challenges so that I can test my skills against other users.
 
-  - type: textarea
-    id: user-stories
-    attributes:
-      label: 👤 User Stories
-      description: Write user stories for this feature
-      placeholder: |
-        As a [type of user], I want [feature] so that [benefit].
-        
-        Example:
-        As a beginner learner, I want to see visual previews of CSS properties so that I can better understand how they work.
-        
-        As a competitive learner, I want weekly challenges so that I can test my skills against other users.
+    - type: textarea
+      id: mockups
+      attributes:
+          label: 🎨 Mockups/Wireframes
+          description: If you have any visual ideas, describe them or link to images
+          placeholder: |
+              Describe any visual ideas you have for this feature:
+              - UI mockups or wireframes (you can paste images)
+              - User flow diagrams
+              - Links to similar features in other applications
 
-  - type: textarea
-    id: mockups
-    attributes:
-      label: 🎨 Mockups/Wireframes
-      description: If you have any visual ideas, describe them or link to images
-      placeholder: |
-        Describe any visual ideas you have for this feature:
-        - UI mockups or wireframes (you can paste images)
-        - User flow diagrams
-        - Links to similar features in other applications
+    - type: textarea
+      id: success-criteria
+      attributes:
+          label: ✅ Success Criteria
+          description: How would we know this feature is successful?
+          placeholder: |
+              What would success look like for this feature?
+              - Usage metrics
+              - User feedback
+              - Performance improvements
+              - Learning outcomes
 
-  - type: textarea
-    id: success-criteria
-    attributes:
-      label: ✅ Success Criteria
-      description: How would we know this feature is successful?
-      placeholder: |
-        What would success look like for this feature?
-        - Usage metrics
-        - User feedback
-        - Performance improvements
-        - Learning outcomes
+    - type: checkboxes
+      id: implementation-help
+      attributes:
+          label: 🤝 Implementation Help
+          description: Would you be able to help with implementation?
+          options:
+              - label: I could help with design/mockups
+              - label: I could help with testing
+              - label: I could help with implementation (coding)
+              - label: I could help with documentation
+              - label: I would be happy to provide ongoing feedback
 
-  - type: checkboxes
-    id: implementation-help
-    attributes:
-      label: 🤝 Implementation Help
-      description: Would you be able to help with implementation?
-      options:
-        - label: I could help with design/mockups
-        - label: I could help with testing
-        - label: I could help with implementation (coding)
-        - label: I could help with documentation
-        - label: I would be happy to provide ongoing feedback
-
-  - type: textarea
-    id: additional-context
-    attributes:
-      label: 📋 Additional Context
-      description: Any other information that would be helpful
-      placeholder: |
-        Add any other context about the feature request:
-        - Links to relevant resources
-        - Examples from other applications
-        - Technical considerations
-        - Timeline preferences
+    - type: textarea
+      id: additional-context
+      attributes:
+          label: 📋 Additional Context
+          description: Any other information that would be helpful
+          placeholder: |
+              Add any other context about the feature request:
+              - Links to relevant resources
+              - Examples from other applications
+              - Technical considerations
+              - Timeline preferences

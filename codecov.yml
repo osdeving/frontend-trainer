@@ -1,62 +1,62 @@
 # Codecov Configuration for TailwindTrainer
 
 coverage:
-  # Coverage precision
-  precision: 2
-  
-  # Coverage range
-  range: "70...95"
-  
-  # Round coverage to nearest 
-  round: down
-  
-  # Status settings
-  status:
-    project:
-      default:
-        target: 80%
-        threshold: 1%
-        if_ci_failed: error
-    
-    patch:
-      default:
-        target: 80%
-        threshold: 1%
-        if_ci_failed: error
+    # Coverage precision
+    precision: 2
+
+    # Coverage range
+    range: "70...95"
+
+    # Round coverage to nearest
+    round: down
+
+    # Status settings
+    status:
+        project:
+            default:
+                target: 80%
+                threshold: 1%
+                if_ci_failed: error
+
+        patch:
+            default:
+                target: 80%
+                threshold: 1%
+                if_ci_failed: error
 
 # Ignore paths from coverage
 ignore:
-  - "**/*.d.ts"
-  - "**/node_modules/**"
-  - "**/__tests__/**"
-  - "**/tests/**"
-  - "**/coverage/**"
-  - "**/.next/**"
-  - "**/playwright-report/**"
-  - "app/**/layout.tsx"
-  - "app/**/loading.tsx"
-  - "app/**/not-found.tsx"
-  - "app/**/error.tsx"
-  - "next.config.js"
-  - "tailwind.config.ts"
-  - "postcss.config.js"
-  - "jest.config.js"
-  - "jest.setup.js"
-  - "playwright.config.ts"
+    - "**/*.d.ts"
+    - "**/node_modules/**"
+    - "**/__tests__/**"
+    - "**/tests/**"
+    - "**/coverage/**"
+    - "**/.next/**"
+    - "**/playwright-report/**"
+    - "app/**/layout.tsx"
+    - "app/**/loading.tsx"
+    - "app/**/not-found.tsx"
+    - "app/**/error.tsx"
+    - "next.config.js"
+    - "tailwind.config.ts"
+    - "postcss.config.js"
+    - "jest.config.js"
+    - "jest.setup.js"
+    - "playwright.config.ts"
 
 # Comment settings
 comment:
-  layout: "reach,diff,flags,tree"
-  behavior: default
-  require_changes: false
-  require_base: false
-  require_head: true
+    layout: "reach,diff,flags,tree"
+    behavior: default
+    require_changes: false
+    require_base: false
+    require_head: true
 
 # Pull request comments
 pulls:
-  - base
-  - compare
+    - base
+    - compare
 
 # GitHub checks
 github_checks:
-  annotations: true
+    annotations: true

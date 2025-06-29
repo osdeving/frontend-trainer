@@ -1,215 +1,215 @@
 name: 🚀 CI/CD Pipeline
 
 on:
-  push:
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main, develop ]
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main, develop]
 
 jobs:
-  # Job 1: Lint and Type Check
-  lint-and-typecheck:
-    name: 🔍 Lint & Type Check
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-        
-      - name: 📦 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-          
-      - name: 📥 Install dependencies
-        run: npm ci
-        
-      - name: 🔍 Run ESLint
-        run: npm run lint
-        
-      - name: 🔍 Type check
-        run: npm run type-check
-        
-  # Job 2: Unit Tests with Coverage
-  unit-tests:
-    name: 🧪 Unit Tests & Coverage
-    runs-on: ubuntu-latest
-    needs: lint-and-typecheck
-    
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-        
-      - name: 📦 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-          
-      - name: 📥 Install dependencies
-        run: npm ci
-        
-      - name: 🧪 Run unit tests with coverage
-        run: npm run test:coverage
-        
-      - name: 📊 Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./coverage/lcov.info
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: false
-          
-      - name: 📊 Coverage Summary
-        run: |
-          echo "## 📊 Test Coverage Summary" >> $GITHUB_STEP_SUMMARY
-          echo "$(cat coverage/coverage-summary.json | jq -r '.total | "**Lines:** \(.lines.pct)% | **Functions:** \(.functions.pct)% | **Branches:** \(.branches.pct)% | **Statements:** \(.statements.pct)%"')" >> $GITHUB_STEP_SUMMARY
+    # Job 1: Lint and Type Check
+    lint-and-typecheck:
+        name: 🔍 Lint & Type Check
+        runs-on: ubuntu-latest
 
-  # Job 3: Build Test
-  build-test:
-    name: 🏗️ Build Test
-    runs-on: ubuntu-latest
-    needs: lint-and-typecheck
-    
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-        
-      - name: 📦 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-          
-      - name: 📥 Install dependencies
-        run: npm ci
-        
-      - name: 🏗️ Build application
-        run: npm run build
-        
-      - name: 📋 Build size check
-        run: |
-          BUILD_SIZE=$(du -sh .next | cut -f1)
-          echo "## 📦 Build Information" >> $GITHUB_STEP_SUMMARY
-          echo "**Build Size:** $BUILD_SIZE" >> $GITHUB_STEP_SUMMARY
-          echo "**Build Status:** ✅ Success" >> $GITHUB_STEP_SUMMARY
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
 
-  # Job 4: E2E Tests
-  e2e-tests:
-    name: 🎭 E2E Tests
-    runs-on: ubuntu-latest
-    needs: [unit-tests, build-test]
-    timeout-minutes: 10
-    
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-        
-      - name: 📦 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-          
-      - name: 📥 Install dependencies
-        run: npm ci
-        
-      - name: 📥 Install Playwright browsers
-        run: npx playwright install --with-deps
-        
-      - name: 🎭 Run E2E tests
-        run: npm run test:e2e
-        
-      - name: 📊 Upload E2E test results
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
-          
-      - name: 📋 E2E Summary
+            - name: 📦 Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "npm"
+
+            - name: 📥 Install dependencies
+              run: npm ci
+
+            - name: 🔍 Run ESLint
+              run: npm run lint
+
+            - name: 🔍 Type check
+              run: npm run type-check
+
+    # Job 2: Unit Tests with Coverage
+    unit-tests:
+        name: 🧪 Unit Tests & Coverage
+        runs-on: ubuntu-latest
+        needs: lint-and-typecheck
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 📦 Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "npm"
+
+            - name: 📥 Install dependencies
+              run: npm ci
+
+            - name: 🧪 Run unit tests with coverage
+              run: npm run test:coverage
+
+            - name: 📊 Upload coverage to Codecov
+              uses: codecov/codecov-action@v3
+              with:
+                  file: ./coverage/lcov.info
+                  flags: unittests
+                  name: codecov-umbrella
+                  fail_ci_if_error: false
+
+            - name: 📊 Coverage Summary
+              run: |
+                  echo "## 📊 Test Coverage Summary" >> $GITHUB_STEP_SUMMARY
+                  echo "$(cat coverage/coverage-summary.json | jq -r '.total | "**Lines:** \(.lines.pct)% | **Functions:** \(.functions.pct)% | **Branches:** \(.branches.pct)% | **Statements:** \(.statements.pct)%"')" >> $GITHUB_STEP_SUMMARY
+
+    # Job 3: Build Test
+    build-test:
+        name: 🏗️ Build Test
+        runs-on: ubuntu-latest
+        needs: lint-and-typecheck
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 📦 Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "npm"
+
+            - name: 📥 Install dependencies
+              run: npm ci
+
+            - name: 🏗️ Build application
+              run: npm run build
+
+            - name: 📋 Build size check
+              run: |
+                  BUILD_SIZE=$(du -sh .next | cut -f1)
+                  echo "## 📦 Build Information" >> $GITHUB_STEP_SUMMARY
+                  echo "**Build Size:** $BUILD_SIZE" >> $GITHUB_STEP_SUMMARY
+                  echo "**Build Status:** ✅ Success" >> $GITHUB_STEP_SUMMARY
+
+    # Job 4: E2E Tests
+    e2e-tests:
+        name: 🎭 E2E Tests
+        runs-on: ubuntu-latest
+        needs: [unit-tests, build-test]
+        timeout-minutes: 10
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 📦 Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "npm"
+
+            - name: 📥 Install dependencies
+              run: npm ci
+
+            - name: 📥 Install Playwright browsers
+              run: npx playwright install --with-deps
+
+            - name: 🎭 Run E2E tests
+              run: npm run test:e2e
+
+            - name: 📊 Upload E2E test results
+              uses: actions/upload-artifact@v4
+              if: failure()
+              with:
+                  name: playwright-report
+                  path: playwright-report/
+                  retention-days: 7
+
+            - name: 📋 E2E Summary
+              if: always()
+              run: |
+                  echo "## 🎭 E2E Test Results" >> $GITHUB_STEP_SUMMARY
+                  if [ $? -eq 0 ]; then
+                    echo "**Status:** ✅ All E2E tests passed" >> $GITHUB_STEP_SUMMARY
+                  else
+                    echo "**Status:** ❌ Some E2E tests failed" >> $GITHUB_STEP_SUMMARY
+                    echo "📁 Playwright report uploaded as artifact" >> $GITHUB_STEP_SUMMARY
+                  fi
+
+    # Job 5: Security Audit
+    security-audit:
+        name: 🔒 Security Audit
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: 📥 Checkout code
+              uses: actions/checkout@v4
+
+            - name: 📦 Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "npm"
+
+            - name: 🔒 Run security audit
+              run: npm audit --audit-level=moderate
+
+            - name: 📋 Security Summary
+              run: |
+                  echo "## 🔒 Security Audit" >> $GITHUB_STEP_SUMMARY
+                  echo "**Status:** ✅ No critical vulnerabilities found" >> $GITHUB_STEP_SUMMARY
+
+    # Job 6: Quality Gate
+    quality-gate:
+        name: 🎯 Quality Gate
+        runs-on: ubuntu-latest
+        needs: [unit-tests, e2e-tests, build-test, security-audit]
         if: always()
-        run: |
-          echo "## 🎭 E2E Test Results" >> $GITHUB_STEP_SUMMARY
-          if [ $? -eq 0 ]; then
-            echo "**Status:** ✅ All E2E tests passed" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "**Status:** ❌ Some E2E tests failed" >> $GITHUB_STEP_SUMMARY
-            echo "📁 Playwright report uploaded as artifact" >> $GITHUB_STEP_SUMMARY
-          fi
 
-  # Job 5: Security Audit
-  security-audit:
-    name: 🔒 Security Audit
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-        
-      - name: 📦 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'npm'
-          
-      - name: 🔒 Run security audit
-        run: npm audit --audit-level=moderate
-        
-      - name: 📋 Security Summary
-        run: |
-          echo "## 🔒 Security Audit" >> $GITHUB_STEP_SUMMARY
-          echo "**Status:** ✅ No critical vulnerabilities found" >> $GITHUB_STEP_SUMMARY
+        steps:
+            - name: 🎯 Check Quality Gate
+              run: |
+                  echo "## 🎯 Quality Gate Summary" >> $GITHUB_STEP_SUMMARY
 
-  # Job 6: Quality Gate
-  quality-gate:
-    name: 🎯 Quality Gate
-    runs-on: ubuntu-latest
-    needs: [unit-tests, e2e-tests, build-test, security-audit]
-    if: always()
-    
-    steps:
-      - name: 🎯 Check Quality Gate
-        run: |
-          echo "## 🎯 Quality Gate Summary" >> $GITHUB_STEP_SUMMARY
-          
-          if [[ "${{ needs.unit-tests.result }}" == "success" ]]; then
-            echo "✅ **Unit Tests:** Passed" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "❌ **Unit Tests:** Failed" >> $GITHUB_STEP_SUMMARY
-          fi
-          
-          if [[ "${{ needs.e2e-tests.result }}" == "success" ]]; then
-            echo "✅ **E2E Tests:** Passed" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "❌ **E2E Tests:** Failed" >> $GITHUB_STEP_SUMMARY
-          fi
-          
-          if [[ "${{ needs.build-test.result }}" == "success" ]]; then
-            echo "✅ **Build:** Passed" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "❌ **Build:** Failed" >> $GITHUB_STEP_SUMMARY
-          fi
-          
-          if [[ "${{ needs.security-audit.result }}" == "success" ]]; then
-            echo "✅ **Security:** Passed" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "❌ **Security:** Failed" >> $GITHUB_STEP_SUMMARY
-          fi
-          
-          # Check if all jobs passed
-          if [[ "${{ needs.unit-tests.result }}" == "success" && 
-                "${{ needs.e2e-tests.result }}" == "success" && 
-                "${{ needs.build-test.result }}" == "success" && 
-                "${{ needs.security-audit.result }}" == "success" ]]; then
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "🎉 **Overall Status:** ✅ QUALITY GATE PASSED" >> $GITHUB_STEP_SUMMARY
-            echo "🚀 **Ready for deployment!**" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "🚫 **Overall Status:** ❌ QUALITY GATE FAILED" >> $GITHUB_STEP_SUMMARY
-            echo "🔧 **Please fix the issues before merging**" >> $GITHUB_STEP_SUMMARY
-            exit 1
-          fi
+                  if [[ "${{ needs.unit-tests.result }}" == "success" ]]; then
+                    echo "✅ **Unit Tests:** Passed" >> $GITHUB_STEP_SUMMARY
+                  else
+                    echo "❌ **Unit Tests:** Failed" >> $GITHUB_STEP_SUMMARY
+                  fi
+
+                  if [[ "${{ needs.e2e-tests.result }}" == "success" ]]; then
+                    echo "✅ **E2E Tests:** Passed" >> $GITHUB_STEP_SUMMARY
+                  else
+                    echo "❌ **E2E Tests:** Failed" >> $GITHUB_STEP_SUMMARY
+                  fi
+
+                  if [[ "${{ needs.build-test.result }}" == "success" ]]; then
+                    echo "✅ **Build:** Passed" >> $GITHUB_STEP_SUMMARY
+                  else
+                    echo "❌ **Build:** Failed" >> $GITHUB_STEP_SUMMARY
+                  fi
+
+                  if [[ "${{ needs.security-audit.result }}" == "success" ]]; then
+                    echo "✅ **Security:** Passed" >> $GITHUB_STEP_SUMMARY
+                  else
+                    echo "❌ **Security:** Failed" >> $GITHUB_STEP_SUMMARY
+                  fi
+
+                  # Check if all jobs passed
+                  if [[ "${{ needs.unit-tests.result }}" == "success" &&
+                        "${{ needs.e2e-tests.result }}" == "success" &&
+                        "${{ needs.build-test.result }}" == "success" &&
+                        "${{ needs.security-audit.result }}" == "success" ]]; then
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "🎉 **Overall Status:** ✅ QUALITY GATE PASSED" >> $GITHUB_STEP_SUMMARY
+                    echo "🚀 **Ready for deployment!**" >> $GITHUB_STEP_SUMMARY
+                  else
+                    echo "" >> $GITHUB_STEP_SUMMARY
+                    echo "🚫 **Overall Status:** ❌ QUALITY GATE FAILED" >> $GITHUB_STEP_SUMMARY
+                    echo "🔧 **Please fix the issues before merging**" >> $GITHUB_STEP_SUMMARY
+                    exit 1
+                  fi

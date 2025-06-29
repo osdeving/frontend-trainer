@@ -9,6 +9,7 @@ This directory contains the CI/CD workflows for TailwindTrainer, implementing in
 **Triggers:** Push and Pull Requests to `main` and `develop` branches
 
 **Jobs:**
+
 1. **🔍 Lint & Type Check** - Code quality validation
 2. **🧪 Unit Tests & Coverage** - Automated testing with coverage reporting
 3. **🏗️ Build Test** - Ensure application builds successfully
@@ -21,6 +22,7 @@ This directory contains the CI/CD workflows for TailwindTrainer, implementing in
 **Triggers:** Successful CI pipeline on `main` branch
 
 **Jobs:**
+
 1. **🚀 Deploy to Vercel** - Production deployment with environment management
 
 ## 🎯 Quality Gates
@@ -28,22 +30,25 @@ This directory contains the CI/CD workflows for TailwindTrainer, implementing in
 All commits must pass these automated checks:
 
 ### ✅ **Required Checks**
-- ESLint rules (no warnings/errors)
-- TypeScript compilation
-- Unit test suite (80%+ coverage)
-- E2E test suite
-- Security audit (no critical vulnerabilities)
-- Successful build
+
+-   ESLint rules (no warnings/errors)
+-   TypeScript compilation
+-   Unit test suite (80%+ coverage)
+-   E2E test suite
+-   Security audit (no critical vulnerabilities)
+-   Successful build
 
 ### 📊 **Coverage Requirements**
-- **Minimum Coverage:** 80%
-- **Coverage Reports:** Generated for all pull requests
-- **Coverage Trend:** Tracked and reported
+
+-   **Minimum Coverage:** 80%
+-   **Coverage Reports:** Generated for all pull requests
+-   **Coverage Trend:** Tracked and reported
 
 ### 🔒 **Security Standards**
-- Automated vulnerability scanning
-- Dependency security audit
-- No critical or high severity issues allowed
+
+-   Automated vulnerability scanning
+-   Dependency security audit
+-   No critical or high severity issues allowed
 
 ## 🛠️ Setup Instructions
 
@@ -64,19 +69,21 @@ CODECOV_TOKEN=your_codecov_token
 ### 2. Repository Settings
 
 **Branch Protection Rules** (recommended for `main`):
-- Require status checks to pass
-- Require branches to be up to date
-- Require pull request reviews
-- Dismiss stale reviews when new commits are pushed
-- Restrict pushes to specific people/teams
+
+-   Require status checks to pass
+-   Require branches to be up to date
+-   Require pull request reviews
+-   Dismiss stale reviews when new commits are pushed
+-   Restrict pushes to specific people/teams
 
 **Required Status Checks:**
-- `🔍 Lint & Type Check`
-- `🧪 Unit Tests & Coverage`
-- `🏗️ Build Test`
-- `🎭 E2E Tests`
-- `🔒 Security Audit`
-- `🎯 Quality Gate`
+
+-   `🔍 Lint & Type Check`
+-   `🧪 Unit Tests & Coverage`
+-   `🏗️ Build Test`
+-   `🎭 E2E Tests`
+-   `🔒 Security Audit`
+-   `🎯 Quality Gate`
 
 ### 3. Codecov Integration
 
@@ -88,19 +95,22 @@ CODECOV_TOKEN=your_codecov_token
 ## 📊 Workflow Outputs
 
 ### 🧪 **Test Results**
-- Unit test results with coverage percentages
-- E2E test results with browser compatibility
-- Failed test artifacts (screenshots, videos)
+
+-   Unit test results with coverage percentages
+-   E2E test results with browser compatibility
+-   Failed test artifacts (screenshots, videos)
 
 ### 📈 **Build Information**
-- Build size analysis
-- Bundle size tracking
-- Performance metrics
+
+-   Build size analysis
+-   Bundle size tracking
+-   Performance metrics
 
 ### 🔍 **Quality Metrics**
-- Code coverage trends
-- Security vulnerability reports
-- Performance regression detection
+
+-   Code coverage trends
+-   Security vulnerability reports
+-   Performance regression detection
 
 ## 🚀 Usage Examples
 
@@ -134,23 +144,26 @@ You can manually trigger workflows from the GitHub Actions tab:
 To add additional quality checks:
 
 1. **Edit `ci.yml`:**
-   ```yaml
-   - name: 🔍 Your Custom Check
-     run: npm run your-custom-script
-   ```
+
+    ```yaml
+    - name: 🔍 Your Custom Check
+      run: npm run your-custom-script
+    ```
 
 2. **Update Quality Gate:**
-   ```yaml
-   # Add your check to the quality gate job
-   needs: [unit-tests, e2e-tests, build-test, security-audit, your-custom-check]
-   ```
+
+    ```yaml
+    # Add your check to the quality gate job
+    needs:
+        [unit-tests, e2e-tests, build-test, security-audit, your-custom-check]
+    ```
 
 3. **Add to package.json:**
-   ```json
-   "scripts": {
-     "your-custom-script": "command-to-run"
-   }
-   ```
+    ```json
+    "scripts": {
+      "your-custom-script": "command-to-run"
+    }
+    ```
 
 ### Adjusting Coverage Thresholds
 
@@ -171,33 +184,37 @@ coverageThreshold: {
 
 Create additional workflow files for different environments:
 
-- `staging.yml` - Staging deployment
-- `performance.yml` - Performance testing
-- `accessibility.yml` - A11Y testing
+-   `staging.yml` - Staging deployment
+-   `performance.yml` - Performance testing
+-   `accessibility.yml` - A11Y testing
 
 ## 📋 Troubleshooting
 
 ### Common Issues
 
 **❌ TypeScript Errors:**
+
 ```bash
 # Fix locally
 npm run type-check
 ```
 
 **❌ Test Failures:**
+
 ```bash
 # Run tests locally
 npm run test:watch
 ```
 
 **❌ E2E Test Failures:**
+
 ```bash
 # Debug E2E tests
 npm run test:e2e:ui
 ```
 
 **❌ Build Failures:**
+
 ```bash
 # Test build locally
 npm run build
@@ -213,35 +230,39 @@ npm run build
 ## 🎯 Best Practices
 
 ### 1. **Commit Frequently**
-- Small, focused commits
-- Descriptive commit messages
-- Regular pushes to trigger CI
+
+-   Small, focused commits
+-   Descriptive commit messages
+-   Regular pushes to trigger CI
 
 ### 2. **Test Coverage**
-- Write tests for new features
-- Maintain coverage above 80%
-- Test edge cases and error conditions
+
+-   Write tests for new features
+-   Maintain coverage above 80%
+-   Test edge cases and error conditions
 
 ### 3. **Pull Request Workflow**
-- Create feature branches
-- Fill out PR template completely
-- Address review feedback promptly
-- Ensure all checks pass before merge
+
+-   Create feature branches
+-   Fill out PR template completely
+-   Address review feedback promptly
+-   Ensure all checks pass before merge
 
 ### 4. **Performance Monitoring**
-- Monitor build times
-- Track bundle size changes
-- Review coverage trends
+
+-   Monitor build times
+-   Track bundle size changes
+-   Review coverage trends
 
 ## 📊 Metrics and Monitoring
 
 The workflows provide comprehensive metrics:
 
-- **Code Quality:** ESLint warnings/errors
-- **Test Coverage:** Line, branch, function coverage
-- **Performance:** Build times, bundle size
-- **Security:** Vulnerability count and severity
-- **Reliability:** Test pass rates, deployment success
+-   **Code Quality:** ESLint warnings/errors
+-   **Test Coverage:** Line, branch, function coverage
+-   **Performance:** Build times, bundle size
+-   **Security:** Vulnerability count and severity
+-   **Reliability:** Test pass rates, deployment success
 
 These metrics help maintain high code quality and catch regressions early in the development process.
 
