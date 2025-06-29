@@ -1,4 +1,4 @@
-interface LeaderboardEntry {
+export interface LeaderboardEntry {
   id: string;
   username: string;
   avatar: string;
@@ -16,7 +16,7 @@ interface LeaderboardEntry {
   title?: string;
 }
 
-interface Competition {
+export interface Competition {
   id: string;
   name: string;
   description: string;
@@ -34,7 +34,7 @@ interface Competition {
   category?: string;
 }
 
-interface UserProfile {
+export interface UserProfile {
   id: string;
   username: string;
   avatar: string;
@@ -65,7 +65,7 @@ interface UserProfile {
   lastActive: string;
 }
 
-interface LeaderboardData {
+export interface LeaderboardData {
   globalRankings: LeaderboardEntry[];
   weeklyRankings: LeaderboardEntry[];
   monthlyRankings: LeaderboardEntry[];
@@ -73,6 +73,15 @@ interface LeaderboardData {
   currentUser: UserProfile;
   activeCompetitions: Competition[];
   leagues: Record<string, LeaderboardEntry[]>;
+}
+
+export interface LeaderboardStats {
+  totalUsers: number;
+  userRank: number;
+  weeklyRank: number;
+  monthlyRank: number;
+  league: 'Bronze' | 'Silver' | 'Gold' | 'Platinum' | 'Diamond';
+  leaguePosition: number;
 }
 
 // Mock data for demonstration
@@ -411,7 +420,7 @@ export class LeaderboardStore {
     return false;
   }
 
-  getLeaderboardStats() {
+  getLeaderboardStats(): LeaderboardStats {
     return {
       totalUsers: this.data.globalRankings.length + 1, // +1 for current user
       userRank: this.getUserRank('global'),
