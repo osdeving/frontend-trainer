@@ -19,10 +19,14 @@ import {
   Type,
   Move,
   Sparkles,
-  Settings
+  Settings,
+  Award,
+  Crown
 } from 'lucide-react';
 import Link from 'next/link';
 import { progressStore } from '@/lib/progressStore';
+import { achievementsStore } from '@/lib/achievementsStore';
+import AchievementsModal from '@/components/ui/achievements-modal';
 
 interface ClassGroup {
   id: string;
@@ -87,6 +91,7 @@ const classGroups: ClassGroup[] = [
 export default function Home() {
   const [progress, setProgress] = useState(progressStore.getProgress());
   const [mounted, setMounted] = useState(false);
+  const [showAchievements, setShowAchievements] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -98,10 +103,17 @@ export default function Home() {
   const completedGroups = progressStore.getCompletedGroups();
   const inProgressGroups = progressStore.getInProgressGroups();
   const totalCompletedLessons = progressStore.getTotalCompletedLessons();
+  
+  // Achievement stats
+  const achievementProgress = achievementsStore.getProgress();
+  const unlockedAchievements = achievementsStore.getUnlockedCount();
+  const totalAchievements = achievementsStore.getTotalAchievements();
+  const activeTitle = achievementsStore.getActiveTitle();
 
   const resetProgress = () => {
     if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
       progressStore.resetProgress();
+      achievementsStore.resetProgress();
       setProgress(progressStore.getProgress());
     }
   };
@@ -128,7 +140,9 @@ export default function Home() {
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   TailwindTrainer
                 </h1>
-                <p className="text-sm text-gray-600">Master CSS utilities</p>
+                <p className="text-sm text-gray-600">
+                  {activeTitle ? `${activeTitle} • Master CSS utilities` : 'Master CSS utilities'}
+                </p>
               </div>
             </div>
             
@@ -141,6 +155,15 @@ export default function Home() {
                 <Star className="w-5 h-5 text-yellow-500" />
                 <span className="font-semibold text-gray-700">{progress.totalXP.toLocaleString()}</span>
               </div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowAchievements(true)}
+                className="text-gray-600 hover:text-purple-600"
+              >
+                <Trophy className="w-4 h-4 mr-1" />
+                <span className="text-sm">{unlockedAchievements}/{totalAchievements}</span>
+              </Button>
               <Button
                 variant="ghost"
                 size="sm"
@@ -175,7 +198,7 @@ export default function Home() {
                 </div>
                 <Progress value={totalProgress} className="h-3 bg-blue-400/30" />
               </div>
-              <div className="grid grid-cols-3 gap-4 text-center">
+              <div className="grid grid-cols-4 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold">{completedGroups}</div>
                   <div className="text-sm text-blue-100">Completed</div>
@@ -188,14 +211,61 @@ export default function Home() {
                   <div className="text-2xl font-bold">{totalCompletedLessons}</div>
                   <div className="text-sm text-blue-100">Lessons Done</div>
                 </div>
+                <div>
+                  <div className="text-2xl font-bold">{unlockedAchievements}</div>
+                  <div className="text-sm text-blue-100">Achievements</div>
+                </div>
               </div>
             </div>
           </CardContent>
         </Card>
 
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <Card className="border-0 shadow-lg">
+            <CardContent className="p-4 text-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                <Target className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-2xl font-bold text-green-600">{achievementProgress.stats.correctAnswers}</div>
+              <div className="text-sm text-gray-600">Correct Answers</div>
+            </CardContent>
+          </Card>
+          
+          <Card className="border-0 shadow-lg">
+            <CardContent className="p-4 text-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-orange-400 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                <Flame className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-2xl font-bold text-orange-600">{achievementProgress.stats.maxStreak}</div>
+              <div className="text-sm text-gray-600">Best Streak</div>
+            </CardContent>
+          </Card>
+          
+          <Card className="border-0 shadow-lg">
+            <CardContent className="p-4 text-center">
+              <div className="w-12 h-12 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                <Award className="w-6 h-6 text-white" />
+              </div>
+              <div className="text-2xl font-bold text-purple-600">{achievementProgress.stats.perfectQuizzes}</div>
+              <div className="text-sm text-gray-600">Perfect Quizzes</div>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Learning Path */}
         <div className="space-y-6">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">Learning Path</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-3xl font-bold text-gray-800">Learning Path</h2>
+            <Button
+              variant="outline"
+              onClick={() => setShowAchievements(true)}
+              className="flex items-center space-x-2"
+            >
+              <Crown className="w-4 h-4" />
+              <span>View Achievements</span>
+            </Button>
+          </div>
           
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {classGroups.map((group, index) => {
@@ -327,6 +397,12 @@ export default function Home() {
           </CardContent>
         </Card>
       </main>
+
+      {/* Achievements Modal */}
+      <AchievementsModal 
+        isOpen={showAchievements} 
+        onClose={() => setShowAchievements(false)} 
+      />
     </div>
   );
 }

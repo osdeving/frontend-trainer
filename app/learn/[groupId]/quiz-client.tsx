@@ -27,6 +27,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { progressStore } from '@/lib/progressStore';
+import { achievementsStore } from '@/lib/achievementsStore';
+import AchievementNotification from '@/components/ui/achievement-notification';
 
 interface Question {
   id: string;
@@ -35,6 +37,19 @@ interface Question {
   explanation: string;
   category: string;
   difficulty: 'easy' | 'medium' | 'hard';
+}
+
+interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  category: 'progress' | 'streak' | 'mastery' | 'special';
+  rarity: 'common' | 'rare' | 'epic' | 'legendary';
+  reward: {
+    xp: number;
+    title?: string;
+  };
 }
 
 interface QuizClientProps {
@@ -60,6 +75,10 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
   const [reviewMode, setReviewMode] = useState(false);
   const [incorrectAnswers, setIncorrectAnswers] = useState<number[]>([]);
   const [reviewQuestions, setReviewQuestions] = useState<Question[]>([]);
+  const [questionStartTime, setQuestionStartTime] = useState<number>(Date.now());
+  const [usedHintThisQuestion, setUsedHintThisQuestion] = useState(false);
+  const [newAchievements, setNewAchievements] = useState<Achievement[]>([]);
+  const [correctAnswersInQuiz, setCorrectAnswersInQuiz] = useState(0);
 
   const currentQuestion = reviewMode ? reviewQuestions[currentQuestionIndex] : questions[currentQuestionIndex];
   const totalQuestions = reviewMode ? reviewQuestions.length : questions.length;
@@ -158,12 +177,27 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
     setIsCorrect(isAnswerCorrect);
     setShowResult(true);
     
+    // Calculate time spent on question
+    const timeSpent = (Date.now() - questionStartTime) / 1000;
+    
+    // Record the answer in achievements
+    const newAchievements = achievementsStore.recordQuestionAnswer(
+      isAnswerCorrect, 
+      timeSpent, 
+      usedHintThisQuestion
+    );
+    
+    if (newAchievements.length > 0) {
+      setNewAchievements(prev => [...prev, ...newAchievements]);
+    }
+    
     if (isAnswerCorrect) {
       const xpGained = currentQuestion.difficulty === 'easy' ? 10 : 
                       currentQuestion.difficulty === 'medium' ? 15 : 20;
       setScore(score + xpGained);
       setStreak(streak + 1);
       setTotalXPGained(totalXPGained + xpGained);
+      setCorrectAnswersInQuiz(correctAnswersInQuiz + 1);
     } else {
       setHearts(Math.max(0, hearts - 1));
       setStreak(0);
@@ -181,9 +215,31 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
       setShowResult(false);
       setShowHint(false);
       setShowPreview(false);
+      setQuestionStartTime(Date.now());
+      setUsedHintThisQuestion(false);
     } else {
+      // Quiz completed - record completion
+      const perfectScore = correctAnswersInQuiz === totalQuestions;
+      const completionAchievements = achievementsStore.recordQuizCompletion(perfectScore, streak);
+      
+      if (completionAchievements.length > 0) {
+        setNewAchievements(prev => [...prev, ...completionAchievements]);
+      }
+      
+      // Check if group is completed
+      if (!reviewMode && correctAnswersInQuiz === totalQuestions) {
+        const groupAchievements = achievementsStore.recordGroupCompletion(groupId);
+        if (groupAchievements.length > 0) {
+          setNewAchievements(prev => [...prev, ...groupAchievements]);
+        }
+      }
+      
       if (reviewMode) {
         // Completed review mode
+        const reviewAchievements = achievementsStore.recordReviewSession();
+        if (reviewAchievements.length > 0) {
+          setNewAchievements(prev => [...prev, ...reviewAchievements]);
+        }
         setShowCompletion(true);
       } else if (incorrectAnswers.length > 0) {
         // Offer review mode
@@ -210,6 +266,9 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
     setShowPreview(false);
     setHearts(5);
     setStreak(0);
+    setQuestionStartTime(Date.now());
+    setUsedHintThisQuestion(false);
+    setCorrectAnswersInQuiz(0);
   };
 
   const resetQuiz = () => {
@@ -226,6 +285,9 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
     setReviewMode(false);
     setIncorrectAnswers([]);
     setReviewQuestions([]);
+    setQuestionStartTime(Date.now());
+    setUsedHintThisQuestion(false);
+    setCorrectAnswersInQuiz(0);
   };
 
   const goHome = () => {
@@ -233,6 +295,17 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
       progressStore.completeLesson(groupId, totalXPGained);
     }
     router.push('/');
+  };
+
+  const handleShowHint = () => {
+    setShowHint(!showHint);
+    if (!showHint && !usedHintThisQuestion) {
+      setUsedHintThisQuestion(true);
+    }
+  };
+
+  const dismissAchievement = (achievementId: string) => {
+    setNewAchievements(prev => prev.filter(a => a.id !== achievementId));
   };
 
   if (showCompletion) {
@@ -329,6 +402,16 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      {/* Achievement Notifications */}
+      {newAchievements.map((achievement, index) => (
+        <div key={achievement.id} style={{ top: `${4 + index * 100}px` }}>
+          <AchievementNotification
+            achievement={achievement}
+            onClose={() => dismissAchievement(achievement.id)}
+          />
+        </div>
+      ))}
+
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-lg border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 py-4">
@@ -461,7 +544,7 @@ export default function QuizClient({ questions, groupName, groupId }: QuizClient
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => setShowHint(!showHint)}
+                      onClick={handleShowHint}
                       className="flex-1"
                     >
                       <Lightbulb className="w-4 h-4 mr-2" />
