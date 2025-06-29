@@ -27,7 +27,8 @@ import {
   Skull,
   Users,
   TrendingUp,
-  User
+  User,
+  HelpCircle
 } from 'lucide-react';
 import Link from 'next/link';
 import { progressStore } from '@/lib/progressStore';
@@ -184,6 +185,11 @@ export default function Home() {
               <Link href="/profile">
                 <Button variant="ghost" size="sm" className="text-gray-600 hover:text-blue-600">
                   <User className="w-4 h-4" />
+                </Button>
+              </Link>
+              <Link href="/help">
+                <Button variant="ghost" size="sm" className="text-gray-600 hover:text-green-600">
+                  <HelpCircle className="w-4 h-4" />
                 </Button>
               </Link>
               <Button
