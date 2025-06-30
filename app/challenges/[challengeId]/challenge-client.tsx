@@ -13,8 +13,6 @@ import {
     ArrowLeft,
     Check,
     Clock,
-    Eye,
-    EyeOff,
     Heart,
     HelpCircle,
     Lightbulb,
@@ -681,7 +679,9 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
                             {challenge.config.allowPreview && (
                                 <DynamicPreview
                                     userAnswer={userAnswer}
-                                    expectedAnswer={currentQuestion.tailwindClass}
+                                    expectedAnswer={
+                                        currentQuestion.tailwindClass
+                                    }
                                     expectedCSS={currentQuestion.css}
                                     className="mb-4"
                                 />
