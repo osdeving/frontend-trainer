@@ -4,10 +4,10 @@ test.describe("TailwindTrainer - Validação de Acessibilidade", () => {
     test("Todas as rotas principais estão acessíveis", async ({ page }) => {
         const routes = [
             "/",
-            "/challenges", 
+            "/challenges",
             "/help",
             "/profile",
-            "/leaderboard"
+            "/leaderboard",
         ];
 
         for (const route of routes) {
@@ -27,7 +27,7 @@ test.describe("TailwindTrainer - Validação de Acessibilidade", () => {
 
         for (const group of learningGroups) {
             await page.goto(`/learn/${group}`);
-            
+
             // Verificar se a página carregou sem erro
             await expect(page.locator("text=404")).not.toBeVisible();
             await expect(page.locator("h1, h2").first()).toBeVisible();
@@ -39,7 +39,7 @@ test.describe("TailwindTrainer - Validação de Acessibilidade", () => {
 
         for (const challenge of challenges) {
             await page.goto(`/challenges/${challenge}`);
-            
+
             // Verificar se a página carregou sem erro
             await expect(page.locator("text=404")).not.toBeVisible();
             await expect(page.locator("h1, h2").first()).toBeVisible();
@@ -51,20 +51,20 @@ test.describe("TailwindTrainer - Validação de Acessibilidade", () => {
 
         // Verificar se há conteúdo de help (título real)
         await expect(page.locator("h1")).toContainText("Central de Ajuda");
-        
+
         // Verificar se há pelo menos algum conteúdo
         await expect(page.locator("main")).toContainText("Tailwind");
     });
 
     test("Elementos interativos básicos funcionam", async ({ page }) => {
         await page.goto("/");
-        
+
         // Verificar se links são clicáveis (seletor mais específico)
         const links = page.locator("a[href]");
         const linkCount = await links.count();
-        
+
         expect(linkCount).toBeGreaterThan(0);
-        
+
         // Testar se pelo menos um link funciona
         const firstLink = links.first();
         await expect(firstLink).toBeVisible();

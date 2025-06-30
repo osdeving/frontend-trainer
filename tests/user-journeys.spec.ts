@@ -9,10 +9,12 @@ test.describe("TailwindTrainer - Smoke Tests", () => {
     test("Homepage carrega corretamente", async ({ page }) => {
         // Verificar se a página principal carregou
         await expect(page.locator("h1")).toContainText("TailwindTrainer");
-        
+
         // Verificar elementos essenciais da homepage (textos que realmente existem)
         await expect(page.locator("text=Learning Path")).toBeVisible();
-        await expect(page.getByRole('button', { name: 'Enter Challenges' })).toBeVisible();
+        await expect(
+            page.getByRole("button", { name: "Enter Challenges" })
+        ).toBeVisible();
         await expect(page.locator("text=Layout & Positioning")).toBeVisible();
     });
 
@@ -20,7 +22,7 @@ test.describe("TailwindTrainer - Smoke Tests", () => {
         // Testar link para Challenges
         await page.click('a[href="/challenges"]');
         await expect(page).toHaveURL(/.*\/challenges/);
-        
+
         // Verificar se a página de challenges carregou (título real)
         await expect(page.locator("h1")).toContainText("Challenges & Practice");
 
@@ -41,7 +43,7 @@ test.describe("TailwindTrainer - Smoke Tests", () => {
         // Clicar em um grupo de aprendizado (Layout)
         await page.click('a[href="/learn/layout"]');
         await expect(page).toHaveURL(/.*\/learn\/layout/);
-        
+
         // Verificar se a página do grupo carregou
         await expect(page.locator("h1")).toContainText("Layout & Positioning");
     });
@@ -49,7 +51,7 @@ test.describe("TailwindTrainer - Smoke Tests", () => {
     test("Página de challenges lista os desafios", async ({ page }) => {
         // Navegar para challenges
         await page.goto("/challenges");
-        
+
         // Verificar se pelo menos alguns challenges estão visíveis
         await expect(page.locator("text=Free Practice")).toBeVisible();
         await expect(page.locator("text=Quick Practice")).toBeVisible();
@@ -58,11 +60,11 @@ test.describe("TailwindTrainer - Smoke Tests", () => {
     test("Acesso a um challenge específico", async ({ page }) => {
         // Navegar para challenges
         await page.goto("/challenges");
-        
+
         // Clicar em Free Practice
         await page.click('a[href="/challenges/free_practice"]');
         await expect(page).toHaveURL(/.*\/challenges\/free_practice/);
-        
+
         // Verificar se a página do challenge carregou
         await expect(page.locator("h1")).toContainText("Free Practice");
     });
@@ -71,11 +73,11 @@ test.describe("TailwindTrainer - Smoke Tests", () => {
         // Testar página Help (título real)
         await page.goto("/help");
         await expect(page.locator("h1")).toContainText("Central de Ajuda");
-        
+
         // Testar página Profile
         await page.goto("/profile");
         await expect(page.locator("h1")).toContainText("Your Profile");
-        
+
         // Testar página Leaderboard
         await page.goto("/leaderboard");
         await expect(page.locator("h1")).toContainText("Leaderboard");
@@ -87,8 +89,10 @@ test.describe("TailwindTrainer - Smoke Tests", () => {
 
         // Verificar elementos essenciais do challenge
         await expect(page.locator('input[type="text"]')).toBeVisible();
-        await expect(page.getByRole('button', { name: 'Check Answer' })).toBeVisible();
-        
+        await expect(
+            page.getByRole("button", { name: "Check Answer" })
+        ).toBeVisible();
+
         // Verificar se há título do challenge
         await expect(page.locator("h1")).toContainText("Free Practice");
     });
