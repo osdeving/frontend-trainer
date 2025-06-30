@@ -149,34 +149,50 @@ export default function NinjaRunnerGame() {
     );
     const [gameSpeed, setGameSpeed] = useState(2000);
     const [successStreak, setSuccessStreak] = useState(0);
-    const [difficulty, setDifficulty] = useState<"easy" | "medium" | "hard">("medium");
-    
+    const [difficulty, setDifficulty] = useState<
+        "intern" | "junior" | "mid" | "senior"
+    >("junior");
+    const [obstaclePosition, setObstaclePosition] = useState(100);
+    const [isColliding, setIsColliding] = useState(false);
+
     // Configurações de dificuldade
     const difficultySettings = {
-        easy: {
+        intern: {
+            initialTime: 8,
+            initialSpeed: 4000,
+            speedDecrease: 300,
+            minSpeed: 2500,
+            name: "Estagiário",
+            description: "8 segundos por obstáculo, velocidade muito reduzida",
+            badge: "🟢",
+        },
+        junior: {
             initialTime: 6,
             initialSpeed: 3000,
             speedDecrease: 200,
             minSpeed: 1500,
-            name: "Ninja Iniciante",
-            description: "6 segundos por obstáculo, velocidade reduzida"
+            name: "Júnior",
+            description: "6 segundos por obstáculo, velocidade reduzida",
+            badge: "🟡",
         },
-        medium: {
+        mid: {
             initialTime: 4,
             initialSpeed: 2000,
             speedDecrease: 150,
             minSpeed: 800,
-            name: "Ninja Experiente", 
-            description: "4 segundos por obstáculo, velocidade normal"
+            name: "Pleno",
+            description: "4 segundos por obstáculo, velocidade normal",
+            badge: "🟠",
         },
-        hard: {
+        senior: {
             initialTime: 3,
             initialSpeed: 1200,
             speedDecrease: 100,
             minSpeed: 400,
-            name: "Mestre Ninja",
-            description: "3 segundos por obstáculo, velocidade máxima"
-        }
+            name: "Sênior",
+            description: "3 segundos por obstáculo, velocidade máxima",
+            badge: "🔴",
+        },
     };
 
     // Gerar obstáculo aleatório
@@ -204,7 +220,8 @@ export default function NinjaRunnerGame() {
                     ? `Inimigo ${randomColor} - Use camuflagem ${randomColor}`
                     : obstacleData.description,
         };
-    }, []);    // Iniciar jogo
+    }, []);
+    // Iniciar jogo
     const startGame = () => {
         const settings = difficultySettings[difficulty];
         setGameState("playing");
@@ -215,12 +232,15 @@ export default function NinjaRunnerGame() {
         setTimeLeft(settings.initialTime);
         setGameSpeed(settings.initialSpeed);
         setSuccessStreak(0);
-        
+        setObstaclePosition(100);
+        setIsColliding(false);
+
         // Primeiro obstáculo
         setTimeout(() => {
             const newObstacle = generateObstacle();
             setCurrentObstacle(newObstacle);
             setTimeLeft(settings.initialTime);
+            setObstaclePosition(100);
         }, 1000);
     };
 
@@ -246,6 +266,7 @@ export default function NinjaRunnerGame() {
             setTimeout(() => {
                 setNinjaAction("");
                 setCurrentObstacle(null);
+                setObstaclePosition(100);
 
                 // Próximo obstáculo
                 setTimeout(() => {
@@ -253,7 +274,12 @@ export default function NinjaRunnerGame() {
                     if (score + 10 * level >= level * 100) {
                         // Level up!
                         setLevel((prev) => prev + 1);
-                        setGameSpeed((prev) => Math.max(prev - settings.speedDecrease, settings.minSpeed));
+                        setGameSpeed((prev) =>
+                            Math.max(
+                                prev - settings.speedDecrease,
+                                settings.minSpeed
+                            )
+                        );
 
                         if (level >= 5) {
                             setGameState("complete");
@@ -264,11 +290,19 @@ export default function NinjaRunnerGame() {
                     const newObstacle = generateObstacle();
                     setCurrentObstacle(newObstacle);
                     setTimeLeft(settings.initialTime);
+                    setObstaclePosition(100);
                 }, 500);
             }, 800);
         } else {
-            // Falhou!
-            setGameState("gameOver");
+            // Falhou! Animação de colisão
+            setIsColliding(true);
+            setNinjaAction("animate-pulse scale-75 bg-red-500");
+
+            setTimeout(() => {
+                setGameState("gameOver");
+                setIsColliding(false);
+                setNinjaAction("");
+            }, 1000);
         }
     };
 
@@ -280,7 +314,15 @@ export default function NinjaRunnerGame() {
             interval = setInterval(() => {
                 setTimeLeft((prev) => {
                     if (prev <= 1) {
-                        setGameState("gameOver");
+                        // Tempo esgotado - animação de colisão
+                        setIsColliding(true);
+                        setNinjaAction("animate-pulse scale-75 bg-red-500");
+
+                        setTimeout(() => {
+                            setGameState("gameOver");
+                            setIsColliding(false);
+                            setNinjaAction("");
+                        }, 1000);
                         return 0;
                     }
                     return prev - 1;
@@ -291,13 +333,55 @@ export default function NinjaRunnerGame() {
         return () => clearInterval(interval);
     }, [gameState, currentObstacle, timeLeft]);
 
+    // Animação do movimento do obstáculo
+    useEffect(() => {
+        let animationFrame: number;
+
+        if (gameState === "playing" && currentObstacle && !isColliding) {
+            const settings = difficultySettings[difficulty];
+            const speed = 100 / (settings.initialTime * 60); // velocidade baseada no tempo
+
+            const animate = () => {
+                setObstaclePosition((prev) => {
+                    const newPosition = prev - speed;
+
+                    // Se o obstáculo chegou muito perto do ninja (colisão por tempo)
+                    if (newPosition <= 20) {
+                        return 20;
+                    }
+
+                    return newPosition;
+                });
+
+                if (gameState === "playing" && !isColliding) {
+                    animationFrame = requestAnimationFrame(animate);
+                }
+            };
+
+            animationFrame = requestAnimationFrame(animate);
+        }
+
+        return () => {
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+            }
+        };
+    }, [gameState, currentObstacle, difficulty, isColliding]);
+
     // Renderizar ninja
     const renderNinja = () => {
         const baseClasses =
             "w-12 h-12 bg-black rounded-lg flex items-center justify-center text-2xl transition-all duration-300 relative z-20";
         const actionClasses = ninjaAction ? ninjaAction : "";
+        const collisionClasses = isColliding ? "animate-bounce" : "";
 
-        return <div className={`${baseClasses} ${actionClasses}`}>🥷</div>;
+        return (
+            <div
+                className={`${baseClasses} ${actionClasses} ${collisionClasses}`}
+            >
+                {isColliding ? "💥" : "🥷"}
+            </div>
+        );
     };
 
     // Renderizar obstáculo atual
@@ -310,9 +394,17 @@ export default function NinjaRunnerGame() {
             : obstacleData.bgColor;
 
         return (
-            <div className="absolute right-8 bottom-8 z-10">
+            <div
+                className="absolute bottom-8 z-10 transition-all duration-100"
+                style={{
+                    right: `${obstaclePosition}px`,
+                    transform: isColliding ? "scale(1.2)" : "scale(1)",
+                }}
+            >
                 <div
-                    className={`w-16 h-16 ${bgColor} rounded-lg flex items-center justify-center text-3xl border-2 border-gray-300 shadow-lg`}
+                    className={`w-16 h-16 ${bgColor} rounded-lg flex items-center justify-center text-3xl border-2 border-gray-300 shadow-lg ${
+                        isColliding ? "animate-pulse border-red-500" : ""
+                    }`}
                 >
                     {currentObstacle.type === "colorEnemy" ? (
                         <div
@@ -395,28 +487,33 @@ export default function NinjaRunnerGame() {
                             Escolha Sua Dificuldade
                         </h1>
                         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                            Selecione o nível de desafio que combina com seu estilo ninja!
+                            Selecione o nível de desafio que combina com seu
+                            estilo ninja!
                         </p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
-                        {(Object.keys(difficultySettings) as Array<keyof typeof difficultySettings>).map((diff) => {
+                        {(
+                            Object.keys(difficultySettings) as Array<
+                                keyof typeof difficultySettings
+                            >
+                        ).map((diff) => {
                             const settings = difficultySettings[diff];
                             const isSelected = difficulty === diff;
-                            
+
                             return (
-                                <Card 
+                                <Card
                                     key={diff}
                                     className={`cursor-pointer transition-all duration-300 hover:scale-105 ${
-                                        isSelected 
-                                            ? 'ring-2 ring-purple-500 bg-purple-50' 
-                                            : 'hover:shadow-lg'
+                                        isSelected
+                                            ? "ring-2 ring-purple-500 bg-purple-50"
+                                            : "hover:shadow-lg"
                                     }`}
                                     onClick={() => setDifficulty(diff)}
                                 >
                                     <CardContent className="p-6 text-center">
                                         <div className="text-4xl mb-3">
-                                            {diff === 'easy' ? '🟢' : diff === 'medium' ? '🟡' : '🔴'}
+                                            {settings.badge}
                                         </div>
                                         <h3 className="text-xl font-bold mb-2">
                                             {settings.name}
@@ -427,12 +524,20 @@ export default function NinjaRunnerGame() {
                                         <div className="space-y-2 text-sm">
                                             <div className="flex justify-between">
                                                 <span>Tempo:</span>
-                                                <span className="font-semibold">{settings.initialTime}s</span>
+                                                <span className="font-semibold">
+                                                    {settings.initialTime}s
+                                                </span>
                                             </div>
                                             <div className="flex justify-between">
                                                 <span>Velocidade:</span>
                                                 <span className="font-semibold">
-                                                    {diff === 'easy' ? 'Lenta' : diff === 'medium' ? 'Normal' : 'Rápida'}
+                                                    {diff === "intern"
+                                                        ? "Muito Lenta"
+                                                        : diff === "junior"
+                                                        ? "Lenta"
+                                                        : diff === "mid"
+                                                        ? "Normal"
+                                                        : "Rápida"}
                                                 </span>
                                             </div>
                                         </div>
@@ -460,7 +565,8 @@ export default function NinjaRunnerGame() {
                             className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 text-lg"
                         >
                             <Play className="w-5 h-5 mr-2" />
-                            Iniciar Missão ({difficultySettings[difficulty].name})
+                            Iniciar Missão (
+                            {difficultySettings[difficulty].name})
                         </Button>
                     </div>
                 </CardContent>
@@ -609,12 +715,16 @@ export default function NinjaRunnerGame() {
                     <CardTitle className="flex items-center gap-2">
                         🥷 CSS Ninja Runner
                         <Badge variant="default">Nível {level}</Badge>
-                        <Badge variant="secondary">{difficultySettings[difficulty].name}</Badge>
+                        <Badge variant="secondary">
+                            {difficultySettings[difficulty].name}
+                        </Badge>
                     </CardTitle>
                     <div className="flex gap-4 text-sm">
                         <span className="font-semibold">Score: {score}</span>
                         <span>Sequência: {successStreak}</span>
-                        <span>Tempo: {difficultySettings[difficulty].initialTime}s</span>
+                        <span>
+                            Tempo: {difficultySettings[difficulty].initialTime}s
+                        </span>
                     </div>
                 </div>
             </CardHeader>
@@ -624,6 +734,23 @@ export default function NinjaRunnerGame() {
                 <div className="relative w-full h-64 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 rounded-lg border-4 border-gray-600 overflow-hidden">
                     {/* Cenário de fundo */}
                     <div className="absolute inset-0 bg-gradient-to-b from-blue-900 to-purple-900 opacity-20"></div>
+
+                    {/* Linhas de movimento para dar sensação de velocidade */}
+                    <div className="absolute inset-0 opacity-30">
+                        {[...Array(6)].map((_, i) => (
+                            <div
+                                key={i}
+                                className="absolute bg-white h-px animate-pulse"
+                                style={{
+                                    top: `${20 + i * 35}px`,
+                                    left: "0",
+                                    right: "0",
+                                    animation: `moveLines 2s linear infinite`,
+                                    animationDelay: `${i * 0.3}s`,
+                                }}
+                            />
+                        ))}
+                    </div>
 
                     {/* Chão */}
                     <div className="absolute bottom-0 w-full h-16 bg-green-600 border-t-4 border-green-500"></div>
@@ -643,11 +770,29 @@ export default function NinjaRunnerGame() {
                                 {currentObstacle.description}
                             </div>
                             <div className="text-xs text-gray-300 mt-1">
-                                Tempo: {timeLeft}s
+                                Tempo: {timeLeft}s | Posição:{" "}
+                                {Math.round(obstaclePosition)}%
                             </div>
                         </div>
                     )}
+
+                    {/* Efeito de colisão */}
+                    {isColliding && (
+                        <div className="absolute inset-0 bg-red-500 opacity-30 animate-pulse pointer-events-none z-30" />
+                    )}
                 </div>
+
+                {/* CSS para animação das linhas */}
+                <style jsx>{`
+                    @keyframes moveLines {
+                        0% {
+                            transform: translateX(100%);
+                        }
+                        100% {
+                            transform: translateX(-100%);
+                        }
+                    }
+                `}</style>
 
                 {/* Poderes CSS */}
                 <div className="space-y-4">

@@ -2,17 +2,18 @@
 
 ## Overview
 
-CSS Ninja Runner is a fast-paced action game that teaches CSS properties through quick reaction-based gameplay. Players control a ninja using CSS powers to overcome obstacles in real-time, making CSS learning exciting and adrenaline-fueled. The game features multiple difficulty levels to accommodate different skill levels.
+CSS Ninja Runner is a fast-paced action game that teaches CSS properties through quick reaction-based gameplay. Players control a ninja using CSS powers to overcome obstacles in real-time, making CSS learning exciting and adrenaline-fueled. The game features multiple difficulty levels representing career progression levels to accommodate different skill levels.
 
 ## Game Concept
 
-### Theme: Ninja Action Adventure
+### Theme: Ninja Action Adventure with Career Progression
 
--   **Setting**: Dark ninja world with obstacles and enemies
--   **Role**: CSS-powered ninja warrior
+-   **Setting**: Dark ninja world with moving obstacles and enemies
+-   **Role**: CSS-powered ninja warrior at different career stages
 -   **Goal**: Survive as long as possible using the right CSS powers
--   **Gameplay**: Click-based reactions under time pressure (3-6 seconds per obstacle)
--   **Difficulty**: Three levels - Easy, Medium, and Hard
+-   **Gameplay**: Click-based reactions under time pressure with animated obstacles
+-   **Difficulty**: Four career levels - Estagiário, Júnior, Pleno, and Sênior
+-   **Animations**: Real-time obstacle movement, collision effects, and visual feedback
 
 ### Learning Objectives
 
@@ -21,37 +22,62 @@ CSS Ninja Runner is a fast-paced action game that teaches CSS properties through
 -   **Colors**: Practice background color changes and camouflage
 -   **Animations**: Understand animate-pulse and visual effects
 -   **Quick Decision Making**: Apply CSS knowledge under pressure
--   **Adaptive Learning**: Choose difficulty based on comfort level
+-   **Career Progression**: Learn CSS skills appropriate to your level
+-   **Visual Learning**: Observe CSS effects through animations and interactions
 
-## Difficulty System
+## Difficulty System (Career Levels)
 
-### 🟢 Ninja Iniciante (Easy)
-- **Reaction Time**: 6 seconds per obstacle
-- **Game Speed**: Slow progression (3000ms initial, min 1500ms)
-- **Target Audience**: CSS beginners, learning mode
-- **Speed Decrease**: 200ms per level
+### 🟢 Estagiário (Intern)
 
-### 🟡 Ninja Experiente (Medium) 
-- **Reaction Time**: 4 seconds per obstacle
-- **Game Speed**: Normal progression (2000ms initial, min 800ms)
-- **Target Audience**: Intermediate developers, balanced challenge
-- **Speed Decrease**: 150ms per level
+-   **Reaction Time**: 8 seconds per obstacle
+-   **Game Speed**: Very slow progression (4000ms initial, min 2500ms)
+-   **Target Audience**: Complete beginners, first contact with CSS
+-   **Speed Decrease**: 300ms per level
+-   **Features**: Maximum time to think and learn
 
-### 🔴 Mestre Ninja (Hard)
-- **Reaction Time**: 3 seconds per obstacle  
-- **Game Speed**: Fast progression (1200ms initial, min 400ms)
-- **Target Audience**: Advanced developers, maximum challenge
-- **Speed Decrease**: 100ms per level
+### 🟡 Júnior (Junior)
+
+-   **Reaction Time**: 6 seconds per obstacle
+-   **Game Speed**: Slow progression (3000ms initial, min 1500ms)
+-   **Target Audience**: CSS beginners, learning mode
+-   **Speed Decrease**: 200ms per level
+-   **Features**: Comfortable learning pace
+
+### � Pleno (Mid-level)
+
+-   **Reaction Time**: 4 seconds per obstacle
+-   **Game Speed**: Normal progression (2000ms initial, min 800ms)
+-   **Target Audience**: Intermediate developers, balanced challenge
+-   **Speed Decrease**: 150ms per level
+-   **Features**: Professional development pace
+
+### 🔴 Sênior (Senior)
+
+-   **Reaction Time**: 3 seconds per obstacle
+-   **Game Speed**: Fast progression (1200ms initial, min 400ms)
+-   **Target Audience**: Advanced developers, maximum challenge
+-   **Speed Decrease**: 100ms per level
+-   **Features**: Expert-level reflexes required
 
 ## Game Mechanics
 
 ### Core Gameplay Loop
 
-1. **Obstacle Appears**: Enemy/hazard spawns on right side
-2. **Time Pressure**: 3-second countdown begins
-3. **Quick Decision**: Player must choose correct CSS power
-4. **Instant Feedback**: Success advances, failure ends game
-5. **Progressive Difficulty**: Speed increases with levels
+1. **Obstacle Spawns**: Enemy/hazard appears on right side and moves toward ninja
+2. **Visual Approach**: Obstacle animates moving across the screen
+3. **Time Pressure**: Countdown timer based on difficulty level
+4. **Quick Decision**: Player must choose correct CSS power before collision
+5. **Instant Feedback**: Success/failure with visual animations
+6. **Progressive Difficulty**: Speed and complexity increase with levels
+
+### Animation System
+
+1. **Obstacle Movement**: Real-time animation from right to left
+2. **Collision Detection**: Visual feedback when ninja and obstacle interact
+3. **Success Animation**: Ninja transforms using CSS power
+4. **Failure Animation**: Collision effects with screen shake and color changes
+5. **Background Effects**: Moving lines to enhance speed sensation
+6. **Position Tracking**: Real-time display of obstacle position
 
 ### CSS Powers (8 Total)
 
@@ -74,13 +100,21 @@ CSS Ninja Runner is a fast-paced action game that teaches CSS properties through
 
 ## Technical Features
 
+### Advanced Animation System
+
+-   **RequestAnimationFrame**: Smooth 60fps obstacle movement
+-   **CSS Transforms**: Real-time ninja power transformations
+-   **Collision Effects**: Visual feedback with scaling and color changes
+-   **Screen Effects**: Full-screen collision overlay with red pulsing
+-   **Performance Optimized**: Efficient animation cancellation and cleanup
+
 ### Real-Time Gameplay
 
 -   **Automatic Obstacle Generation**: Random obstacles spawn continuously
--   **Timer System**: 3-second countdown per obstacle
--   **Visual Feedback**: Ninja transforms in real-time
--   **Score System**: Points based on level and streak
--   **Progressive Speed**: Game accelerates with each level
+-   **Dynamic Timer System**: Variable countdown based on difficulty
+-   **Animated Visual Feedback**: Ninja transforms with smooth transitions
+-   **Score System**: Points based on level and streak multipliers
+-   **Progressive Speed**: Game accelerates with adaptive difficulty
 
 ### Visual Design
 
@@ -189,6 +223,38 @@ CSS Ninja Runner is a fast-paced action game that teaches CSS properties through
 -   **Particle Systems**: Visual effects for powers
 -   **Performance Optimization**: Smooth 60fps gameplay
 -   **Mobile Optimization**: Touch-friendly controls
+
+## Latest Enhancements (v2.0)
+
+### Animation & Visual Improvements
+
+-   **Moving Obstacles**: Real-time animation of obstacles approaching the ninja
+-   **Collision System**: Visual feedback when players make wrong choices or run out of time
+-   **Enhanced Feedback**: Screen overlays, scaling effects, and collision indicators
+-   **Movement Lines**: Background animation lines to enhance speed sensation
+-   **Position Tracking**: Real-time display of obstacle position percentage
+
+### Career Progression System
+
+-   **Four Difficulty Levels**: Added "Estagiário" (Intern) level for complete beginners
+-   **Realistic Career Names**: Renamed difficulty levels to match real development career stages
+-   **Extended Time Ranges**: From 3-8 seconds reaction time across all levels
+-   **Balanced Progression**: Speed decreases adjusted for each career level
+
+### Technical Enhancements
+
+-   **RequestAnimationFrame**: Smooth 60fps animations using modern browser APIs
+-   **Collision Detection**: Improved collision system with visual and temporal feedback
+-   **Animation Cleanup**: Proper cleanup of animation frames to prevent memory leaks
+-   **State Management**: Enhanced game state handling for collision scenarios
+-   **CSS-in-JS Effects**: Inline styles for dynamic animations and effects
+
+### User Experience Improvements
+
+-   **Better Visual Hierarchy**: Clear indication of game progression and status
+-   **Enhanced UI Feedback**: Improved visual cues for success and failure states
+-   **Accessibility**: Better color contrast and visual feedback for all skill levels
+-   **Progressive Learning**: Smoother learning curve with the new Estagiário level
 
 ## Educational Impact
 
