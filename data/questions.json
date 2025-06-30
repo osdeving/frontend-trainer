@@ -1,0 +1,634 @@
+{
+    "meta": {
+        "version": "2.0",
+        "lastUpdated": "2025-06-30",
+        "totalQuestions": 23,
+        "categories": [
+            "layout",
+            "typography",
+            "colors",
+            "spacing",
+            "effects",
+            "responsive"
+        ],
+        "difficulties": ["easy", "medium", "hard"],
+        "tags": [
+            "flexbox",
+            "grid",
+            "positioning",
+            "font",
+            "color",
+            "margin",
+            "padding",
+            "shadow",
+            "transform",
+            "transition",
+            "animation",
+            "responsive",
+            "border",
+            "gradient",
+            "opacity",
+            "width",
+            "height"
+        ]
+    },
+    "categories": {
+        "layout": {
+            "name": "Layout & Positioning",
+            "description": "Flexbox, Grid, Positioning fundamentals",
+            "icon": "📐",
+            "color": "#3b82f6",
+            "order": 1,
+            "isBasic": true
+        },
+        "typography": {
+            "name": "Typography",
+            "description": "Font sizes, weights, spacing",
+            "icon": "✍️",
+            "color": "#8b5cf6",
+            "order": 2,
+            "isBasic": true
+        },
+        "colors": {
+            "name": "Colors & Backgrounds",
+            "description": "Color system, gradients, opacity",
+            "icon": "🎨",
+            "color": "#ec4899",
+            "order": 3,
+            "isBasic": true
+        },
+        "spacing": {
+            "name": "Spacing & Sizing",
+            "description": "Margin, padding, width, height",
+            "icon": "📏",
+            "color": "#10b981",
+            "order": 4,
+            "isBasic": true
+        },
+        "effects": {
+            "name": "Effects & Animations",
+            "description": "Shadows, transforms, transitions",
+            "icon": "✨",
+            "color": "#f59e0b",
+            "order": 5,
+            "isBasic": false
+        },
+        "responsive": {
+            "name": "Responsive Design",
+            "description": "Breakpoints and responsive utilities",
+            "icon": "📱",
+            "color": "#ef4444",
+            "order": 6,
+            "isBasic": false
+        }
+    },
+    "questions": [
+        {
+            "id": "layout-001",
+            "category": "layout",
+            "subcategory": "flexbox",
+            "difficulty": "easy",
+            "tags": ["flexbox", "display"],
+            "css": "display: flex;",
+            "acceptedAnswers": ["flex"],
+            "explanation": "The flex class applies display: flex to create a flex container.",
+            "hint": "This creates a flex container. Use the display property for flex layout.",
+            "cssMapping": {
+                "display": "flex"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"flex\"><span>Item 1</span><span>Item 2</span></div>",
+                    "description": "Creates a horizontal flex layout"
+                }
+            ],
+            "relatedQuestions": ["layout-002", "layout-006"],
+            "learnMore": "https://tailwindcss.com/docs/display#flex"
+        },
+        {
+            "id": "layout-002",
+            "category": "layout",
+            "subcategory": "flexbox",
+            "difficulty": "easy",
+            "tags": ["flexbox", "justify-content"],
+            "css": "justify-content: center;",
+            "acceptedAnswers": ["justify-center"],
+            "explanation": "justify-center centers flex items along the main axis.",
+            "hint": "This centers items horizontally in a flex container. Use the justify- prefix.",
+            "cssMapping": {
+                "justify-content": "center"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"flex justify-center\"><span>Centered</span></div>",
+                    "description": "Centers content horizontally"
+                }
+            ],
+            "relatedQuestions": ["layout-001", "layout-003"],
+            "learnMore": "https://tailwindcss.com/docs/justify-content#center"
+        },
+        {
+            "id": "layout-003",
+            "category": "layout",
+            "subcategory": "flexbox",
+            "difficulty": "easy",
+            "tags": ["flexbox", "align-items"],
+            "css": "align-items: center;",
+            "acceptedAnswers": ["items-center"],
+            "explanation": "items-center centers flex items along the cross axis.",
+            "hint": "This centers items vertically in a flex container. Use the items- prefix.",
+            "cssMapping": {
+                "align-items": "center"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"flex items-center h-20\"><span>Vertically centered</span></div>",
+                    "description": "Centers content vertically"
+                }
+            ],
+            "relatedQuestions": ["layout-001", "layout-002"],
+            "learnMore": "https://tailwindcss.com/docs/align-items#center"
+        },
+        {
+            "id": "layout-004",
+            "category": "layout",
+            "subcategory": "grid",
+            "difficulty": "medium",
+            "tags": ["grid", "grid-template-columns"],
+            "css": "display: grid;\ngrid-template-columns: repeat(3, 1fr);",
+            "acceptedAnswers": ["grid grid-cols-3", "grid-cols-3 grid"],
+            "explanation": "Creates a 3-column grid with equal column widths.",
+            "hint": "This creates a grid with 3 equal columns. You need both the display and column properties.",
+            "cssMapping": {
+                "display": "grid",
+                "grid-template-columns": "repeat(3, minmax(0, 1fr))"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"grid grid-cols-3\"><div>1</div><div>2</div><div>3</div></div>",
+                    "description": "Creates a 3-column layout"
+                }
+            ],
+            "relatedQuestions": ["layout-009", "layout-014"],
+            "learnMore": "https://tailwindcss.com/docs/grid-template-columns"
+        },
+        {
+            "id": "layout-005",
+            "category": "layout",
+            "subcategory": "positioning",
+            "difficulty": "medium",
+            "tags": ["positioning", "absolute"],
+            "css": "position: absolute;\ntop: 0;\nleft: 0;",
+            "acceptedAnswers": ["absolute top-0 left-0"],
+            "explanation": "Positions element absolutely at the top-left corner.",
+            "hint": "This positions an element absolutely. Use position and offset properties.",
+            "cssMapping": {
+                "position": "absolute",
+                "top": "0px",
+                "left": "0px"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"relative\"><div class=\"absolute top-0 left-0\">Positioned</div></div>",
+                    "description": "Absolutely positioned at top-left"
+                }
+            ],
+            "relatedQuestions": ["layout-010", "layout-011"],
+            "learnMore": "https://tailwindcss.com/docs/position"
+        },
+        {
+            "id": "layout-006",
+            "category": "layout",
+            "subcategory": "flexbox",
+            "difficulty": "easy",
+            "tags": ["flexbox", "flex-direction"],
+            "css": "flex-direction: column;",
+            "acceptedAnswers": ["flex-col"],
+            "explanation": "flex-col sets flex direction to column, stacking items vertically.",
+            "hint": "This stacks flex items vertically. Use the flex- prefix for direction.",
+            "cssMapping": {
+                "flex-direction": "column"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"flex flex-col\"><span>Item 1</span><span>Item 2</span></div>",
+                    "description": "Stacks items vertically"
+                }
+            ],
+            "relatedQuestions": ["layout-001", "layout-007"],
+            "learnMore": "https://tailwindcss.com/docs/flex-direction"
+        },
+        {
+            "id": "layout-007",
+            "category": "layout",
+            "subcategory": "flexbox",
+            "difficulty": "easy",
+            "tags": ["flexbox", "justify-content"],
+            "css": "justify-content: space-between;",
+            "acceptedAnswers": ["justify-between"],
+            "explanation": "justify-between distributes items with equal space between them.",
+            "hint": "This spreads items apart with space between. Use justify- prefix.",
+            "cssMapping": {
+                "justify-content": "space-between"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"flex justify-between\"><span>Left</span><span>Right</span></div>",
+                    "description": "Spreads items to opposite ends"
+                }
+            ],
+            "relatedQuestions": ["layout-002"],
+            "learnMore": "https://tailwindcss.com/docs/justify-content"
+        },
+        {
+            "id": "typography-001",
+            "category": "typography",
+            "subcategory": "font-size",
+            "difficulty": "easy",
+            "tags": ["font", "text-size"],
+            "css": "font-size: 1.5rem;",
+            "acceptedAnswers": ["text-2xl"],
+            "explanation": "text-2xl sets font-size to 1.5rem (24px).",
+            "hint": "This makes text larger. Use the text- prefix with size.",
+            "cssMapping": {
+                "font-size": "1.5rem"
+            },
+            "examples": [
+                {
+                    "html": "<h2 class=\"text-2xl\">Large heading</h2>",
+                    "description": "Creates large text"
+                }
+            ],
+            "relatedQuestions": ["typography-002", "typography-006"],
+            "learnMore": "https://tailwindcss.com/docs/font-size"
+        },
+        {
+            "id": "typography-002",
+            "category": "typography",
+            "subcategory": "font-weight",
+            "difficulty": "easy",
+            "tags": ["font", "font-weight"],
+            "css": "font-weight: 700;",
+            "acceptedAnswers": ["font-bold"],
+            "explanation": "font-bold sets font-weight to 700.",
+            "hint": "This makes text bold. Use the font- prefix.",
+            "cssMapping": {
+                "font-weight": "700"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"font-bold\">Bold text</p>",
+                    "description": "Makes text bold"
+                }
+            ],
+            "relatedQuestions": ["typography-001", "typography-007"],
+            "learnMore": "https://tailwindcss.com/docs/font-weight"
+        },
+        {
+            "id": "typography-003",
+            "category": "typography",
+            "subcategory": "text-align",
+            "difficulty": "easy",
+            "tags": ["text", "alignment"],
+            "css": "text-align: center;",
+            "acceptedAnswers": ["text-center"],
+            "explanation": "text-center centers text horizontally.",
+            "hint": "This centers text. Use text- prefix with alignment.",
+            "cssMapping": {
+                "text-align": "center"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"text-center\">Centered text</p>",
+                    "description": "Centers text horizontally"
+                }
+            ],
+            "relatedQuestions": ["typography-012"],
+            "learnMore": "https://tailwindcss.com/docs/text-align"
+        },
+        {
+            "id": "typography-004",
+            "category": "typography",
+            "subcategory": "line-height",
+            "difficulty": "medium",
+            "tags": ["font", "line-height"],
+            "css": "line-height: 1.25;",
+            "acceptedAnswers": ["leading-tight"],
+            "explanation": "leading-tight sets line-height to 1.25.",
+            "hint": "This controls line spacing. Use leading- prefix.",
+            "cssMapping": {
+                "line-height": "1.25"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"leading-tight\">Tight line spacing text</p>",
+                    "description": "Text with tight line spacing"
+                }
+            ],
+            "relatedQuestions": ["typography-010"],
+            "learnMore": "https://tailwindcss.com/docs/line-height"
+        },
+        {
+            "id": "typography-005",
+            "category": "typography",
+            "subcategory": "letter-spacing",
+            "difficulty": "medium",
+            "tags": ["font", "letter-spacing"],
+            "css": "letter-spacing: 0.1em;",
+            "acceptedAnswers": ["tracking-wider"],
+            "explanation": "tracking-wider increases letter spacing.",
+            "hint": "This spreads letters apart. Use tracking- prefix.",
+            "cssMapping": {
+                "letter-spacing": "0.1em"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"tracking-wider\">Widely spaced text</p>",
+                    "description": "Text with increased letter spacing"
+                }
+            ],
+            "relatedQuestions": ["typography-013"],
+            "learnMore": "https://tailwindcss.com/docs/letter-spacing"
+        },
+        {
+            "id": "colors-001",
+            "category": "colors",
+            "subcategory": "text-color",
+            "difficulty": "easy",
+            "tags": ["color", "text", "blue"],
+            "css": "color: #3B82F6;",
+            "acceptedAnswers": ["text-blue-500"],
+            "explanation": "text-blue-500 sets text color to blue-500.",
+            "hint": "This colors text blue. Use text- prefix with color.",
+            "cssMapping": {
+                "color": "#3b82f6"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"text-blue-500\">Blue text</p>",
+                    "description": "Makes text blue"
+                }
+            ],
+            "relatedQuestions": ["colors-002", "colors-007"],
+            "learnMore": "https://tailwindcss.com/docs/text-color"
+        },
+        {
+            "id": "colors-002",
+            "category": "colors",
+            "subcategory": "background",
+            "difficulty": "easy",
+            "tags": ["background", "color", "red"],
+            "css": "background-color: #EF4444;",
+            "acceptedAnswers": ["bg-red-500"],
+            "explanation": "bg-red-500 sets background color to red-500.",
+            "hint": "This sets a red background. Use bg- prefix with color.",
+            "cssMapping": {
+                "background-color": "#ef4444"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"bg-red-500 p-4\">Red background</div>",
+                    "description": "Creates red background"
+                }
+            ],
+            "relatedQuestions": ["colors-001", "colors-006"],
+            "learnMore": "https://tailwindcss.com/docs/background-color"
+        },
+        {
+            "id": "colors-003",
+            "category": "colors",
+            "subcategory": "border-color",
+            "difficulty": "medium",
+            "tags": ["border", "color", "green"],
+            "css": "border-color: #10B981;",
+            "acceptedAnswers": ["border-green-500"],
+            "explanation": "border-green-500 sets border color to green-500.",
+            "hint": "This colors borders green. Use border- prefix with color.",
+            "cssMapping": {
+                "border-color": "#10b981"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"border border-green-500 p-4\">Green border</div>",
+                    "description": "Creates green border"
+                }
+            ],
+            "relatedQuestions": ["colors-009", "colors-015"],
+            "learnMore": "https://tailwindcss.com/docs/border-color"
+        },
+        {
+            "id": "spacing-001",
+            "category": "spacing",
+            "subcategory": "margin",
+            "difficulty": "easy",
+            "tags": ["margin", "spacing"],
+            "css": "margin: 1rem;",
+            "acceptedAnswers": ["m-4"],
+            "explanation": "m-4 applies margin of 1rem (16px) on all sides.",
+            "hint": "This adds margin all around. Use m- prefix.",
+            "cssMapping": {
+                "margin": "1rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"m-4 bg-blue-200\">Element with margin</div>",
+                    "description": "Adds margin around element"
+                }
+            ],
+            "relatedQuestions": ["spacing-002", "spacing-009"],
+            "learnMore": "https://tailwindcss.com/docs/margin"
+        },
+        {
+            "id": "spacing-002",
+            "category": "spacing",
+            "subcategory": "padding",
+            "difficulty": "easy",
+            "tags": ["padding", "spacing"],
+            "css": "padding: 0.5rem 1rem;",
+            "acceptedAnswers": ["py-2 px-4", "px-4 py-2"],
+            "explanation": "py-2 adds vertical padding, px-4 adds horizontal padding.",
+            "hint": "This adds different padding vertically and horizontally. Use py- and px- prefixes.",
+            "cssMapping": {
+                "padding-top": "0.5rem",
+                "padding-bottom": "0.5rem",
+                "padding-left": "1rem",
+                "padding-right": "1rem"
+            },
+            "examples": [
+                {
+                    "html": "<button class=\"py-2 px-4 bg-blue-500\">Button</button>",
+                    "description": "Button with vertical and horizontal padding"
+                }
+            ],
+            "relatedQuestions": ["spacing-001", "spacing-008"],
+            "learnMore": "https://tailwindcss.com/docs/padding"
+        },
+        {
+            "id": "spacing-003",
+            "category": "spacing",
+            "subcategory": "width",
+            "difficulty": "easy",
+            "tags": ["width", "sizing"],
+            "css": "width: 100%;",
+            "acceptedAnswers": ["w-full"],
+            "explanation": "w-full sets width to 100%.",
+            "hint": "This makes element take full width. Use w- prefix.",
+            "cssMapping": {
+                "width": "100%"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"w-full bg-gray-200\">Full width</div>",
+                    "description": "Element takes full width"
+                }
+            ],
+            "relatedQuestions": ["spacing-011", "spacing-012"],
+            "learnMore": "https://tailwindcss.com/docs/width"
+        },
+        {
+            "id": "effects-001",
+            "category": "effects",
+            "subcategory": "shadow",
+            "difficulty": "easy",
+            "tags": ["shadow", "effects"],
+            "css": "box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);",
+            "acceptedAnswers": ["shadow-sm"],
+            "explanation": "shadow-sm applies a small subtle shadow.",
+            "hint": "This adds a small shadow. Use shadow- prefix.",
+            "cssMapping": {
+                "box-shadow": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"shadow-sm bg-white p-4\">Card with shadow</div>",
+                    "description": "Card with subtle shadow"
+                }
+            ],
+            "relatedQuestions": ["effects-002", "effects-009"],
+            "learnMore": "https://tailwindcss.com/docs/box-shadow"
+        },
+        {
+            "id": "effects-002",
+            "category": "effects",
+            "subcategory": "shadow",
+            "difficulty": "medium",
+            "tags": ["shadow", "effects"],
+            "css": "box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);",
+            "acceptedAnswers": ["shadow-lg"],
+            "explanation": "shadow-lg applies a large shadow for elevated elements.",
+            "hint": "This adds a large shadow. Use shadow- prefix with size.",
+            "cssMapping": {
+                "box-shadow": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"shadow-lg bg-white p-6\">Elevated card</div>",
+                    "description": "Card with large shadow"
+                }
+            ],
+            "relatedQuestions": ["effects-001", "effects-009"],
+            "learnMore": "https://tailwindcss.com/docs/box-shadow"
+        },
+        {
+            "id": "effects-003",
+            "category": "effects",
+            "subcategory": "border-radius",
+            "difficulty": "easy",
+            "tags": ["border-radius", "effects"],
+            "css": "border-radius: 0.5rem;",
+            "acceptedAnswers": ["rounded-lg"],
+            "explanation": "rounded-lg applies large border radius for rounded corners.",
+            "hint": "This rounds corners. Use rounded- prefix.",
+            "cssMapping": {
+                "border-radius": "0.5rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"rounded-lg bg-blue-500 p-4\">Rounded box</div>",
+                    "description": "Box with rounded corners"
+                }
+            ],
+            "relatedQuestions": ["effects-008", "effects-015"],
+            "learnMore": "https://tailwindcss.com/docs/border-radius"
+        },
+        {
+            "id": "responsive-001",
+            "category": "responsive",
+            "subcategory": "display",
+            "difficulty": "easy",
+            "tags": ["responsive", "display", "breakpoint"],
+            "css": "@media (min-width: 768px) {\n  display: block;\n}",
+            "acceptedAnswers": ["md:block"],
+            "explanation": "md:block applies display block on medium screens and up (768px+).",
+            "hint": "This shows on medium screens and up. Use breakpoint prefix.",
+            "cssMapping": {
+                "display": "block"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"hidden md:block\">Visible on medium screens+</div>",
+                    "description": "Element visible only on medium+ screens"
+                }
+            ],
+            "relatedQuestions": ["responsive-006"],
+            "learnMore": "https://tailwindcss.com/docs/responsive-design"
+        },
+        {
+            "id": "responsive-002",
+            "category": "responsive",
+            "subcategory": "grid",
+            "difficulty": "medium",
+            "tags": ["responsive", "grid", "breakpoint"],
+            "css": "@media (min-width: 1024px) {\n  grid-template-columns: repeat(3, 1fr);\n}",
+            "acceptedAnswers": ["lg:grid-cols-3"],
+            "explanation": "lg:grid-cols-3 creates 3 columns on large screens and up (1024px+).",
+            "hint": "This changes grid columns on large screens. Use breakpoint with grid columns.",
+            "cssMapping": {
+                "grid-template-columns": "repeat(3, minmax(0, 1fr))"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"grid grid-cols-1 lg:grid-cols-3\">Responsive grid</div>",
+                    "description": "1 column mobile, 3 columns desktop"
+                }
+            ],
+            "relatedQuestions": ["layout-004", "responsive-009"],
+            "learnMore": "https://tailwindcss.com/docs/responsive-design"
+        }
+    ],
+    "challenges": {
+        "free_practice": {
+            "name": "Free Practice",
+            "description": "Practice at your own pace",
+            "type": "practice",
+            "config": {
+                "allowHints": true,
+                "allowPreview": true,
+                "categories": ["layout", "typography", "colors", "spacing"]
+            }
+        },
+        "speed_round": {
+            "name": "Speed Round",
+            "description": "15 questions in 5 minutes",
+            "type": "timed",
+            "config": {
+                "timeLimit": 300,
+                "questionCount": 15,
+                "allowHints": false,
+                "allowPreview": false,
+                "difficulties": ["easy", "medium"]
+            }
+        },
+        "flexbox_master": {
+            "name": "Flexbox Master",
+            "description": "Master flexbox layouts",
+            "type": "themed",
+            "config": {
+                "tags": ["flexbox"],
+                "questionCount": 20,
+                "allowHints": true,
+                "allowPreview": true
+            }
+        }
+    }
+}

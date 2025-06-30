@@ -22,7 +22,10 @@ const config = {
     ],
     collectCoverageFrom: [
         "lib/challengeStore.ts",
-        "lib/quizData.ts",
+        "lib/questionManager.ts",
+        "lib/progressStore.ts",
+        "lib/achievementsStore.ts",
+        "lib/leaderboardStore.ts",
         "!**/*.d.ts",
         "!**/node_modules/**",
     ],

@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { achievementsStore } from "@/lib/achievementsStore";
 import { challengeStore } from "@/lib/challengeStore";
-import { questionSets } from "@/lib/quizData";
+import { questionManager } from "@/lib/questionManager";
 import {
     ArrowLeft,
     Check,
@@ -30,13 +30,17 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+// Use the new question format directly from questionManager
 interface Question {
     id: string;
     css: string;
-    tailwindClass: string;
+    acceptedAnswers: string[];
     explanation: string;
     category: string;
+    subcategory?: string;
     difficulty: "easy" | "medium" | "hard";
+    hint?: string;
+    tags?: string[];
 }
 
 interface Challenge {
@@ -97,14 +101,18 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
         let questionsArray: Question[] = [];
 
         if (challenge.config.categories) {
-            // Filter questions by categories
-            const allQuestions = Object.values(questionSets).flat();
-            questionsArray = allQuestions.filter((q) =>
-                challenge.config.categories!.includes(q.category)
+            // Get questions by categories using new system
+            const allQuestions = challenge.config.categories.flatMap(
+                (category: string) =>
+                    questionManager.getQuestionsByCategory(category)
             );
+            questionsArray = allQuestions;
         } else {
-            // Use all questions
-            questionsArray = Object.values(questionSets).flat();
+            // Use all questions from all categories
+            const categories = questionManager.getCategories();
+            questionsArray = Object.keys(categories).flatMap((category) =>
+                questionManager.getQuestionsByCategory(category)
+            );
         }
 
         // Shuffle and limit questions (only once on component mount)
@@ -116,6 +124,7 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
             );
         }
 
+        // Return questions in new format directly
         return questionsArray;
     });
 
@@ -261,27 +270,27 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
 
     const checkAnswer = () => {
         console.log("🔍 checkAnswer chamado, userAnswer:", userAnswer);
-        console.log("📝 currentQuestion:", currentQuestion?.tailwindClass);
+        console.log(
+            "📝 currentQuestion acceptedAnswers:",
+            currentQuestion?.acceptedAnswers
+        );
 
         if (!currentQuestion) {
             console.warn("⚠️ Sem questão atual!");
             return;
         }
 
-        const normalizeAnswer = (answer: string) => {
-            return answer.toLowerCase().trim().replace(/\s+/g, " ");
-        };
-
-        const isAnswerCorrect =
-            normalizeAnswer(userAnswer) ===
-            normalizeAnswer(currentQuestion.tailwindClass);
+        // Use questionManager to validate the answer
+        const validationResult = questionManager.validateAnswer(
+            currentQuestion.id,
+            userAnswer
+        );
+        const isAnswerCorrect = validationResult.isCorrect;
 
         console.log("✅ Resposta correta?", isAnswerCorrect);
-        console.log("📊 Resposta normalizada:", normalizeAnswer(userAnswer));
-        console.log(
-            "📊 Resposta esperada:",
-            normalizeAnswer(currentQuestion.tailwindClass)
-        );
+        console.log("📊 Resultado da validação:", validationResult);
+        console.log("📊 Resposta do usuário:", userAnswer);
+        console.log("📊 Respostas aceitas:", currentQuestion.acceptedAnswers);
 
         setIsCorrect(isAnswerCorrect);
         setShowResult(true);
@@ -794,10 +803,13 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
                                             <div className="flex items-start space-x-2">
                                                 <HelpCircle className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
                                                 <p className="text-sm text-yellow-800">
-                                                    {generateHint(
-                                                        currentQuestion.tailwindClass,
-                                                        currentQuestion.category
-                                                    )}
+                                                    {currentQuestion.hint ||
+                                                        generateHint(
+                                                            currentQuestion
+                                                                .acceptedAnswers[0],
+                                                            currentQuestion.subcategory ||
+                                                                currentQuestion.category
+                                                        )}
                                                 </p>
                                             </div>
                                         </div>
@@ -835,9 +847,26 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
                                                 <strong>Correct answer:</strong>{" "}
                                                 <code className="bg-red-100 px-1 rounded">
                                                     {
-                                                        currentQuestion.tailwindClass
+                                                        currentQuestion
+                                                            .acceptedAnswers[0]
                                                     }
                                                 </code>
+                                                {currentQuestion.acceptedAnswers
+                                                    .length > 1 && (
+                                                    <span className="text-xs text-red-600 ml-2">
+                                                        (+
+                                                        {currentQuestion
+                                                            .acceptedAnswers
+                                                            .length - 1}{" "}
+                                                        alternative
+                                                        {currentQuestion
+                                                            .acceptedAnswers
+                                                            .length > 2
+                                                            ? "s"
+                                                            : ""}
+                                                        )
+                                                    </span>
+                                                )}
                                             </p>
                                         )}
 

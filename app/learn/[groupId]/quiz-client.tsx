@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { achievementsStore } from "@/lib/achievementsStore";
 import { progressStore } from "@/lib/progressStore";
+import { Question, questionManager } from "@/lib/questionManager";
 import {
     ArrowLeft,
     BookOpen,
@@ -28,15 +29,6 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
-interface Question {
-    id: string;
-    css: string;
-    tailwindClass: string;
-    explanation: string;
-    category: string;
-    difficulty: "easy" | "medium" | "hard";
-}
 
 interface Achievement {
     id: string;
@@ -194,13 +186,12 @@ export default function QuizClient({
     const checkAnswer = () => {
         if (!currentQuestion) return;
 
-        const normalizeAnswer = (answer: string) => {
-            return answer.toLowerCase().trim().replace(/\s+/g, " ");
-        };
-
-        const isAnswerCorrect =
-            normalizeAnswer(userAnswer) ===
-            normalizeAnswer(currentQuestion.tailwindClass);
+        // Validate answer using questionManager
+        const validationResult = questionManager.validateAnswer(
+            currentQuestion.id,
+            userAnswer
+        );
+        const isAnswerCorrect = validationResult.isCorrect;
         setIsCorrect(isAnswerCorrect);
         setShowResult(true);
 
@@ -599,7 +590,8 @@ export default function QuizClient({
                                         <div
                                             style={generatePreview(
                                                 currentQuestion.css,
-                                                currentQuestion.tailwindClass
+                                                currentQuestion
+                                                    .acceptedAnswers[0]
                                             )}
                                             className="transition-all duration-300"
                                         >
@@ -685,10 +677,12 @@ export default function QuizClient({
                                         <div className="flex items-start space-x-2">
                                             <HelpCircle className="w-4 h-4 text-yellow-600 mt-0.5 flex-shrink-0" />
                                             <p className="text-sm text-yellow-800">
-                                                {generateHint(
-                                                    currentQuestion.tailwindClass,
-                                                    currentQuestion.category
-                                                )}
+                                                {currentQuestion.hint ||
+                                                    generateHint(
+                                                        currentQuestion
+                                                            .acceptedAnswers[0],
+                                                        currentQuestion.subcategory
+                                                    )}
                                             </p>
                                         </div>
                                     </div>
@@ -739,7 +733,8 @@ export default function QuizClient({
                                                 <strong>Correct answer:</strong>{" "}
                                                 <code className="bg-red-100 px-1 rounded">
                                                     {
-                                                        currentQuestion.tailwindClass
+                                                        currentQuestion
+                                                            .acceptedAnswers[0]
                                                     }
                                                 </code>
                                             </p>
