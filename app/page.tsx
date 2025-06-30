@@ -664,9 +664,14 @@ export default function Home() {
                                 <CardHeader className="pb-3">
                                     <div className="flex items-center justify-between">
                                         <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center">
-                                            <span className="text-white text-xl">🐸</span>
+                                            <span className="text-white text-xl">
+                                                🐸
+                                            </span>
                                         </div>
-                                        <Badge variant="secondary" className="text-xs">
+                                        <Badge
+                                            variant="secondary"
+                                            className="text-xs"
+                                        >
                                             Game
                                         </Badge>
                                     </div>
@@ -674,18 +679,26 @@ export default function Home() {
                                         Flexbox Pond
                                     </CardTitle>
                                     <p className="text-sm text-gray-600">
-                                        Learn Flexbox by helping frogs reach lily pads
+                                        Learn Flexbox by helping frogs reach
+                                        lily pads
                                     </p>
                                 </CardHeader>
                                 <CardContent>
                                     <div className="space-y-3">
                                         <div className="flex justify-between text-sm">
-                                            <span className="text-gray-600">12 levels</span>
-                                            <span className="text-green-600 font-medium">Interactive</span>
+                                            <span className="text-gray-600">
+                                                12 levels
+                                            </span>
+                                            <span className="text-green-600 font-medium">
+                                                Interactive
+                                            </span>
                                         </div>
                                         <div className="flex items-center space-x-2 text-sm text-gray-500">
                                             <Target className="w-4 h-4" />
-                                            <span>Master justify-content, align-items & more</span>
+                                            <span>
+                                                Master justify-content,
+                                                align-items & more
+                                            </span>
                                         </div>
                                         <Button className="w-full bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700">
                                             Play Now 🎮
