@@ -9,9 +9,7 @@ export default function FlexboxGamePage() {
                         🐸 Flexbox Pond
                     </h1>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                        Aprenda Flexbox de forma divertida! Ajude os sapos a
-                        chegarem até as vitórias-régias usando classes Tailwind
-                        CSS.
+                        Aprenda Flexbox visualmente! Observe onde os sapos precisam ir e descubra as classes Tailwind CSS que fazem a mágica acontecer.
                     </p>
                 </div>
 
@@ -27,8 +25,8 @@ export default function FlexboxGamePage() {
                             <h3 className="font-semibold mb-2">Objetivo</h3>
                             <p className="text-sm text-gray-600">
                                 Mova os sapos 🐸 até as vitórias-régias 🪷 usando
-                                classes Tailwind CSS. Observe o objetivo visual
-                                e descubra qual classe usar!
+                                classes Tailwind CSS. Observe onde elas estão e
+                                descubra visualmente qual classe usar!
                             </p>
                         </div>
                         <div className="bg-white p-6 rounded-lg shadow-md">
@@ -38,7 +36,7 @@ export default function FlexboxGamePage() {
                                 Digite classes Tailwind como
                                 &lsquo;justify-center&rsquo;,
                                 &lsquo;items-end&rsquo;, &lsquo;flex-col&rsquo;.
-                                Descobra observando o resultado visual!
+                                Aprenda descobrindo o efeito visual de cada classe!
                             </p>
                         </div>
                         <div className="bg-white p-6 rounded-lg shadow-md">

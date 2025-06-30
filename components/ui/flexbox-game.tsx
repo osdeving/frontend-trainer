@@ -31,10 +31,11 @@ const flexboxLevels: GameLevel[] = [
     {
         id: 1,
         title: "Bem-vindo ao Flexbox Pond!",
-        description: "Mova o sapo para a direita até a vitória-régia.",
+        description:
+            "Veja o sapo verde na esquerda? Mova-o para a vitória-régia à direita.",
         targetProperty: "justify-content",
         correctAnswer: "justify-end",
-        hint: "Tente uma classe que move itens para o final do container.",
+        hint: "Tente 'justify-end' para mover elementos para a direita.",
         difficulty: "easy",
         frogs: 1,
         lilyPads: 1,
@@ -43,11 +44,12 @@ const flexboxLevels: GameLevel[] = [
     },
     {
         id: 2,
-        title: "Centro das Atenções",
-        description: "Coloque o sapo no centro da lagoa.",
+        title: "No Centro da Lagoa",
+        description:
+            "Posicione o sapo exatamente no centro da lagoa, onde está a vitória-régia.",
         targetProperty: "justify-content",
         correctAnswer: "justify-center",
-        hint: "Procure uma classe que centraliza elementos horizontalmente.",
+        hint: "Tente 'justify-center' para centralizar elementos horizontalmente.",
         difficulty: "easy",
         frogs: 1,
         lilyPads: 1,
@@ -56,11 +58,12 @@ const flexboxLevels: GameLevel[] = [
     },
     {
         id: 3,
-        title: "Nas Extremidades",
-        description: "Coloque os sapos nas bordas da lagoa, bem separados.",
+        title: "Cantos Opostos",
+        description:
+            "Veja as duas vitórias-régias nos cantos? Distribua os sapos para alcançá-las.",
         targetProperty: "justify-content",
         correctAnswer: "justify-between",
-        hint: "Use uma classe que cria espaço máximo entre os itens.",
+        hint: "Tente 'justify-between' para separar elementos ao máximo.",
         difficulty: "easy",
         frogs: 2,
         lilyPads: 2,
@@ -69,11 +72,12 @@ const flexboxLevels: GameLevel[] = [
     },
     {
         id: 4,
-        title: "Espaçamento Equilibrado",
-        description: "Distribua os sapos com espaço igual ao redor de cada um.",
+        title: "Espaço ao Redor",
+        description:
+            "Distribua os três sapos para que cada um tenha espaço igual ao seu redor.",
         targetProperty: "justify-content",
         correctAnswer: "justify-around",
-        hint: "Procure uma classe que adiciona espaço ao redor de cada item.",
+        hint: "Tente 'justify-around' para dar espaço igual ao redor de cada elemento.",
         difficulty: "medium",
         frogs: 3,
         lilyPads: 3,
@@ -82,11 +86,12 @@ const flexboxLevels: GameLevel[] = [
     },
     {
         id: 5,
-        title: "Sapos na Parte Inferior",
-        description: "Mova os sapos para a parte de baixo da lagoa.",
+        title: "Base da Lagoa",
+        description:
+            "Os sapos estão no topo, mas as vitórias-régias estão embaixo. Desça os sapos!",
         targetProperty: "align-items",
         correctAnswer: "items-end",
-        hint: "Use uma classe que alinha itens na parte inferior.",
+        hint: "Tente 'items-end' para alinhar elementos na parte inferior.",
         difficulty: "medium",
         frogs: 2,
         lilyPads: 2,
@@ -96,10 +101,11 @@ const flexboxLevels: GameLevel[] = [
     {
         id: 6,
         title: "Centro Vertical",
-        description: "Centralize os sapos verticalmente na lagoa.",
+        description:
+            "Os sapos estão no topo, mas as vitórias-régias estão no meio. Alinhe verticalmente!",
         targetProperty: "align-items",
         correctAnswer: "items-center",
-        hint: "Procure uma classe que centraliza elementos verticalmente.",
+        hint: "Tente 'items-center' para centralizar elementos verticalmente.",
         difficulty: "medium",
         frogs: 2,
         lilyPads: 2,
@@ -108,11 +114,12 @@ const flexboxLevels: GameLevel[] = [
     },
     {
         id: 7,
-        title: "Organização Vertical",
-        description: "Organize os sapos em uma coluna vertical.",
+        title: "Torre de Sapos",
+        description:
+            "Transforme a linha horizontal em uma coluna vertical de sapos.",
         targetProperty: "flex-direction",
         correctAnswer: "flex-col",
-        hint: "Use uma classe que muda o layout para coluna.",
+        hint: "Tente 'flex-col' para organizar elementos em coluna.",
         difficulty: "medium",
         frogs: 2,
         lilyPads: 2,
@@ -122,10 +129,11 @@ const flexboxLevels: GameLevel[] = [
     {
         id: 8,
         title: "Coluna Invertida",
-        description: "Organize os sapos em coluna, mas de baixo para cima.",
+        description:
+            "Organize os sapos em coluna, mas com o primeiro sapo embaixo.",
         targetProperty: "flex-direction",
         correctAnswer: "flex-col-reverse",
-        hint: "Use uma classe que organiza em coluna invertida.",
+        hint: "Tente 'flex-col-reverse' para inverter a ordem em coluna.",
         difficulty: "hard",
         frogs: 3,
         lilyPads: 3,
@@ -134,11 +142,12 @@ const flexboxLevels: GameLevel[] = [
     },
     {
         id: 9,
-        title: "Quebra de Linha",
-        description: "Permita que os sapos se organizem em múltiplas linhas.",
+        title: "Quebra Natural",
+        description:
+            "Permita que os sapos se reorganizem naturalmente em múltiplas linhas.",
         targetProperty: "flex-wrap",
         correctAnswer: "flex-wrap",
-        hint: "Use uma classe que permite quebra de linha automática.",
+        hint: "Tente 'flex-wrap' para permitir quebra de linha automática.",
         difficulty: "hard",
         frogs: 4,
         lilyPads: 4,
@@ -147,11 +156,12 @@ const flexboxLevels: GameLevel[] = [
     },
     {
         id: 10,
-        title: "Centro Absoluto",
-        description: "Coloque o sapo exatamente no centro da lagoa.",
+        title: "Bem no Centro",
+        description:
+            "Posicione o sapo exatamente no centro da lagoa - horizontal E verticalmente.",
         targetProperty: "justify-content + align-items",
         correctAnswer: "justify-center items-center",
-        hint: "Combine classes para centralizar horizontal e verticalmente.",
+        hint: "Combine 'justify-center' e 'items-center' para centralização total.",
         difficulty: "hard",
         frogs: 1,
         lilyPads: 1,
@@ -162,10 +172,10 @@ const flexboxLevels: GameLevel[] = [
         id: 11,
         title: "Distribuição Perfeita",
         description:
-            "Distribua os sapos com espaçamento completamente uniforme.",
+            "Distribua os três sapos com espaçamento perfeitamente uniforme entre eles.",
         targetProperty: "justify-content",
         correctAnswer: "justify-evenly",
-        hint: "Use uma classe que cria espaçamento igual entre e ao redor dos itens.",
+        hint: "Tente 'justify-evenly' para espaçamento igual entre todos os elementos.",
         difficulty: "hard",
         frogs: 3,
         lilyPads: 3,
@@ -176,10 +186,10 @@ const flexboxLevels: GameLevel[] = [
         id: 12,
         title: "Desafio Final",
         description:
-            "Organize em coluna, separe nas extremidades e centralize horizontalmente.",
+            "Organize os sapos em coluna vertical, separados igualmente e centralizados horizontalmente.",
         targetProperty: "flex-direction + justify + align",
         correctAnswer: "flex-col justify-between items-center",
-        hint: "Combine três classes: coluna, separação nas extremidades e centralização.",
+        hint: "Combine 'flex-col', 'justify-between' e 'items-center'.",
         difficulty: "hard",
         frogs: 3,
         lilyPads: 3,
@@ -263,68 +273,28 @@ export default function FlexboxGame() {
     };
 
     const renderPond = () => {
+        // Classes do container - aplicamos o input do usuário ou posição inicial
         const containerClasses = `w-full h-64 bg-gradient-to-b from-blue-200 to-blue-400 rounded-lg border-4 border-blue-500 flex gap-2 p-4 ${
             userInput || "justify-start items-start"
         }`;
 
+        // Classes para mostrar onde os sapos DEVEM ficar (resposta correta)
+        const targetClasses = `w-full h-64 bg-transparent rounded-lg flex gap-2 p-4 ${level.correctAnswer}`;
+
         return (
             <div className="relative">
-                {/* Vitórias-régias de fundo (targets) - mostram onde os sapos devem chegar */}
-                <div className="absolute inset-0 rounded-lg p-4 pointer-events-none z-0">
-                    {level.frogs === 1 && (
-                        <div className="w-full h-full flex justify-center items-center">
-                            <div className="w-12 h-12 bg-green-400 rounded-full border-2 border-green-600 flex items-center justify-center shadow-lg opacity-60">
+                {/* Vitórias-régias (targets) - mostram onde os sapos devem chegar */}
+                <div className="absolute inset-0 rounded-lg pointer-events-none z-0">
+                    <div className={targetClasses}>
+                        {Array.from({ length: level.frogs }).map((_, index) => (
+                            <div
+                                key={`target-${index}`}
+                                className="w-12 h-12 bg-green-400 rounded-full border-2 border-green-600 flex items-center justify-center shadow-lg opacity-60"
+                            >
                                 🪷
                             </div>
-                        </div>
-                    )}
-                    {level.frogs === 2 &&
-                        level.correctAnswer.includes("between") && (
-                            <div className="w-full h-full flex justify-between items-center">
-                                <div className="w-12 h-12 bg-green-400 rounded-full border-2 border-green-600 flex items-center justify-center shadow-lg opacity-60">
-                                    🪷
-                                </div>
-                                <div className="w-12 h-12 bg-green-400 rounded-full border-2 border-green-600 flex items-center justify-center shadow-lg opacity-60">
-                                    🪷
-                                </div>
-                            </div>
-                        )}
-                    {level.frogs === 2 &&
-                        level.correctAnswer.includes("center") &&
-                        !level.correctAnswer.includes("between") && (
-                            <div className="w-full h-full flex justify-center items-center gap-4">
-                                <div className="w-12 h-12 bg-green-400 rounded-full border-2 border-green-600 flex items-center justify-center shadow-lg opacity-60">
-                                    🪷
-                                </div>
-                                <div className="w-12 h-12 bg-green-400 rounded-full border-2 border-green-600 flex items-center justify-center shadow-lg opacity-60">
-                                    🪷
-                                </div>
-                            </div>
-                        )}
-                    {level.frogs === 2 &&
-                        level.correctAnswer.includes("end") && (
-                            <div className="w-full h-full flex justify-end items-end gap-2">
-                                <div className="w-12 h-12 bg-green-400 rounded-full border-2 border-green-600 flex items-center justify-center shadow-lg opacity-60">
-                                    🪷
-                                </div>
-                                <div className="w-12 h-12 bg-green-400 rounded-full border-2 border-green-600 flex items-center justify-center shadow-lg opacity-60">
-                                    🪷
-                                </div>
-                            </div>
-                        )}
-                    {level.frogs === 3 && (
-                        <div className="w-full h-full flex justify-around items-center">
-                            <div className="w-12 h-12 bg-green-400 rounded-full border-2 border-green-600 flex items-center justify-center shadow-lg opacity-60">
-                                🪷
-                            </div>
-                            <div className="w-12 h-12 bg-green-400 rounded-full border-2 border-green-600 flex items-center justify-center shadow-lg opacity-60">
-                                🪷
-                            </div>
-                            <div className="w-12 h-12 bg-green-400 rounded-full border-2 border-green-600 flex items-center justify-center shadow-lg opacity-60">
-                                🪷
-                            </div>
-                        </div>
-                    )}
+                        ))}
+                    </div>
                 </div>
 
                 {/* Container dos sapos - flexbox real */}
@@ -485,7 +455,7 @@ export default function FlexboxGame() {
                         <Input
                             value={userInput}
                             onChange={(e) => setUserInput(e.target.value)}
-                            placeholder={`Digite a classe Tailwind (ex: ${level.targetProperty})`}
+                            placeholder="Digite as classes Tailwind (ex: justify-center)"
                             className="flex-1"
                             onKeyPress={(e) =>
                                 e.key === "Enter" && checkAnswer()
