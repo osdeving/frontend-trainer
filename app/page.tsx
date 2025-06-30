@@ -707,6 +707,54 @@ export default function Home() {
                                 </CardContent>
                             </Link>
                         </Card>
+
+                        {/* Space Mission Game */}
+                        <Card className="relative overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl border-0 cursor-pointer bg-white shadow-lg">
+                            <Link href="/space-mission">
+                                <CardHeader className="pb-3">
+                                    <div className="flex items-center justify-between">
+                                        <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center">
+                                            <span className="text-white text-xl">
+                                                🚀
+                                            </span>
+                                        </div>
+                                        <Badge
+                                            variant="secondary"
+                                            className="text-xs"
+                                        >
+                                            Game
+                                        </Badge>
+                                    </div>
+                                    <CardTitle className="text-lg">
+                                        CSS Space Mission
+                                    </CardTitle>
+                                    <p className="text-sm text-gray-600">
+                                        Command space missions using CSS Grid & positioning
+                                    </p>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-3">
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-gray-600">
+                                                10 missions
+                                            </span>
+                                            <span className="text-blue-600 font-medium">
+                                                Strategic
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center space-x-2 text-sm text-gray-500">
+                                            <Target className="w-4 h-4" />
+                                            <span>
+                                                Master CSS Grid, positioning & transforms
+                                            </span>
+                                        </div>
+                                        <Button className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700">
+                                            Start Mission 🚀
+                                        </Button>
+                                    </div>
+                                </CardContent>
+                            </Link>
+                        </Card>
                     </div>
                 </div>
 

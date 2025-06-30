@@ -9,7 +9,9 @@ export default function FlexboxGamePage() {
                         🐸 Flexbox Pond
                     </h1>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                        Aprenda Flexbox visualmente! Observe onde os sapos precisam ir e descubra as classes Tailwind CSS que fazem a mágica acontecer.
+                        Aprenda Flexbox visualmente! Observe onde os sapos
+                        precisam ir e descubra as classes Tailwind CSS que fazem
+                        a mágica acontecer.
                     </p>
                 </div>
 
@@ -36,7 +38,8 @@ export default function FlexboxGamePage() {
                                 Digite classes Tailwind como
                                 &lsquo;justify-center&rsquo;,
                                 &lsquo;items-end&rsquo;, &lsquo;flex-col&rsquo;.
-                                Aprenda descobrindo o efeito visual de cada classe!
+                                Aprenda descobrindo o efeito visual de cada
+                                classe!
                             </p>
                         </div>
                         <div className="bg-white p-6 rounded-lg shadow-md">
