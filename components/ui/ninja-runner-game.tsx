@@ -24,6 +24,7 @@ interface Obstacle {
     color?: string;
     requiredAction: string;
     description: string;
+    ninjaThought: string;
 }
 
 interface CSSPower {
@@ -38,67 +39,67 @@ interface CSSPower {
 const cssPowers: CSSPower[] = [
     {
         id: "jump-forward",
-        name: "Dash",
+        name: "translate-x-12",
         class: "translate-x-12",
         icon: <ArrowRight className="w-4 h-4" />,
         color: "bg-blue-500 hover:bg-blue-600",
-        description: "Pular para frente",
+        description: "Move horizontalmente 12 unidades",
     },
     {
         id: "jump-up",
-        name: "Jump",
+        name: "-translate-y-8",
         class: "-translate-y-8",
         icon: <Move className="w-4 h-4" />,
         color: "bg-green-500 hover:bg-green-600",
-        description: "Pular para cima",
+        description: "Move verticalmente -8 unidades",
     },
     {
         id: "ghost",
-        name: "Ghost",
+        name: "opacity-30",
         class: "opacity-30",
         icon: <Eye className="w-4 h-4" />,
         color: "bg-purple-500 hover:bg-purple-600",
-        description: "Ficar transparente",
+        description: "Define opacidade para 30%",
     },
     {
         id: "shrink",
-        name: "Shrink",
+        name: "scale-50",
         class: "scale-50",
         icon: <SquareCheckBig className="w-4 h-4" />,
         color: "bg-yellow-500 hover:bg-yellow-600",
-        description: "Encolher",
+        description: "Reduz escala para 50%",
     },
     {
         id: "camouflage-red",
-        name: "Red",
+        name: "bg-red-500",
         class: "bg-red-500",
         icon: <Palette className="w-4 h-4" />,
         color: "bg-red-500 hover:bg-red-600",
-        description: "Camuflagem vermelha",
+        description: "Aplica cor de fundo vermelha",
     },
     {
         id: "camouflage-blue",
-        name: "Blue",
+        name: "bg-blue-500",
         class: "bg-blue-500",
         icon: <Palette className="w-4 h-4" />,
         color: "bg-blue-500 hover:bg-blue-600",
-        description: "Camuflagem azul",
+        description: "Aplica cor de fundo azul",
     },
     {
         id: "spin",
-        name: "Spin",
+        name: "rotate-45",
         class: "rotate-45",
         icon: <RotateCcw className="w-4 h-4" />,
         color: "bg-orange-500 hover:bg-orange-600",
-        description: "Girar para desviar",
+        description: "Rotaciona 45 graus",
     },
     {
         id: "power",
-        name: "Power",
+        name: "animate-pulse",
         class: "animate-pulse scale-110",
         icon: <Zap className="w-4 h-4" />,
         color: "bg-pink-500 hover:bg-pink-600",
-        description: "Poder especial",
+        description: "Animação de pulsação",
     },
 ];
 
@@ -107,31 +108,36 @@ const obstacleTypes = {
         component: "🧱",
         bgColor: "bg-gray-600",
         requiredAction: "opacity-30",
-        description: "Muro - Use Ghost para atravessar",
+        description: "Muro sólido se aproximando",
+        ninjaThought: "💭 Preciso ficar transparente para atravessar!",
     },
     pit: {
         component: "🕳️",
         bgColor: "bg-black",
         requiredAction: "translate-x-12",
-        description: "Buraco - Use Dash para pular",
+        description: "Buraco profundo à frente",
+        ninjaThought: "💭 Preciso pular 12px para frente!",
     },
     enemy: {
         component: "👹",
         bgColor: "bg-red-600",
         requiredAction: "-translate-y-8",
-        description: "Inimigo - Use Jump para pular por cima",
+        description: "Inimigo rastejante",
+        ninjaThought: "💭 Preciso subir 8px para passar por cima!",
     },
     ceiling: {
         component: "🟫",
         bgColor: "bg-amber-700",
         requiredAction: "scale-50",
-        description: "Teto baixo - Use Shrink para passar",
+        description: "Teto baixo",
+        ninjaThought: "💭 Nossa, preciso ficar menor para passar!",
     },
     colorEnemy: {
         component: "🔴",
         bgColor: "bg-red-500",
         requiredAction: "bg-red-500",
-        description: "Inimigo vermelho - Use camuflagem vermelha",
+        description: "Inimigo colorido",
+        ninjaThought: "💭 Preciso me camuflar com a mesma cor!",
     },
 };
 
@@ -143,7 +149,6 @@ export default function NinjaRunnerGame() {
     const [level, setLevel] = useState(1);
     const [obstacles, setObstacles] = useState<Obstacle[]>([]);
     const [ninjaAction, setNinjaAction] = useState<string>("");
-    const [timeLeft, setTimeLeft] = useState<number>(5);
     const [currentObstacle, setCurrentObstacle] = useState<Obstacle | null>(
         null
     );
@@ -152,7 +157,7 @@ export default function NinjaRunnerGame() {
     const [difficulty, setDifficulty] = useState<
         "intern" | "junior" | "mid" | "senior"
     >("junior");
-    const [obstaclePosition, setObstaclePosition] = useState(100);
+    const [obstaclePosition, setObstaclePosition] = useState(800);
     const [isColliding, setIsColliding] = useState(false);
 
     // Configurações de dificuldade
@@ -209,7 +214,7 @@ export default function NinjaRunnerGame() {
         return {
             id: `obstacle-${Date.now()}-${Math.random()}`,
             type: randomType,
-            position: 100, // Começa fora da tela
+            position: window.innerWidth || 800, // Começa fora da tela direita
             color: randomType === "colorEnemy" ? randomColor : undefined,
             requiredAction:
                 randomType === "colorEnemy"
@@ -217,8 +222,12 @@ export default function NinjaRunnerGame() {
                     : obstacleData.requiredAction,
             description:
                 randomType === "colorEnemy"
-                    ? `Inimigo ${randomColor} - Use camuflagem ${randomColor}`
+                    ? `Inimigo ${randomColor}`
                     : obstacleData.description,
+            ninjaThought:
+                randomType === "colorEnemy"
+                    ? `💭 Preciso me camuflar de ${randomColor}!`
+                    : obstacleData.ninjaThought,
         };
     }, []);
     // Iniciar jogo
@@ -229,125 +238,138 @@ export default function NinjaRunnerGame() {
         setLevel(1);
         setObstacles([]);
         setNinjaAction("");
-        setTimeLeft(settings.initialTime);
         setGameSpeed(settings.initialSpeed);
         setSuccessStreak(0);
-        setObstaclePosition(100);
+        setObstaclePosition(window.innerWidth || 800);
         setIsColliding(false);
 
         // Primeiro obstáculo
         setTimeout(() => {
             const newObstacle = generateObstacle();
             setCurrentObstacle(newObstacle);
-            setTimeLeft(settings.initialTime);
-            setObstaclePosition(100);
-        }, 1000);
-    };
-
-    // Usar poder CSS
+            setObstaclePosition(window.innerWidth || 800);
+        }, 2000); // Dar mais tempo para o jogador se preparar
+    }; // Usar poder CSS
     const usePower = (power: CSSPower) => {
         if (!currentObstacle || gameState !== "playing") return;
 
-        const isCorrect =
-            power.class === currentObstacle.requiredAction ||
-            (currentObstacle.requiredAction.includes("bg-") &&
-                power.class.includes("bg-") &&
-                currentObstacle.requiredAction.includes(
-                    power.class.split("-")[1]
-                ));
+        // Aplicar o efeito CSS imediatamente
+        setNinjaAction(power.class);
 
-        if (isCorrect) {
-            // Sucesso!
-            setNinjaAction(power.class);
-            setScore((prev) => prev + 10 * level);
-            setSuccessStreak((prev) => prev + 1);
-
-            // Animação de sucesso
-            setTimeout(() => {
+        // O efeito dura 1 segundo, depois remove
+        setTimeout(() => {
+            if (gameState === "playing" && !isColliding) {
                 setNinjaAction("");
-                setCurrentObstacle(null);
-                setObstaclePosition(100);
-
-                // Próximo obstáculo
-                setTimeout(() => {
-                    const settings = difficultySettings[difficulty];
-                    if (score + 10 * level >= level * 100) {
-                        // Level up!
-                        setLevel((prev) => prev + 1);
-                        setGameSpeed((prev) =>
-                            Math.max(
-                                prev - settings.speedDecrease,
-                                settings.minSpeed
-                            )
-                        );
-
-                        if (level >= 5) {
-                            setGameState("complete");
-                            return;
-                        }
-                    }
-
-                    const newObstacle = generateObstacle();
-                    setCurrentObstacle(newObstacle);
-                    setTimeLeft(settings.initialTime);
-                    setObstaclePosition(100);
-                }, 500);
-            }, 800);
-        } else {
-            // Falhou! Animação de colisão
-            setIsColliding(true);
-            setNinjaAction("animate-pulse scale-75 bg-red-500");
-
-            setTimeout(() => {
-                setGameState("gameOver");
-                setIsColliding(false);
-                setNinjaAction("");
-            }, 1000);
-        }
-    };
-
-    // Timer para obstáculos
-    useEffect(() => {
-        let interval: NodeJS.Timeout;
-
-        if (gameState === "playing" && currentObstacle && timeLeft > 0) {
-            interval = setInterval(() => {
-                setTimeLeft((prev) => {
-                    if (prev <= 1) {
-                        // Tempo esgotado - animação de colisão
-                        setIsColliding(true);
-                        setNinjaAction("animate-pulse scale-75 bg-red-500");
-
-                        setTimeout(() => {
-                            setGameState("gameOver");
-                            setIsColliding(false);
-                            setNinjaAction("");
-                        }, 1000);
-                        return 0;
-                    }
-                    return prev - 1;
-                });
-            }, 1000);
-        }
-
-        return () => clearInterval(interval);
-    }, [gameState, currentObstacle, timeLeft]);
-
-    // Animação do movimento do obstáculo
+            }
+        }, 1000);
+    }; // Timer removido - agora a colisão é baseada em posição física
+    // A detecção acontece no useEffect de animação do obstáculo    // Animação do movimento do obstáculo
     useEffect(() => {
         let animationFrame: number;
 
         if (gameState === "playing" && currentObstacle && !isColliding) {
             const settings = difficultySettings[difficulty];
-            const speed = 100 / (settings.initialTime * 60); // velocidade baseada no tempo
+            // Velocidade baseada na dificuldade - mais lenta e controlada
+            const baseSpeed = {
+                intern: 0.8, // Muito devagar
+                junior: 1.2, // Devagar
+                mid: 1.8, // Normal
+                senior: 2.5, // Rápido
+            };
+            const speed = baseSpeed[difficulty];
 
             const animate = () => {
                 setObstaclePosition((prev) => {
                     const newPosition = prev - speed;
 
-                    // Se o obstáculo chegou muito perto do ninja (colisão por tempo)
-                    if (newPosition <= 20) {
-                        return 20;
+                    // Detecção de colisão física - quando o obstáculo atinge a posição do ninja
+                    // Ninja está em left-8 (32px), obstáculo tem 64px de largura
+                    const ninjaPosition = 32; // left-8 = 32px
+                    const obstacleWidth = 64; // w-16 = 64px
+                    const collisionZone = ninjaPosition + 48; // Zona de colisão mais generosa
+
+                    if (newPosition <= collisionZone && prev > collisionZone) {
+                        // Verificar se o ninja está usando o poder correto
+                        if (
+                            ninjaAction === currentObstacle.requiredAction ||
+                            (currentObstacle.requiredAction.includes("bg-") &&
+                                ninjaAction.includes("bg-") &&
+                                currentObstacle.requiredAction.includes(
+                                    ninjaAction.split("-")[1]
+                                ))
+                        ) {
+                            // Sucesso! Ninja esquivou
+                            setScore((prev) => prev + 10 * level);
+                            setSuccessStreak((prev) => prev + 1);
+
+                            // Remover obstáculo e gerar próximo
+                            setTimeout(() => {
+                                setNinjaAction("");
+                                setCurrentObstacle(null);
+                                setObstaclePosition(window.innerWidth || 800); // Resetar para fora da tela
+
+                                setTimeout(() => {
+                                    if (score + 10 * level >= level * 100) {
+                                        setLevel((prev) => prev + 1);
+                                        setGameSpeed((prev) =>
+                                            Math.max(
+                                                prev - settings.speedDecrease,
+                                                settings.minSpeed
+                                            )
+                                        );
+
+                                        if (level >= 5) {
+                                            setGameState("complete");
+                                            return;
+                                        }
+                                    }
+
+                                    const newObstacle = generateObstacle();
+                                    setCurrentObstacle(newObstacle);
+                                    setObstaclePosition(
+                                        window.innerWidth || 800
+                                    );
+                                }, 1000); // Mais tempo entre obstáculos
+                            }, 300);
+
+                            return newPosition;
+                        } else {
+                            // Colisão! Game Over
+                            setIsColliding(true);
+                            setNinjaAction("animate-pulse scale-75 bg-red-500");
+
+                            setTimeout(() => {
+                                setGameState("gameOver");
+                                setIsColliding(false);
+                                setNinjaAction("");
+                            }, 1500);
+
+                            return newPosition;
+                        }
+                    }
+
+                    // Se o obstáculo passou do ninja sem colisão, é sucesso também
+                    if (
+                        newPosition <= -obstacleWidth &&
+                        prev > -obstacleWidth
+                    ) {
+                        // Sucesso automático se passou sem colidir
+                        setScore((prev) => prev + 5 * level); // Menos pontos por passar sem usar poder
+                        setSuccessStreak((prev) => prev + 1);
+
+                        setTimeout(() => {
+                            setNinjaAction("");
+                            setCurrentObstacle(null);
+                            setObstaclePosition(window.innerWidth || 800);
+
+                            setTimeout(() => {
+                                const newObstacle = generateObstacle();
+                                setCurrentObstacle(newObstacle);
+                                setObstaclePosition(window.innerWidth || 800);
+                            }, 1500); // Intervalo maior entre obstáculos
+                        }, 200);
+
+                        return newPosition;
                     }
 
                     return newPosition;
@@ -366,7 +388,15 @@ export default function NinjaRunnerGame() {
                 cancelAnimationFrame(animationFrame);
             }
         };
-    }, [gameState, currentObstacle, difficulty, isColliding]);
+    }, [
+        gameState,
+        currentObstacle,
+        difficulty,
+        isColliding,
+        ninjaAction,
+        score,
+        level,
+    ]);
 
     // Renderizar ninja
     const renderNinja = () => {
@@ -397,7 +427,7 @@ export default function NinjaRunnerGame() {
             <div
                 className="absolute bottom-8 z-10 transition-all duration-100"
                 style={{
-                    right: `${obstaclePosition}px`,
+                    left: `${obstaclePosition}px`,
                     transform: isColliding ? "scale(1.2)" : "scale(1)",
                 }}
             >
@@ -414,8 +444,8 @@ export default function NinjaRunnerGame() {
                         obstacleData.component
                     )}
                 </div>
-                <div className="text-center mt-2 text-sm font-semibold text-white bg-black bg-opacity-50 rounded px-2 py-1">
-                    {timeLeft}s
+                <div className="text-center mt-2 text-xs font-semibold text-white bg-black bg-opacity-50 rounded px-2 py-1">
+                    Distância: {Math.round(obstaclePosition)}px
                 </div>
             </div>
         );
@@ -432,9 +462,9 @@ export default function NinjaRunnerGame() {
                             CSS Ninja Runner
                         </h1>
                         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                            Seja um ninja CSS! Use poderes de CSS para superar
-                            obstáculos rapidamente. Clique no poder certo antes
-                            que o tempo acabe!
+                            Seja um ninja CSS! Use propriedades CSS para desviar
+                            de obstáculos que se aproximam. O ninja pensa em voz
+                            alta - ouça seus pensamentos!
                         </p>
                     </div>
 
@@ -444,10 +474,10 @@ export default function NinjaRunnerGame() {
                                 Como Jogar
                             </h3>
                             <ul className="text-sm text-blue-800 space-y-2 text-left">
-                                <li>• Obstáculos aparecem na tela</li>
-                                <li>• Escolha sua dificuldade</li>
-                                <li>• Clique no poder CSS correto</li>
-                                <li>• Sobreviva e evolua de nível!</li>
+                                <li>• Obstáculos se aproximam do ninja</li>
+                                <li>• Ouça os pensamentos do ninja</li>
+                                <li>• Clique na propriedade CSS correta</li>
+                                <li>• Evite a colisão física!</li>
                             </ul>
                         </div>
                         <div className="bg-purple-50 p-6 rounded-lg">
@@ -455,10 +485,10 @@ export default function NinjaRunnerGame() {
                                 Poderes CSS
                             </h3>
                             <ul className="text-sm text-purple-800 space-y-2 text-left">
-                                <li>• Ghost: opacity-30</li>
-                                <li>• Jump: -translate-y-8</li>
-                                <li>• Dash: translate-x-12</li>
-                                <li>• Shrink: scale-50</li>
+                                <li>• opacity-30: Transparência</li>
+                                <li>• -translate-y-8: Mover para cima</li>
+                                <li>• translate-x-12: Mover para frente</li>
+                                <li>• scale-50: Reduzir tamanho</li>
                             </ul>
                         </div>
                     </div>
@@ -523,12 +553,6 @@ export default function NinjaRunnerGame() {
                                         </p>
                                         <div className="space-y-2 text-sm">
                                             <div className="flex justify-between">
-                                                <span>Tempo:</span>
-                                                <span className="font-semibold">
-                                                    {settings.initialTime}s
-                                                </span>
-                                            </div>
-                                            <div className="flex justify-between">
                                                 <span>Velocidade:</span>
                                                 <span className="font-semibold">
                                                     {diff === "intern"
@@ -538,6 +562,18 @@ export default function NinjaRunnerGame() {
                                                         : diff === "mid"
                                                         ? "Normal"
                                                         : "Rápida"}
+                                                </span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span>Dificuldade:</span>
+                                                <span className="font-semibold">
+                                                    {diff === "intern"
+                                                        ? "Iniciante"
+                                                        : diff === "junior"
+                                                        ? "Fácil"
+                                                        : diff === "mid"
+                                                        ? "Médio"
+                                                        : "Difícil"}
                                                 </span>
                                             </div>
                                         </div>
@@ -722,9 +758,7 @@ export default function NinjaRunnerGame() {
                     <div className="flex gap-4 text-sm">
                         <span className="font-semibold">Score: {score}</span>
                         <span>Sequência: {successStreak}</span>
-                        <span>
-                            Tempo: {difficultySettings[difficulty].initialTime}s
-                        </span>
+                        <span>Distância: {Math.round(obstaclePosition)}px</span>
                     </div>
                 </div>
             </CardHeader>
@@ -763,15 +797,14 @@ export default function NinjaRunnerGame() {
                     {/* Obstáculo atual */}
                     {renderCurrentObstacle()}
 
-                    {/* Instrução do obstáculo */}
+                    {/* Pensamento do ninja */}
                     {currentObstacle && (
-                        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg text-center">
-                            <div className="text-sm font-semibold">
-                                {currentObstacle.description}
+                        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 text-white px-4 py-2 rounded-lg text-center max-w-xs">
+                            <div className="text-sm font-semibold mb-1">
+                                {currentObstacle.ninjaThought}
                             </div>
-                            <div className="text-xs text-gray-300 mt-1">
-                                Tempo: {timeLeft}s | Posição:{" "}
-                                {Math.round(obstaclePosition)}%
+                            <div className="text-xs text-gray-300">
+                                Distância: {Math.round(obstaclePosition)}px
                             </div>
                         </div>
                     )}
@@ -797,22 +830,19 @@ export default function NinjaRunnerGame() {
                 {/* Poderes CSS */}
                 <div className="space-y-4">
                     <h3 className="text-lg font-semibold text-center">
-                        Poderes CSS - Clique Rápido!
+                        Propriedades CSS Disponíveis
                     </h3>
                     <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
                         {cssPowers.map((power) => (
                             <Button
                                 key={power.id}
                                 onClick={() => usePower(power)}
-                                className={`${power.color} text-white p-3 h-auto flex flex-col items-center gap-1 transition-all duration-200 hover:scale-105`}
+                                className={`${power.color} text-white p-2 h-auto flex flex-col items-center gap-1 transition-all duration-200 hover:scale-105 text-xs`}
                                 disabled={!currentObstacle}
                             >
                                 {power.icon}
-                                <span className="text-xs font-medium">
+                                <span className="font-mono text-xs leading-tight">
                                     {power.name}
-                                </span>
-                                <span className="text-xs opacity-80">
-                                    {power.class}
                                 </span>
                             </Button>
                         ))}
