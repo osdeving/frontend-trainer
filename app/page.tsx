@@ -649,6 +649,54 @@ export default function Home() {
                     </div>
                 </div>
 
+                {/* Interactive Games */}
+                <div className="space-y-6 mt-8">
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-3xl font-bold text-gray-800">
+                            Interactive Games
+                        </h2>
+                    </div>
+
+                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        {/* Flexbox Game */}
+                        <Card className="relative overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-xl border-0 cursor-pointer bg-white shadow-lg">
+                            <Link href="/flexbox-game">
+                                <CardHeader className="pb-3">
+                                    <div className="flex items-center justify-between">
+                                        <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-blue-500 flex items-center justify-center">
+                                            <span className="text-white text-xl">🐸</span>
+                                        </div>
+                                        <Badge variant="secondary" className="text-xs">
+                                            Game
+                                        </Badge>
+                                    </div>
+                                    <CardTitle className="text-lg">
+                                        Flexbox Pond
+                                    </CardTitle>
+                                    <p className="text-sm text-gray-600">
+                                        Learn Flexbox by helping frogs reach lily pads
+                                    </p>
+                                </CardHeader>
+                                <CardContent>
+                                    <div className="space-y-3">
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-gray-600">12 levels</span>
+                                            <span className="text-green-600 font-medium">Interactive</span>
+                                        </div>
+                                        <div className="flex items-center space-x-2 text-sm text-gray-500">
+                                            <Target className="w-4 h-4" />
+                                            <span>Master justify-content, align-items & more</span>
+                                        </div>
+                                        <Button className="w-full bg-gradient-to-r from-green-500 to-blue-600 hover:from-green-600 hover:to-blue-700">
+                                            Play Now 🎮
+                                        </Button>
+                                    </div>
+                                </CardContent>
+                            </Link>
+                        </Card>
+                    </div>
+                </div>
+
                 {/* Daily Goals */}
                 <Card className="mt-8 border-0 shadow-lg">
                     <CardHeader>
