@@ -2,7 +2,7 @@
 
 ## Overview
 
-CSS Ninja Runner is a fast-paced action game that teaches CSS properties through quick reaction-based gameplay. Players control a ninja using CSS powers to overcome obstacles in real-time, making CSS learning exciting and adrenaline-fueled.
+CSS Ninja Runner is a fast-paced action game that teaches CSS properties through quick reaction-based gameplay. Players control a ninja using CSS powers to overcome obstacles in real-time, making CSS learning exciting and adrenaline-fueled. The game features multiple difficulty levels to accommodate different skill levels.
 
 ## Game Concept
 
@@ -11,7 +11,8 @@ CSS Ninja Runner is a fast-paced action game that teaches CSS properties through
 -   **Setting**: Dark ninja world with obstacles and enemies
 -   **Role**: CSS-powered ninja warrior
 -   **Goal**: Survive as long as possible using the right CSS powers
--   **Gameplay**: Click-based reactions under time pressure (3 seconds per obstacle)
+-   **Gameplay**: Click-based reactions under time pressure (3-6 seconds per obstacle)
+-   **Difficulty**: Three levels - Easy, Medium, and Hard
 
 ### Learning Objectives
 
@@ -20,6 +21,27 @@ CSS Ninja Runner is a fast-paced action game that teaches CSS properties through
 -   **Colors**: Practice background color changes and camouflage
 -   **Animations**: Understand animate-pulse and visual effects
 -   **Quick Decision Making**: Apply CSS knowledge under pressure
+-   **Adaptive Learning**: Choose difficulty based on comfort level
+
+## Difficulty System
+
+### 🟢 Ninja Iniciante (Easy)
+- **Reaction Time**: 6 seconds per obstacle
+- **Game Speed**: Slow progression (3000ms initial, min 1500ms)
+- **Target Audience**: CSS beginners, learning mode
+- **Speed Decrease**: 200ms per level
+
+### 🟡 Ninja Experiente (Medium) 
+- **Reaction Time**: 4 seconds per obstacle
+- **Game Speed**: Normal progression (2000ms initial, min 800ms)
+- **Target Audience**: Intermediate developers, balanced challenge
+- **Speed Decrease**: 150ms per level
+
+### 🔴 Mestre Ninja (Hard)
+- **Reaction Time**: 3 seconds per obstacle  
+- **Game Speed**: Fast progression (1200ms initial, min 400ms)
+- **Target Audience**: Advanced developers, maximum challenge
+- **Speed Decrease**: 100ms per level
 
 ## Game Mechanics
 

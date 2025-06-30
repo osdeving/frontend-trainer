@@ -137,18 +137,47 @@ const obstacleTypes = {
 
 export default function NinjaRunnerGame() {
     const [gameState, setGameState] = useState<
-        "menu" | "playing" | "gameOver" | "complete"
+        "menu" | "difficulty" | "playing" | "gameOver" | "complete"
     >("menu");
     const [score, setScore] = useState(0);
     const [level, setLevel] = useState(1);
     const [obstacles, setObstacles] = useState<Obstacle[]>([]);
     const [ninjaAction, setNinjaAction] = useState<string>("");
-    const [timeLeft, setTimeLeft] = useState<number>(3);
+    const [timeLeft, setTimeLeft] = useState<number>(5);
     const [currentObstacle, setCurrentObstacle] = useState<Obstacle | null>(
         null
     );
-    const [gameSpeed, setGameSpeed] = useState(1000);
+    const [gameSpeed, setGameSpeed] = useState(2000);
     const [successStreak, setSuccessStreak] = useState(0);
+    const [difficulty, setDifficulty] = useState<"easy" | "medium" | "hard">("medium");
+    
+    // Configurações de dificuldade
+    const difficultySettings = {
+        easy: {
+            initialTime: 6,
+            initialSpeed: 3000,
+            speedDecrease: 200,
+            minSpeed: 1500,
+            name: "Ninja Iniciante",
+            description: "6 segundos por obstáculo, velocidade reduzida"
+        },
+        medium: {
+            initialTime: 4,
+            initialSpeed: 2000,
+            speedDecrease: 150,
+            minSpeed: 800,
+            name: "Ninja Experiente", 
+            description: "4 segundos por obstáculo, velocidade normal"
+        },
+        hard: {
+            initialTime: 3,
+            initialSpeed: 1200,
+            speedDecrease: 100,
+            minSpeed: 400,
+            name: "Mestre Ninja",
+            description: "3 segundos por obstáculo, velocidade máxima"
+        }
+    };
 
     // Gerar obstáculo aleatório
     const generateObstacle = useCallback((): Obstacle => {
@@ -175,24 +204,23 @@ export default function NinjaRunnerGame() {
                     ? `Inimigo ${randomColor} - Use camuflagem ${randomColor}`
                     : obstacleData.description,
         };
-    }, []);
-
-    // Iniciar jogo
+    }, []);    // Iniciar jogo
     const startGame = () => {
+        const settings = difficultySettings[difficulty];
         setGameState("playing");
         setScore(0);
         setLevel(1);
         setObstacles([]);
         setNinjaAction("");
-        setTimeLeft(3);
-        setGameSpeed(1000);
+        setTimeLeft(settings.initialTime);
+        setGameSpeed(settings.initialSpeed);
         setSuccessStreak(0);
-
+        
         // Primeiro obstáculo
         setTimeout(() => {
             const newObstacle = generateObstacle();
             setCurrentObstacle(newObstacle);
-            setTimeLeft(3);
+            setTimeLeft(settings.initialTime);
         }, 1000);
     };
 
@@ -221,10 +249,11 @@ export default function NinjaRunnerGame() {
 
                 // Próximo obstáculo
                 setTimeout(() => {
+                    const settings = difficultySettings[difficulty];
                     if (score + 10 * level >= level * 100) {
                         // Level up!
                         setLevel((prev) => prev + 1);
-                        setGameSpeed((prev) => Math.max(prev - 100, 400));
+                        setGameSpeed((prev) => Math.max(prev - settings.speedDecrease, settings.minSpeed));
 
                         if (level >= 5) {
                             setGameState("complete");
@@ -234,7 +263,7 @@ export default function NinjaRunnerGame() {
 
                     const newObstacle = generateObstacle();
                     setCurrentObstacle(newObstacle);
-                    setTimeLeft(3);
+                    setTimeLeft(settings.initialTime);
                 }, 500);
             }, 800);
         } else {
@@ -324,7 +353,7 @@ export default function NinjaRunnerGame() {
                             </h3>
                             <ul className="text-sm text-blue-800 space-y-2 text-left">
                                 <li>• Obstáculos aparecem na tela</li>
-                                <li>• Você tem 3 segundos para reagir</li>
+                                <li>• Escolha sua dificuldade</li>
                                 <li>• Clique no poder CSS correto</li>
                                 <li>• Sobreviva e evolua de nível!</li>
                             </ul>
@@ -343,13 +372,97 @@ export default function NinjaRunnerGame() {
                     </div>
 
                     <Button
-                        onClick={startGame}
+                        onClick={() => setGameState("difficulty")}
                         size="lg"
                         className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 text-lg"
                     >
                         <Play className="w-5 h-5 mr-2" />
-                        Iniciar Missão Ninja
+                        Escolher Dificuldade
                     </Button>
+                </CardContent>
+            </Card>
+        );
+    }
+
+    // Tela de seleção de dificuldade
+    if (gameState === "difficulty") {
+        return (
+            <Card className="w-full max-w-4xl mx-auto">
+                <CardContent className="text-center py-12">
+                    <div className="mb-8">
+                        <div className="text-6xl mb-4">⚡</div>
+                        <h1 className="text-3xl font-bold text-gray-800 mb-4">
+                            Escolha Sua Dificuldade
+                        </h1>
+                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                            Selecione o nível de desafio que combina com seu estilo ninja!
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
+                        {(Object.keys(difficultySettings) as Array<keyof typeof difficultySettings>).map((diff) => {
+                            const settings = difficultySettings[diff];
+                            const isSelected = difficulty === diff;
+                            
+                            return (
+                                <Card 
+                                    key={diff}
+                                    className={`cursor-pointer transition-all duration-300 hover:scale-105 ${
+                                        isSelected 
+                                            ? 'ring-2 ring-purple-500 bg-purple-50' 
+                                            : 'hover:shadow-lg'
+                                    }`}
+                                    onClick={() => setDifficulty(diff)}
+                                >
+                                    <CardContent className="p-6 text-center">
+                                        <div className="text-4xl mb-3">
+                                            {diff === 'easy' ? '🟢' : diff === 'medium' ? '🟡' : '🔴'}
+                                        </div>
+                                        <h3 className="text-xl font-bold mb-2">
+                                            {settings.name}
+                                        </h3>
+                                        <p className="text-sm text-gray-600 mb-4">
+                                            {settings.description}
+                                        </p>
+                                        <div className="space-y-2 text-sm">
+                                            <div className="flex justify-between">
+                                                <span>Tempo:</span>
+                                                <span className="font-semibold">{settings.initialTime}s</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span>Velocidade:</span>
+                                                <span className="font-semibold">
+                                                    {diff === 'easy' ? 'Lenta' : diff === 'medium' ? 'Normal' : 'Rápida'}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        {isSelected && (
+                                            <div className="mt-4 text-purple-600 font-semibold">
+                                                ✓ Selecionado
+                                            </div>
+                                        )}
+                                    </CardContent>
+                                </Card>
+                            );
+                        })}
+                    </div>
+
+                    <div className="flex gap-4 justify-center">
+                        <Button
+                            variant="outline"
+                            onClick={() => setGameState("menu")}
+                        >
+                            Voltar
+                        </Button>
+                        <Button
+                            onClick={startGame}
+                            size="lg"
+                            className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-3 text-lg"
+                        >
+                            <Play className="w-5 h-5 mr-2" />
+                            Iniciar Missão ({difficultySettings[difficulty].name})
+                        </Button>
+                    </div>
                 </CardContent>
             </Card>
         );
@@ -402,6 +515,12 @@ export default function NinjaRunnerGame() {
                             className="bg-purple-600 hover:bg-purple-700"
                         >
                             Jogar Novamente
+                        </Button>
+                        <Button
+                            variant="outline"
+                            onClick={() => setGameState("difficulty")}
+                        >
+                            Mudar Dificuldade
                         </Button>
                         <Button
                             variant="outline"
@@ -466,6 +585,12 @@ export default function NinjaRunnerGame() {
                         </Button>
                         <Button
                             variant="outline"
+                            onClick={() => setGameState("difficulty")}
+                        >
+                            Mudar Dificuldade
+                        </Button>
+                        <Button
+                            variant="outline"
                             onClick={() => setGameState("menu")}
                         >
                             Menu Principal
@@ -484,10 +609,12 @@ export default function NinjaRunnerGame() {
                     <CardTitle className="flex items-center gap-2">
                         🥷 CSS Ninja Runner
                         <Badge variant="default">Nível {level}</Badge>
+                        <Badge variant="secondary">{difficultySettings[difficulty].name}</Badge>
                     </CardTitle>
                     <div className="flex gap-4 text-sm">
                         <span className="font-semibold">Score: {score}</span>
                         <span>Sequência: {successStreak}</span>
+                        <span>Tempo: {difficultySettings[difficulty].initialTime}s</span>
                     </div>
                 </div>
             </CardHeader>
