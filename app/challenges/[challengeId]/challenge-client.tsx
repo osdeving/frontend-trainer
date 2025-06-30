@@ -4,6 +4,7 @@ import AchievementNotification from "@/components/ui/achievement-notification";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import DynamicPreview from "@/components/ui/dynamic-preview";
 import { Progress } from "@/components/ui/progress";
 import { achievementsStore } from "@/lib/achievementsStore";
 import { challengeStore } from "@/lib/challengeStore";
@@ -676,40 +677,14 @@ export default function ChallengeClient({ challengeId }: ChallengeClientProps) {
                                 </pre>
                             </div>
 
-                            {/* Visual Preview */}
+                            {/* Dynamic Preview */}
                             {challenge.config.allowPreview && (
-                                <div className="mb-4">
-                                    <div className="flex items-center justify-between mb-2">
-                                        <span className="text-sm font-medium text-gray-700">
-                                            Visual Preview
-                                        </span>
-                                        <Button
-                                            variant="ghost"
-                                            size="sm"
-                                            onClick={() =>
-                                                setShowPreview(!showPreview)
-                                            }
-                                        >
-                                            {showPreview ? (
-                                                <EyeOff className="w-4 h-4" />
-                                            ) : (
-                                                <Eye className="w-4 h-4" />
-                                            )}
-                                        </Button>
-                                    </div>
-                                    {showPreview && (
-                                        <div className="bg-white border-2 border-dashed border-gray-300 rounded-lg p-4 flex items-center justify-center">
-                                            <div
-                                                style={generatePreview(
-                                                    currentQuestion.css
-                                                )}
-                                                className="transition-all duration-300"
-                                            >
-                                                Preview
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
+                                <DynamicPreview
+                                    userAnswer={userAnswer}
+                                    expectedAnswer={currentQuestion.tailwindClass}
+                                    expectedCSS={currentQuestion.css}
+                                    className="mb-4"
+                                />
                             )}
 
                             <div className="p-4 bg-blue-50 rounded-lg">
