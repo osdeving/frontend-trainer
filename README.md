@@ -622,7 +622,7 @@ tailwind-trainer/
 │   ├── achievementsStore.ts      # Sistema de conquistas
 │   ├── challengeStore.ts         # Gerenciamento de desafios
 │   ├── leaderboardStore.ts       # Sistema de leaderboards
-│   ├── quizData.ts              # Dados das questões
+│   ├── questionManager.ts        # Motor de questões (novo sistema)
 │   └── utils.ts                  # Utilitários
 ├── components/                   # Componentes reutilizáveis
 │   └── ui/                       # Componentes de UI

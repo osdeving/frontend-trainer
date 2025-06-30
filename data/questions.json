@@ -2,16 +2,21 @@
     "meta": {
         "version": "2.0",
         "lastUpdated": "2025-06-30",
-        "totalQuestions": 23,
+        "totalQuestions": 111,
         "categories": [
             "layout",
             "typography",
             "colors",
             "spacing",
+            "borders",
             "effects",
             "responsive"
         ],
-        "difficulties": ["easy", "medium", "hard"],
+        "difficulties": [
+            "easy",
+            "medium",
+            "hard"
+        ],
         "tags": [
             "flexbox",
             "grid",
@@ -36,7 +41,7 @@
         "layout": {
             "name": "Layout & Positioning",
             "description": "Flexbox, Grid, Positioning fundamentals",
-            "icon": "📐",
+            "icon": "\ud83d\udcd0",
             "color": "#3b82f6",
             "order": 1,
             "isBasic": true
@@ -44,7 +49,7 @@
         "typography": {
             "name": "Typography",
             "description": "Font sizes, weights, spacing",
-            "icon": "✍️",
+            "icon": "\u270d\ufe0f",
             "color": "#8b5cf6",
             "order": 2,
             "isBasic": true
@@ -52,7 +57,7 @@
         "colors": {
             "name": "Colors & Backgrounds",
             "description": "Color system, gradients, opacity",
-            "icon": "🎨",
+            "icon": "\ud83c\udfa8",
             "color": "#ec4899",
             "order": 3,
             "isBasic": true
@@ -60,25 +65,33 @@
         "spacing": {
             "name": "Spacing & Sizing",
             "description": "Margin, padding, width, height",
-            "icon": "📏",
+            "icon": "\ud83d\udccf",
             "color": "#10b981",
             "order": 4,
+            "isBasic": true
+        },
+        "borders": {
+            "name": "Borders & Radius",
+            "description": "Border styles, widths, radius",
+            "icon": "\ud83d\udd32",
+            "color": "#f59e0b",
+            "order": 5,
             "isBasic": true
         },
         "effects": {
             "name": "Effects & Animations",
             "description": "Shadows, transforms, transitions",
-            "icon": "✨",
+            "icon": "\u2728",
             "color": "#f59e0b",
-            "order": 5,
+            "order": 6,
             "isBasic": false
         },
         "responsive": {
             "name": "Responsive Design",
             "description": "Breakpoints and responsive utilities",
-            "icon": "📱",
+            "icon": "\ud83d\udcf1",
             "color": "#ef4444",
-            "order": 6,
+            "order": 7,
             "isBasic": false
         }
     },
@@ -88,9 +101,14 @@
             "category": "layout",
             "subcategory": "flexbox",
             "difficulty": "easy",
-            "tags": ["flexbox", "display"],
+            "tags": [
+                "flexbox",
+                "display"
+            ],
             "css": "display: flex;",
-            "acceptedAnswers": ["flex"],
+            "acceptedAnswers": [
+                "flex"
+            ],
             "explanation": "The flex class applies display: flex to create a flex container.",
             "hint": "This creates a flex container. Use the display property for flex layout.",
             "cssMapping": {
@@ -102,7 +120,10 @@
                     "description": "Creates a horizontal flex layout"
                 }
             ],
-            "relatedQuestions": ["layout-002", "layout-006"],
+            "relatedQuestions": [
+                "layout-002",
+                "layout-006"
+            ],
             "learnMore": "https://tailwindcss.com/docs/display#flex"
         },
         {
@@ -110,9 +131,14 @@
             "category": "layout",
             "subcategory": "flexbox",
             "difficulty": "easy",
-            "tags": ["flexbox", "justify-content"],
+            "tags": [
+                "flexbox",
+                "justify-content"
+            ],
             "css": "justify-content: center;",
-            "acceptedAnswers": ["justify-center"],
+            "acceptedAnswers": [
+                "justify-center"
+            ],
             "explanation": "justify-center centers flex items along the main axis.",
             "hint": "This centers items horizontally in a flex container. Use the justify- prefix.",
             "cssMapping": {
@@ -124,7 +150,10 @@
                     "description": "Centers content horizontally"
                 }
             ],
-            "relatedQuestions": ["layout-001", "layout-003"],
+            "relatedQuestions": [
+                "layout-001",
+                "layout-003"
+            ],
             "learnMore": "https://tailwindcss.com/docs/justify-content#center"
         },
         {
@@ -132,9 +161,14 @@
             "category": "layout",
             "subcategory": "flexbox",
             "difficulty": "easy",
-            "tags": ["flexbox", "align-items"],
+            "tags": [
+                "flexbox",
+                "align-items"
+            ],
             "css": "align-items: center;",
-            "acceptedAnswers": ["items-center"],
+            "acceptedAnswers": [
+                "items-center"
+            ],
             "explanation": "items-center centers flex items along the cross axis.",
             "hint": "This centers items vertically in a flex container. Use the items- prefix.",
             "cssMapping": {
@@ -146,7 +180,10 @@
                     "description": "Centers content vertically"
                 }
             ],
-            "relatedQuestions": ["layout-001", "layout-002"],
+            "relatedQuestions": [
+                "layout-001",
+                "layout-002"
+            ],
             "learnMore": "https://tailwindcss.com/docs/align-items#center"
         },
         {
@@ -154,9 +191,15 @@
             "category": "layout",
             "subcategory": "grid",
             "difficulty": "medium",
-            "tags": ["grid", "grid-template-columns"],
+            "tags": [
+                "grid",
+                "grid-template-columns"
+            ],
             "css": "display: grid;\ngrid-template-columns: repeat(3, 1fr);",
-            "acceptedAnswers": ["grid grid-cols-3", "grid-cols-3 grid"],
+            "acceptedAnswers": [
+                "grid grid-cols-3",
+                "grid-cols-3 grid"
+            ],
             "explanation": "Creates a 3-column grid with equal column widths.",
             "hint": "This creates a grid with 3 equal columns. You need both the display and column properties.",
             "cssMapping": {
@@ -169,7 +212,10 @@
                     "description": "Creates a 3-column layout"
                 }
             ],
-            "relatedQuestions": ["layout-009", "layout-014"],
+            "relatedQuestions": [
+                "layout-009",
+                "layout-014"
+            ],
             "learnMore": "https://tailwindcss.com/docs/grid-template-columns"
         },
         {
@@ -177,9 +223,14 @@
             "category": "layout",
             "subcategory": "positioning",
             "difficulty": "medium",
-            "tags": ["positioning", "absolute"],
+            "tags": [
+                "positioning",
+                "absolute"
+            ],
             "css": "position: absolute;\ntop: 0;\nleft: 0;",
-            "acceptedAnswers": ["absolute top-0 left-0"],
+            "acceptedAnswers": [
+                "absolute top-0 left-0"
+            ],
             "explanation": "Positions element absolutely at the top-left corner.",
             "hint": "This positions an element absolutely. Use position and offset properties.",
             "cssMapping": {
@@ -193,7 +244,10 @@
                     "description": "Absolutely positioned at top-left"
                 }
             ],
-            "relatedQuestions": ["layout-010", "layout-011"],
+            "relatedQuestions": [
+                "layout-010",
+                "layout-011"
+            ],
             "learnMore": "https://tailwindcss.com/docs/position"
         },
         {
@@ -201,9 +255,14 @@
             "category": "layout",
             "subcategory": "flexbox",
             "difficulty": "easy",
-            "tags": ["flexbox", "flex-direction"],
+            "tags": [
+                "flexbox",
+                "flex-direction"
+            ],
             "css": "flex-direction: column;",
-            "acceptedAnswers": ["flex-col"],
+            "acceptedAnswers": [
+                "flex-col"
+            ],
             "explanation": "flex-col sets flex direction to column, stacking items vertically.",
             "hint": "This stacks flex items vertically. Use the flex- prefix for direction.",
             "cssMapping": {
@@ -215,7 +274,10 @@
                     "description": "Stacks items vertically"
                 }
             ],
-            "relatedQuestions": ["layout-001", "layout-007"],
+            "relatedQuestions": [
+                "layout-001",
+                "layout-007"
+            ],
             "learnMore": "https://tailwindcss.com/docs/flex-direction"
         },
         {
@@ -223,9 +285,14 @@
             "category": "layout",
             "subcategory": "flexbox",
             "difficulty": "easy",
-            "tags": ["flexbox", "justify-content"],
+            "tags": [
+                "flexbox",
+                "justify-content"
+            ],
             "css": "justify-content: space-between;",
-            "acceptedAnswers": ["justify-between"],
+            "acceptedAnswers": [
+                "justify-between"
+            ],
             "explanation": "justify-between distributes items with equal space between them.",
             "hint": "This spreads items apart with space between. Use justify- prefix.",
             "cssMapping": {
@@ -237,17 +304,261 @@
                     "description": "Spreads items to opposite ends"
                 }
             ],
-            "relatedQuestions": ["layout-002"],
+            "relatedQuestions": [
+                "layout-002"
+            ],
             "learnMore": "https://tailwindcss.com/docs/justify-content"
+        },
+        {
+            "id": "layout-008",
+            "category": "layout",
+            "subcategory": "flexbox",
+            "difficulty": "medium",
+            "tags": [
+                "flexbox",
+                "align-items"
+            ],
+            "css": "align-items: stretch;",
+            "acceptedAnswers": [
+                "items-stretch"
+            ],
+            "explanation": "items-stretch makes flex items stretch to fill the container height.",
+            "hint": "This stretches items to fill container height. Use items- prefix.",
+            "cssMapping": {
+                "align-items": "stretch"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"flex items-stretch h-20\"><div class=\"bg-blue-500\">Stretched</div></div>",
+                    "description": "Items stretch to fill container height"
+                }
+            ],
+            "relatedQuestions": [
+                "layout-003"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/align-items"
+        },
+        {
+            "id": "layout-009",
+            "category": "layout",
+            "subcategory": "grid",
+            "difficulty": "medium",
+            "tags": [
+                "grid",
+                "grid-template-columns",
+                "gap"
+            ],
+            "css": "display: grid;\ngrid-template-columns: repeat(2, 1fr);\ngap: 1rem;",
+            "acceptedAnswers": [
+                "grid grid-cols-2 gap-4"
+            ],
+            "explanation": "Creates a 2-column grid with 1rem gap between items.",
+            "hint": "This creates a 2-column grid with gap. Use grid, grid-cols-, and gap- prefixes.",
+            "cssMapping": {
+                "display": "grid",
+                "grid-template-columns": "repeat(2, minmax(0, 1fr))",
+                "gap": "1rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"grid grid-cols-2 gap-4\"><div>Item 1</div><div>Item 2</div></div>",
+                    "description": "2-column grid with gap"
+                }
+            ],
+            "relatedQuestions": [
+                "layout-004"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/grid-template-columns"
+        },
+        {
+            "id": "layout-010",
+            "category": "layout",
+            "subcategory": "positioning",
+            "difficulty": "easy",
+            "tags": [
+                "positioning"
+            ],
+            "css": "position: relative;",
+            "acceptedAnswers": [
+                "relative"
+            ],
+            "explanation": "relative positioning allows child elements to be positioned relative to this element.",
+            "hint": "This enables relative positioning for child elements.",
+            "cssMapping": {
+                "position": "relative"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"relative\"><div class=\"absolute top-0\">Child</div></div>",
+                    "description": "Parent for absolute positioned children"
+                }
+            ],
+            "relatedQuestions": [
+                "layout-005"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/position"
+        },
+        {
+            "id": "layout-011",
+            "category": "layout",
+            "subcategory": "positioning",
+            "difficulty": "medium",
+            "tags": [
+                "positioning",
+                "fixed"
+            ],
+            "css": "position: fixed;\ntop: 0;\nright: 0;",
+            "acceptedAnswers": [
+                "fixed top-0 right-0"
+            ],
+            "explanation": "Positions element fixed at the top-right corner of the viewport.",
+            "hint": "This fixes position relative to viewport. Use fixed, top-, right- prefixes.",
+            "cssMapping": {
+                "position": "fixed",
+                "top": "0px",
+                "right": "0px"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"fixed top-0 right-0 p-4 bg-red-500\">Fixed corner</div>",
+                    "description": "Fixed position at top-right corner"
+                }
+            ],
+            "relatedQuestions": [
+                "layout-005"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/position"
+        },
+        {
+            "id": "layout-012",
+            "category": "layout",
+            "subcategory": "flexbox",
+            "difficulty": "medium",
+            "tags": [
+                "flexbox",
+                "flex-wrap"
+            ],
+            "css": "flex-wrap: wrap;",
+            "acceptedAnswers": [
+                "flex-wrap"
+            ],
+            "explanation": "flex-wrap allows flex items to wrap to new lines when needed.",
+            "hint": "This allows items to wrap to new lines. Use flex-wrap.",
+            "cssMapping": {
+                "flex-wrap": "wrap"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"flex flex-wrap\"><div>Item 1</div><div>Item 2</div></div>",
+                    "description": "Flex items can wrap to new lines"
+                }
+            ],
+            "relatedQuestions": [
+                "layout-001"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/flex-wrap"
+        },
+        {
+            "id": "layout-013",
+            "category": "layout",
+            "subcategory": "flexbox",
+            "difficulty": "medium",
+            "tags": [
+                "flexbox",
+                "align-self"
+            ],
+            "css": "align-self: center;",
+            "acceptedAnswers": [
+                "self-center"
+            ],
+            "explanation": "self-center aligns a single flex item to the center of the cross axis.",
+            "hint": "This aligns one item to center. Use self- prefix.",
+            "cssMapping": {
+                "align-self": "center"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"flex\"><div class=\"self-center\">Centered item</div></div>",
+                    "description": "Individual item aligned to center"
+                }
+            ],
+            "relatedQuestions": [
+                "layout-003"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/align-self"
+        },
+        {
+            "id": "layout-014",
+            "category": "layout",
+            "subcategory": "grid",
+            "difficulty": "medium",
+            "tags": [
+                "grid",
+                "grid-template-rows"
+            ],
+            "css": "display: grid;\ngrid-template-rows: repeat(3, 1fr);",
+            "acceptedAnswers": [
+                "grid grid-rows-3"
+            ],
+            "explanation": "Creates a 3-row grid with equal row heights.",
+            "hint": "This creates a 3-row grid. Use grid and grid-rows- prefixes.",
+            "cssMapping": {
+                "display": "grid",
+                "grid-template-rows": "repeat(3, minmax(0, 1fr))"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"grid grid-rows-3 h-64\"><div>Row 1</div><div>Row 2</div><div>Row 3</div></div>",
+                    "description": "3-row grid with equal heights"
+                }
+            ],
+            "relatedQuestions": [
+                "layout-004"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/grid-template-rows"
+        },
+        {
+            "id": "layout-015",
+            "category": "layout",
+            "subcategory": "positioning",
+            "difficulty": "hard",
+            "tags": [
+                "positioning",
+                "z-index"
+            ],
+            "css": "z-index: 50;",
+            "acceptedAnswers": [
+                "z-50"
+            ],
+            "explanation": "z-50 sets the z-index to 50, controlling the stacking order.",
+            "hint": "This controls stacking order. Use z- prefix with number.",
+            "cssMapping": {
+                "z-index": "50"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"relative z-50\">High stacking order</div>",
+                    "description": "Element with high z-index"
+                }
+            ],
+            "relatedQuestions": [
+                "layout-010"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/z-index"
         },
         {
             "id": "typography-001",
             "category": "typography",
             "subcategory": "font-size",
             "difficulty": "easy",
-            "tags": ["font", "text-size"],
+            "tags": [
+                "font",
+                "text-size"
+            ],
             "css": "font-size: 1.5rem;",
-            "acceptedAnswers": ["text-2xl"],
+            "acceptedAnswers": [
+                "text-2xl"
+            ],
             "explanation": "text-2xl sets font-size to 1.5rem (24px).",
             "hint": "This makes text larger. Use the text- prefix with size.",
             "cssMapping": {
@@ -259,7 +570,10 @@
                     "description": "Creates large text"
                 }
             ],
-            "relatedQuestions": ["typography-002", "typography-006"],
+            "relatedQuestions": [
+                "typography-002",
+                "typography-006"
+            ],
             "learnMore": "https://tailwindcss.com/docs/font-size"
         },
         {
@@ -267,9 +581,14 @@
             "category": "typography",
             "subcategory": "font-weight",
             "difficulty": "easy",
-            "tags": ["font", "font-weight"],
+            "tags": [
+                "font",
+                "font-weight"
+            ],
             "css": "font-weight: 700;",
-            "acceptedAnswers": ["font-bold"],
+            "acceptedAnswers": [
+                "font-bold"
+            ],
             "explanation": "font-bold sets font-weight to 700.",
             "hint": "This makes text bold. Use the font- prefix.",
             "cssMapping": {
@@ -281,7 +600,10 @@
                     "description": "Makes text bold"
                 }
             ],
-            "relatedQuestions": ["typography-001", "typography-007"],
+            "relatedQuestions": [
+                "typography-001",
+                "typography-007"
+            ],
             "learnMore": "https://tailwindcss.com/docs/font-weight"
         },
         {
@@ -289,9 +611,14 @@
             "category": "typography",
             "subcategory": "text-align",
             "difficulty": "easy",
-            "tags": ["text", "alignment"],
+            "tags": [
+                "text",
+                "alignment"
+            ],
             "css": "text-align: center;",
-            "acceptedAnswers": ["text-center"],
+            "acceptedAnswers": [
+                "text-center"
+            ],
             "explanation": "text-center centers text horizontally.",
             "hint": "This centers text. Use text- prefix with alignment.",
             "cssMapping": {
@@ -303,7 +630,9 @@
                     "description": "Centers text horizontally"
                 }
             ],
-            "relatedQuestions": ["typography-012"],
+            "relatedQuestions": [
+                "typography-012"
+            ],
             "learnMore": "https://tailwindcss.com/docs/text-align"
         },
         {
@@ -311,9 +640,14 @@
             "category": "typography",
             "subcategory": "line-height",
             "difficulty": "medium",
-            "tags": ["font", "line-height"],
+            "tags": [
+                "font",
+                "line-height"
+            ],
             "css": "line-height: 1.25;",
-            "acceptedAnswers": ["leading-tight"],
+            "acceptedAnswers": [
+                "leading-tight"
+            ],
             "explanation": "leading-tight sets line-height to 1.25.",
             "hint": "This controls line spacing. Use leading- prefix.",
             "cssMapping": {
@@ -325,7 +659,9 @@
                     "description": "Text with tight line spacing"
                 }
             ],
-            "relatedQuestions": ["typography-010"],
+            "relatedQuestions": [
+                "typography-010"
+            ],
             "learnMore": "https://tailwindcss.com/docs/line-height"
         },
         {
@@ -333,9 +669,14 @@
             "category": "typography",
             "subcategory": "letter-spacing",
             "difficulty": "medium",
-            "tags": ["font", "letter-spacing"],
+            "tags": [
+                "font",
+                "letter-spacing"
+            ],
             "css": "letter-spacing: 0.1em;",
-            "acceptedAnswers": ["tracking-wider"],
+            "acceptedAnswers": [
+                "tracking-wider"
+            ],
             "explanation": "tracking-wider increases letter spacing.",
             "hint": "This spreads letters apart. Use tracking- prefix.",
             "cssMapping": {
@@ -347,17 +688,141 @@
                     "description": "Text with increased letter spacing"
                 }
             ],
-            "relatedQuestions": ["typography-013"],
+            "relatedQuestions": [
+                "typography-013"
+            ],
             "learnMore": "https://tailwindcss.com/docs/letter-spacing"
+        },
+        {
+            "id": "typography-006",
+            "category": "typography",
+            "subcategory": "font-size",
+            "difficulty": "easy",
+            "tags": [
+                "font",
+                "text-size"
+            ],
+            "css": "font-size: 3rem;",
+            "acceptedAnswers": [
+                "text-5xl"
+            ],
+            "explanation": "text-5xl sets font-size to 3rem (48px) for large headings.",
+            "hint": "This is for large headings. Use text- prefix with size.",
+            "cssMapping": {
+                "font-size": "3rem"
+            },
+            "examples": [
+                {
+                    "html": "<h1 class=\"text-5xl\">Large Heading</h1>",
+                    "description": "Very large heading text"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-001"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/font-size"
+        },
+        {
+            "id": "typography-007",
+            "category": "typography",
+            "subcategory": "font-weight",
+            "difficulty": "easy",
+            "tags": [
+                "font",
+                "font-weight"
+            ],
+            "css": "font-weight: 300;",
+            "acceptedAnswers": [
+                "font-light"
+            ],
+            "explanation": "font-light sets font-weight to 300 for lighter text.",
+            "hint": "This makes text lighter. Use font- prefix.",
+            "cssMapping": {
+                "font-weight": "300"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"font-light\">Light weight text</p>",
+                    "description": "Text with light font weight"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-002"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/font-weight"
+        },
+        {
+            "id": "typography-008",
+            "category": "typography",
+            "subcategory": "text-decoration",
+            "difficulty": "easy",
+            "tags": [
+                "font",
+                "text-decoration"
+            ],
+            "css": "text-decoration: underline;",
+            "acceptedAnswers": [
+                "underline"
+            ],
+            "explanation": "underline adds an underline decoration to text.",
+            "hint": "This adds a line under text. Simply use 'underline'.",
+            "cssMapping": {
+                "text-decoration": "underline"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"underline\">Underlined text</p>",
+                    "description": "Text with underline decoration"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-011"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/text-decoration"
+        },
+        {
+            "id": "typography-009",
+            "category": "typography",
+            "subcategory": "text-transform",
+            "difficulty": "easy",
+            "tags": [
+                "font",
+                "text-transform"
+            ],
+            "css": "text-transform: uppercase;",
+            "acceptedAnswers": [
+                "uppercase"
+            ],
+            "explanation": "uppercase transforms text to all uppercase letters.",
+            "hint": "This makes all letters capital. Simply use 'uppercase'.",
+            "cssMapping": {
+                "text-transform": "uppercase"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"uppercase\">uppercase text</p>",
+                    "description": "Text transformed to uppercase"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-010"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/text-transform"
         },
         {
             "id": "colors-001",
             "category": "colors",
             "subcategory": "text-color",
             "difficulty": "easy",
-            "tags": ["color", "text", "blue"],
+            "tags": [
+                "color",
+                "text",
+                "blue"
+            ],
             "css": "color: #3B82F6;",
-            "acceptedAnswers": ["text-blue-500"],
+            "acceptedAnswers": [
+                "text-blue-500"
+            ],
             "explanation": "text-blue-500 sets text color to blue-500.",
             "hint": "This colors text blue. Use text- prefix with color.",
             "cssMapping": {
@@ -369,7 +834,10 @@
                     "description": "Makes text blue"
                 }
             ],
-            "relatedQuestions": ["colors-002", "colors-007"],
+            "relatedQuestions": [
+                "colors-002",
+                "colors-007"
+            ],
             "learnMore": "https://tailwindcss.com/docs/text-color"
         },
         {
@@ -377,9 +845,15 @@
             "category": "colors",
             "subcategory": "background",
             "difficulty": "easy",
-            "tags": ["background", "color", "red"],
+            "tags": [
+                "background",
+                "color",
+                "red"
+            ],
             "css": "background-color: #EF4444;",
-            "acceptedAnswers": ["bg-red-500"],
+            "acceptedAnswers": [
+                "bg-red-500"
+            ],
             "explanation": "bg-red-500 sets background color to red-500.",
             "hint": "This sets a red background. Use bg- prefix with color.",
             "cssMapping": {
@@ -391,7 +865,10 @@
                     "description": "Creates red background"
                 }
             ],
-            "relatedQuestions": ["colors-001", "colors-006"],
+            "relatedQuestions": [
+                "colors-001",
+                "colors-006"
+            ],
             "learnMore": "https://tailwindcss.com/docs/background-color"
         },
         {
@@ -399,9 +876,15 @@
             "category": "colors",
             "subcategory": "border-color",
             "difficulty": "medium",
-            "tags": ["border", "color", "green"],
+            "tags": [
+                "border",
+                "color",
+                "green"
+            ],
             "css": "border-color: #10B981;",
-            "acceptedAnswers": ["border-green-500"],
+            "acceptedAnswers": [
+                "border-green-500"
+            ],
             "explanation": "border-green-500 sets border color to green-500.",
             "hint": "This colors borders green. Use border- prefix with color.",
             "cssMapping": {
@@ -413,17 +896,326 @@
                     "description": "Creates green border"
                 }
             ],
-            "relatedQuestions": ["colors-009", "colors-015"],
+            "relatedQuestions": [
+                "colors-009",
+                "colors-015"
+            ],
             "learnMore": "https://tailwindcss.com/docs/border-color"
+        },
+        {
+            "id": "colors-004",
+            "category": "colors",
+            "subcategory": "gradients",
+            "difficulty": "hard",
+            "tags": [
+                "gradient",
+                "background",
+                "blue",
+                "purple"
+            ],
+            "css": "background: linear-gradient(to right, #3B82F6, #8B5CF6);",
+            "acceptedAnswers": [
+                "bg-gradient-to-r from-blue-500 to-purple-500"
+            ],
+            "explanation": "Creates a horizontal gradient from blue to purple.",
+            "hint": "This creates a left-to-right gradient. Use bg-gradient-to-r, from-, and to- prefixes.",
+            "cssMapping": {
+                "background": "linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-to))"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"bg-gradient-to-r from-blue-500 to-purple-500 p-8\">Gradient background</div>",
+                    "description": "Horizontal blue to purple gradient"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-008",
+                "colors-012"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/gradient-color-stops"
+        },
+        {
+            "id": "colors-005",
+            "category": "colors",
+            "subcategory": "opacity",
+            "difficulty": "medium",
+            "tags": [
+                "color",
+                "opacity",
+                "gray"
+            ],
+            "css": "color: rgba(107, 114, 128, 0.5);",
+            "acceptedAnswers": [
+                "text-gray-500/50"
+            ],
+            "explanation": "Sets text color to gray-500 with 50% opacity.",
+            "hint": "This adds opacity to text color. Use color/opacity syntax.",
+            "cssMapping": {
+                "color": "rgb(107 114 128 / 0.5)"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"text-gray-500/50\">Semi-transparent text</p>",
+                    "description": "Gray text with 50% opacity"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-010"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/text-color"
+        },
+        {
+            "id": "colors-006",
+            "category": "colors",
+            "subcategory": "background-color",
+            "difficulty": "easy",
+            "tags": [
+                "background",
+                "color",
+                "white"
+            ],
+            "css": "background-color: #FFFFFF;",
+            "acceptedAnswers": [
+                "bg-white"
+            ],
+            "explanation": "bg-white sets background color to pure white.",
+            "hint": "This creates a white background. Use bg-white.",
+            "cssMapping": {
+                "background-color": "#ffffff"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"bg-white p-4\">White background</div>",
+                    "description": "Creates white background"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-002"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/background-color"
+        },
+        {
+            "id": "colors-007",
+            "category": "colors",
+            "subcategory": "text-color",
+            "difficulty": "easy",
+            "tags": [
+                "color",
+                "text",
+                "gray"
+            ],
+            "css": "color: #1F2937;",
+            "acceptedAnswers": [
+                "text-gray-800"
+            ],
+            "explanation": "text-gray-800 sets text color to a dark gray.",
+            "hint": "This colors text dark gray. Use text- prefix with color.",
+            "cssMapping": {
+                "color": "#1f2937"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"text-gray-800\">Dark gray text</p>",
+                    "description": "Makes text dark gray"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-001"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/text-color"
+        },
+        {
+            "id": "colors-008",
+            "category": "colors",
+            "subcategory": "gradients",
+            "difficulty": "hard",
+            "tags": [
+                "gradient",
+                "background",
+                "yellow",
+                "red"
+            ],
+            "css": "background: linear-gradient(to bottom, #F59E0B, #EF4444);",
+            "acceptedAnswers": [
+                "bg-gradient-to-b from-yellow-500 to-red-500"
+            ],
+            "explanation": "Creates a vertical gradient from yellow to red.",
+            "hint": "This creates a top-to-bottom gradient. Use bg-gradient-to-b, from-, and to- prefixes.",
+            "cssMapping": {
+                "background": "linear-gradient(to bottom, var(--tw-gradient-from), var(--tw-gradient-to))"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"bg-gradient-to-b from-yellow-500 to-red-500 p-8\">Vertical gradient</div>",
+                    "description": "Vertical yellow to red gradient"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-004",
+                "colors-012"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/gradient-color-stops"
+        },
+        {
+            "id": "borders-001",
+            "category": "borders",
+            "subcategory": "border-width",
+            "difficulty": "easy",
+            "tags": [
+                "border",
+                "border-width"
+            ],
+            "css": "border-width: 1px;",
+            "acceptedAnswers": [
+                "border"
+            ],
+            "explanation": "border applies a 1px border around the element.",
+            "hint": "This adds a basic border. Simply use 'border'.",
+            "cssMapping": {
+                "border-width": "1px"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"border p-4\">Element with border</div>",
+                    "description": "Element with 1px border"
+                }
+            ],
+            "relatedQuestions": [
+                "borders-002"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/border-width"
+        },
+        {
+            "id": "borders-002",
+            "category": "borders",
+            "subcategory": "border-width",
+            "difficulty": "easy",
+            "tags": [
+                "border",
+                "border-width"
+            ],
+            "css": "border-width: 2px;",
+            "acceptedAnswers": [
+                "border-2"
+            ],
+            "explanation": "border-2 applies a 2px border around the element.",
+            "hint": "This creates a thicker border. Use border- with number.",
+            "cssMapping": {
+                "border-width": "2px"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"border-2 border-gray-300 p-4\">Thick border</div>",
+                    "description": "Element with 2px border"
+                }
+            ],
+            "relatedQuestions": [
+                "borders-001",
+                "borders-003"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/border-width"
+        },
+        {
+            "id": "borders-003",
+            "category": "borders",
+            "subcategory": "border-radius",
+            "difficulty": "easy",
+            "tags": [
+                "border",
+                "border-radius"
+            ],
+            "css": "border-radius: 0.375rem;",
+            "acceptedAnswers": [
+                "rounded-md"
+            ],
+            "explanation": "rounded-md applies medium border radius (6px).",
+            "hint": "This rounds corners moderately. Use rounded- with size.",
+            "cssMapping": {
+                "border-radius": "0.375rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"rounded-md bg-blue-500 p-4\">Rounded corners</div>",
+                    "description": "Element with rounded corners"
+                }
+            ],
+            "relatedQuestions": [
+                "borders-004",
+                "borders-005"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/border-radius"
+        },
+        {
+            "id": "borders-004",
+            "category": "borders",
+            "subcategory": "border-radius",
+            "difficulty": "easy",
+            "tags": [
+                "border",
+                "border-radius"
+            ],
+            "css": "border-radius: 9999px;",
+            "acceptedAnswers": [
+                "rounded-full"
+            ],
+            "explanation": "rounded-full creates a perfect circle or pill shape.",
+            "hint": "This makes perfectly round corners. Use rounded-full.",
+            "cssMapping": {
+                "border-radius": "9999px"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"rounded-full bg-green-500 w-16 h-16\">Circle</div>",
+                    "description": "Circular element"
+                }
+            ],
+            "relatedQuestions": [
+                "borders-003"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/border-radius"
+        },
+        {
+            "id": "borders-005",
+            "category": "borders",
+            "subcategory": "border-style",
+            "difficulty": "medium",
+            "tags": [
+                "border",
+                "border-style"
+            ],
+            "css": "border-style: dashed;",
+            "acceptedAnswers": [
+                "border-dashed"
+            ],
+            "explanation": "border-dashed creates a dashed border style.",
+            "hint": "This makes borders dashed. Use border-dashed.",
+            "cssMapping": {
+                "border-style": "dashed"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"border-2 border-dashed border-gray-400 p-4\">Dashed border</div>",
+                    "description": "Element with dashed border"
+                }
+            ],
+            "relatedQuestions": [
+                "borders-002"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/border-style"
         },
         {
             "id": "spacing-001",
             "category": "spacing",
             "subcategory": "margin",
             "difficulty": "easy",
-            "tags": ["margin", "spacing"],
+            "tags": [
+                "margin",
+                "spacing"
+            ],
             "css": "margin: 1rem;",
-            "acceptedAnswers": ["m-4"],
+            "acceptedAnswers": [
+                "m-4"
+            ],
             "explanation": "m-4 applies margin of 1rem (16px) on all sides.",
             "hint": "This adds margin all around. Use m- prefix.",
             "cssMapping": {
@@ -435,7 +1227,10 @@
                     "description": "Adds margin around element"
                 }
             ],
-            "relatedQuestions": ["spacing-002", "spacing-009"],
+            "relatedQuestions": [
+                "spacing-002",
+                "spacing-009"
+            ],
             "learnMore": "https://tailwindcss.com/docs/margin"
         },
         {
@@ -443,9 +1238,15 @@
             "category": "spacing",
             "subcategory": "padding",
             "difficulty": "easy",
-            "tags": ["padding", "spacing"],
+            "tags": [
+                "padding",
+                "spacing"
+            ],
             "css": "padding: 0.5rem 1rem;",
-            "acceptedAnswers": ["py-2 px-4", "px-4 py-2"],
+            "acceptedAnswers": [
+                "py-2 px-4",
+                "px-4 py-2"
+            ],
             "explanation": "py-2 adds vertical padding, px-4 adds horizontal padding.",
             "hint": "This adds different padding vertically and horizontally. Use py- and px- prefixes.",
             "cssMapping": {
@@ -460,7 +1261,10 @@
                     "description": "Button with vertical and horizontal padding"
                 }
             ],
-            "relatedQuestions": ["spacing-001", "spacing-008"],
+            "relatedQuestions": [
+                "spacing-001",
+                "spacing-008"
+            ],
             "learnMore": "https://tailwindcss.com/docs/padding"
         },
         {
@@ -468,9 +1272,14 @@
             "category": "spacing",
             "subcategory": "width",
             "difficulty": "easy",
-            "tags": ["width", "sizing"],
+            "tags": [
+                "width",
+                "sizing"
+            ],
             "css": "width: 100%;",
-            "acceptedAnswers": ["w-full"],
+            "acceptedAnswers": [
+                "w-full"
+            ],
             "explanation": "w-full sets width to 100%.",
             "hint": "This makes element take full width. Use w- prefix.",
             "cssMapping": {
@@ -482,7 +1291,10 @@
                     "description": "Element takes full width"
                 }
             ],
-            "relatedQuestions": ["spacing-011", "spacing-012"],
+            "relatedQuestions": [
+                "spacing-011",
+                "spacing-012"
+            ],
             "learnMore": "https://tailwindcss.com/docs/width"
         },
         {
@@ -490,9 +1302,14 @@
             "category": "effects",
             "subcategory": "shadow",
             "difficulty": "easy",
-            "tags": ["shadow", "effects"],
+            "tags": [
+                "shadow",
+                "effects"
+            ],
             "css": "box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);",
-            "acceptedAnswers": ["shadow-sm"],
+            "acceptedAnswers": [
+                "shadow-sm"
+            ],
             "explanation": "shadow-sm applies a small subtle shadow.",
             "hint": "This adds a small shadow. Use shadow- prefix.",
             "cssMapping": {
@@ -504,7 +1321,10 @@
                     "description": "Card with subtle shadow"
                 }
             ],
-            "relatedQuestions": ["effects-002", "effects-009"],
+            "relatedQuestions": [
+                "effects-002",
+                "effects-009"
+            ],
             "learnMore": "https://tailwindcss.com/docs/box-shadow"
         },
         {
@@ -512,9 +1332,14 @@
             "category": "effects",
             "subcategory": "shadow",
             "difficulty": "medium",
-            "tags": ["shadow", "effects"],
+            "tags": [
+                "shadow",
+                "effects"
+            ],
             "css": "box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);",
-            "acceptedAnswers": ["shadow-lg"],
+            "acceptedAnswers": [
+                "shadow-lg"
+            ],
             "explanation": "shadow-lg applies a large shadow for elevated elements.",
             "hint": "This adds a large shadow. Use shadow- prefix with size.",
             "cssMapping": {
@@ -526,7 +1351,10 @@
                     "description": "Card with large shadow"
                 }
             ],
-            "relatedQuestions": ["effects-001", "effects-009"],
+            "relatedQuestions": [
+                "effects-001",
+                "effects-009"
+            ],
             "learnMore": "https://tailwindcss.com/docs/box-shadow"
         },
         {
@@ -534,9 +1362,14 @@
             "category": "effects",
             "subcategory": "border-radius",
             "difficulty": "easy",
-            "tags": ["border-radius", "effects"],
+            "tags": [
+                "border-radius",
+                "effects"
+            ],
             "css": "border-radius: 0.5rem;",
-            "acceptedAnswers": ["rounded-lg"],
+            "acceptedAnswers": [
+                "rounded-lg"
+            ],
             "explanation": "rounded-lg applies large border radius for rounded corners.",
             "hint": "This rounds corners. Use rounded- prefix.",
             "cssMapping": {
@@ -548,17 +1381,145 @@
                     "description": "Box with rounded corners"
                 }
             ],
-            "relatedQuestions": ["effects-008", "effects-015"],
+            "relatedQuestions": [
+                "effects-008",
+                "effects-015"
+            ],
             "learnMore": "https://tailwindcss.com/docs/border-radius"
+        },
+        {
+            "id": "effects-004",
+            "category": "effects",
+            "subcategory": "transform",
+            "difficulty": "medium",
+            "tags": [
+                "transform",
+                "scale"
+            ],
+            "css": "transform: scale(1.05);",
+            "acceptedAnswers": [
+                "scale-105"
+            ],
+            "explanation": "scale-105 scales element to 105% of its original size.",
+            "hint": "This makes element slightly larger. Use scale- with percentage.",
+            "cssMapping": {
+                "transform": "scale(1.05)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"scale-105 bg-blue-500 p-4\">Scaled up element</div>",
+                    "description": "Element scaled to 105%"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-005",
+                "effects-006"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/scale"
+        },
+        {
+            "id": "effects-005",
+            "category": "effects",
+            "subcategory": "transform",
+            "difficulty": "medium",
+            "tags": [
+                "transform",
+                "rotate"
+            ],
+            "css": "transform: rotate(45deg);",
+            "acceptedAnswers": [
+                "rotate-45"
+            ],
+            "explanation": "rotate-45 rotates element 45 degrees clockwise.",
+            "hint": "This rotates element. Use rotate- with degrees.",
+            "cssMapping": {
+                "transform": "rotate(45deg)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"rotate-45 bg-red-500 w-16 h-16\">Rotated square</div>",
+                    "description": "Square rotated 45 degrees"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-004",
+                "effects-007"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/rotate"
+        },
+        {
+            "id": "effects-006",
+            "category": "effects",
+            "subcategory": "transition",
+            "difficulty": "medium",
+            "tags": [
+                "transition",
+                "animation"
+            ],
+            "css": "transition-property: all;\ntransition-duration: 300ms;",
+            "acceptedAnswers": [
+                "transition-all duration-300"
+            ],
+            "explanation": "Adds transition to all properties with 300ms duration.",
+            "hint": "This animates all changes. Use transition-all and duration-.",
+            "cssMapping": {
+                "transition-property": "all",
+                "transition-duration": "300ms"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"transition-all duration-300 hover:scale-110\">Smooth transition</div>",
+                    "description": "Element with smooth transitions"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-004",
+                "effects-008"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/transition-property"
+        },
+        {
+            "id": "effects-007",
+            "category": "effects",
+            "subcategory": "opacity",
+            "difficulty": "easy",
+            "tags": [
+                "opacity"
+            ],
+            "css": "opacity: 0.5;",
+            "acceptedAnswers": [
+                "opacity-50"
+            ],
+            "explanation": "opacity-50 sets element opacity to 50%.",
+            "hint": "This makes element semi-transparent. Use opacity- with percentage.",
+            "cssMapping": {
+                "opacity": "0.5"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"opacity-50 bg-blue-500 p-4\">Semi-transparent</div>",
+                    "description": "Element with 50% opacity"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-006"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/opacity"
         },
         {
             "id": "responsive-001",
             "category": "responsive",
             "subcategory": "display",
             "difficulty": "easy",
-            "tags": ["responsive", "display", "breakpoint"],
+            "tags": [
+                "responsive",
+                "display",
+                "breakpoint"
+            ],
             "css": "@media (min-width: 768px) {\n  display: block;\n}",
-            "acceptedAnswers": ["md:block"],
+            "acceptedAnswers": [
+                "md:block"
+            ],
             "explanation": "md:block applies display block on medium screens and up (768px+).",
             "hint": "This shows on medium screens and up. Use breakpoint prefix.",
             "cssMapping": {
@@ -570,7 +1531,9 @@
                     "description": "Element visible only on medium+ screens"
                 }
             ],
-            "relatedQuestions": ["responsive-006"],
+            "relatedQuestions": [
+                "responsive-006"
+            ],
             "learnMore": "https://tailwindcss.com/docs/responsive-design"
         },
         {
@@ -578,9 +1541,15 @@
             "category": "responsive",
             "subcategory": "grid",
             "difficulty": "medium",
-            "tags": ["responsive", "grid", "breakpoint"],
+            "tags": [
+                "responsive",
+                "grid",
+                "breakpoint"
+            ],
             "css": "@media (min-width: 1024px) {\n  grid-template-columns: repeat(3, 1fr);\n}",
-            "acceptedAnswers": ["lg:grid-cols-3"],
+            "acceptedAnswers": [
+                "lg:grid-cols-3"
+            ],
             "explanation": "lg:grid-cols-3 creates 3 columns on large screens and up (1024px+).",
             "hint": "This changes grid columns on large screens. Use breakpoint with grid columns.",
             "cssMapping": {
@@ -592,8 +1561,1886 @@
                     "description": "1 column mobile, 3 columns desktop"
                 }
             ],
-            "relatedQuestions": ["layout-004", "responsive-009"],
+            "relatedQuestions": [
+                "layout-004",
+                "responsive-009"
+            ],
             "learnMore": "https://tailwindcss.com/docs/responsive-design"
+        },
+        {
+            "id": "typography-001",
+            "category": "typography",
+            "subcategory": "font-size",
+            "difficulty": "easy",
+            "tags": [
+                "font",
+                "text-size"
+            ],
+            "css": "font-size: 1.5rem;",
+            "acceptedAnswers": [
+                "text-2xl"
+            ],
+            "explanation": "text-2xl sets font-size to 1.5rem (24px).",
+            "hint": "This sets a medium-large font size. Use the text- prefix.",
+            "cssMapping": {
+                "font-size": "1.5rem"
+            },
+            "examples": [
+                {
+                    "html": "<h2 class=\"text-2xl\">Medium Heading</h2>",
+                    "description": "Creates a medium-sized heading"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-006",
+                "typography-015"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/font-size"
+        },
+        {
+            "id": "typography-002",
+            "category": "typography",
+            "subcategory": "font-weight",
+            "difficulty": "easy",
+            "tags": [
+                "font",
+                "weight"
+            ],
+            "css": "font-weight: 700;",
+            "acceptedAnswers": [
+                "font-bold"
+            ],
+            "explanation": "font-bold sets font-weight to 700.",
+            "hint": "This makes text bold. Use the font- prefix.",
+            "cssMapping": {
+                "font-weight": "700"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"font-bold\">Bold text</p>",
+                    "description": "Makes text bold"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-007"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/font-weight"
+        },
+        {
+            "id": "typography-003",
+            "category": "typography",
+            "subcategory": "text-align",
+            "difficulty": "easy",
+            "tags": [
+                "text",
+                "alignment"
+            ],
+            "css": "text-align: center;",
+            "acceptedAnswers": [
+                "text-center"
+            ],
+            "explanation": "text-center centers text horizontally.",
+            "hint": "This centers text. Use the text- prefix with alignment.",
+            "cssMapping": {
+                "text-align": "center"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"text-center\">Centered text</p>",
+                    "description": "Centers text horizontally"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-012"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/text-align"
+        },
+        {
+            "id": "typography-004",
+            "category": "typography",
+            "subcategory": "line-height",
+            "difficulty": "medium",
+            "tags": [
+                "line-height",
+                "leading"
+            ],
+            "css": "line-height: 1.25;",
+            "acceptedAnswers": [
+                "leading-tight"
+            ],
+            "explanation": "leading-tight sets line-height to 1.25.",
+            "hint": "This controls line spacing. Use the leading- prefix.",
+            "cssMapping": {
+                "line-height": "1.25"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"leading-tight\">Tight line spacing</p>",
+                    "description": "Creates tight line spacing"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-010"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/line-height"
+        },
+        {
+            "id": "typography-005",
+            "category": "typography",
+            "subcategory": "letter-spacing",
+            "difficulty": "medium",
+            "tags": [
+                "letter-spacing",
+                "tracking"
+            ],
+            "css": "letter-spacing: 0.1em;",
+            "acceptedAnswers": [
+                "tracking-wider"
+            ],
+            "explanation": "tracking-wider increases letter spacing.",
+            "hint": "This controls space between letters. Use the tracking- prefix.",
+            "cssMapping": {
+                "letter-spacing": "0.1em"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"tracking-wider\">Spaced out text</p>",
+                    "description": "Increases letter spacing"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-013"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/letter-spacing"
+        },
+        {
+            "id": "typography-006",
+            "category": "typography",
+            "subcategory": "font-size",
+            "difficulty": "easy",
+            "tags": [
+                "font",
+                "text-size",
+                "large"
+            ],
+            "css": "font-size: 3rem;",
+            "acceptedAnswers": [
+                "text-5xl"
+            ],
+            "explanation": "text-5xl sets font-size to 3rem (48px) for large headings.",
+            "hint": "This creates very large text. Use the text- prefix with xl sizing.",
+            "cssMapping": {
+                "font-size": "3rem"
+            },
+            "examples": [
+                {
+                    "html": "<h1 class=\"text-5xl\">Large Title</h1>",
+                    "description": "Creates a large title"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-001",
+                "typography-015"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/font-size"
+        },
+        {
+            "id": "typography-007",
+            "category": "typography",
+            "subcategory": "font-weight",
+            "difficulty": "easy",
+            "tags": [
+                "font",
+                "weight",
+                "light"
+            ],
+            "css": "font-weight: 300;",
+            "acceptedAnswers": [
+                "font-light"
+            ],
+            "explanation": "font-light sets font-weight to 300 for lighter text.",
+            "hint": "This makes text lighter. Use the font- prefix.",
+            "cssMapping": {
+                "font-weight": "300"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"font-light\">Light text</p>",
+                    "description": "Makes text lighter"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-002"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/font-weight"
+        },
+        {
+            "id": "typography-008",
+            "category": "typography",
+            "subcategory": "text-decoration",
+            "difficulty": "easy",
+            "tags": [
+                "text",
+                "decoration",
+                "underline"
+            ],
+            "css": "text-decoration: underline;",
+            "acceptedAnswers": [
+                "underline"
+            ],
+            "explanation": "underline adds an underline decoration to text.",
+            "hint": "This adds an underline. Use the decoration name directly.",
+            "cssMapping": {
+                "text-decoration-line": "underline"
+            },
+            "examples": [
+                {
+                    "html": "<a class=\"underline\">Underlined link</a>",
+                    "description": "Adds underline to text"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-014"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/text-decoration"
+        },
+        {
+            "id": "typography-009",
+            "category": "typography",
+            "subcategory": "text-transform",
+            "difficulty": "easy",
+            "tags": [
+                "text",
+                "transform",
+                "case"
+            ],
+            "css": "text-transform: uppercase;",
+            "acceptedAnswers": [
+                "uppercase"
+            ],
+            "explanation": "uppercase transforms text to all capital letters.",
+            "hint": "This makes text uppercase. Use the transform name directly.",
+            "cssMapping": {
+                "text-transform": "uppercase"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"uppercase\">uppercase text</p>",
+                    "description": "Transforms text to uppercase"
+                }
+            ],
+            "relatedQuestions": [],
+            "learnMore": "https://tailwindcss.com/docs/text-transform"
+        },
+        {
+            "id": "typography-010",
+            "category": "typography",
+            "subcategory": "line-height",
+            "difficulty": "medium",
+            "tags": [
+                "line-height",
+                "leading",
+                "spacing"
+            ],
+            "css": "line-height: 2;",
+            "acceptedAnswers": [
+                "leading-8"
+            ],
+            "explanation": "leading-8 sets line-height to 2rem for more spacing between lines.",
+            "hint": "This creates loose line spacing. Use the leading- prefix with number.",
+            "cssMapping": {
+                "line-height": "2rem"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"leading-8\">Loose line spacing</p>",
+                    "description": "Creates loose line spacing"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-004"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/line-height"
+        },
+        {
+            "id": "typography-011",
+            "category": "typography",
+            "subcategory": "font-style",
+            "difficulty": "easy",
+            "tags": [
+                "font",
+                "style",
+                "italic"
+            ],
+            "css": "font-style: italic;",
+            "acceptedAnswers": [
+                "italic"
+            ],
+            "explanation": "italic applies italic styling to text.",
+            "hint": "This makes text italic. Use the style name directly.",
+            "cssMapping": {
+                "font-style": "italic"
+            },
+            "examples": [
+                {
+                    "html": "<em class=\"italic\">Emphasized text</em>",
+                    "description": "Makes text italic"
+                }
+            ],
+            "relatedQuestions": [],
+            "learnMore": "https://tailwindcss.com/docs/font-style"
+        },
+        {
+            "id": "typography-012",
+            "category": "typography",
+            "subcategory": "text-align",
+            "difficulty": "medium",
+            "tags": [
+                "text",
+                "alignment",
+                "justify"
+            ],
+            "css": "text-align: justify;",
+            "acceptedAnswers": [
+                "text-justify"
+            ],
+            "explanation": "text-justify aligns text to both left and right margins.",
+            "hint": "This justifies text alignment. Use the text- prefix.",
+            "cssMapping": {
+                "text-align": "justify"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"text-justify\">Justified paragraph text</p>",
+                    "description": "Justifies text alignment"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-003"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/text-align"
+        },
+        {
+            "id": "typography-013",
+            "category": "typography",
+            "subcategory": "letter-spacing",
+            "difficulty": "medium",
+            "tags": [
+                "letter-spacing",
+                "tracking",
+                "tight"
+            ],
+            "css": "letter-spacing: -0.05em;",
+            "acceptedAnswers": [
+                "tracking-tight"
+            ],
+            "explanation": "tracking-tight decreases letter spacing for tighter text.",
+            "hint": "This tightens letter spacing. Use the tracking- prefix.",
+            "cssMapping": {
+                "letter-spacing": "-0.05em"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"tracking-tight\">Tight letter spacing</p>",
+                    "description": "Decreases letter spacing"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-005"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/letter-spacing"
+        },
+        {
+            "id": "typography-014",
+            "category": "typography",
+            "subcategory": "text-decoration",
+            "difficulty": "medium",
+            "tags": [
+                "text",
+                "decoration",
+                "strikethrough"
+            ],
+            "css": "text-decoration: line-through;",
+            "acceptedAnswers": [
+                "line-through"
+            ],
+            "explanation": "line-through adds a strikethrough decoration to text.",
+            "hint": "This adds a strikethrough line. Use the decoration name directly.",
+            "cssMapping": {
+                "text-decoration-line": "line-through"
+            },
+            "examples": [
+                {
+                    "html": "<del class=\"line-through\">Deleted text</del>",
+                    "description": "Adds strikethrough to text"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-008"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/text-decoration"
+        },
+        {
+            "id": "typography-015",
+            "category": "typography",
+            "subcategory": "font-size",
+            "difficulty": "easy",
+            "tags": [
+                "font",
+                "text-size",
+                "small"
+            ],
+            "css": "font-size: 0.75rem;",
+            "acceptedAnswers": [
+                "text-xs"
+            ],
+            "explanation": "text-xs sets font-size to 0.75rem (12px) for very small text.",
+            "hint": "This creates very small text. Use the text- prefix with xs.",
+            "cssMapping": {
+                "font-size": "0.75rem"
+            },
+            "examples": [
+                {
+                    "html": "<small class=\"text-xs\">Small print</small>",
+                    "description": "Creates very small text"
+                }
+            ],
+            "relatedQuestions": [
+                "typography-001",
+                "typography-006"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/font-size"
+        },
+        {
+            "id": "colors-001",
+            "category": "colors",
+            "subcategory": "text-color",
+            "difficulty": "easy",
+            "tags": [
+                "color",
+                "text",
+                "blue"
+            ],
+            "css": "color: #3B82F6;",
+            "acceptedAnswers": [
+                "text-blue-500"
+            ],
+            "explanation": "text-blue-500 sets text color to blue-500.",
+            "hint": "This sets text color to blue. Use the text- prefix with color name.",
+            "cssMapping": {
+                "color": "rgb(59 130 246)"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"text-blue-500\">Blue text</p>",
+                    "description": "Sets text color to blue"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-007",
+                "colors-011"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/text-color"
+        },
+        {
+            "id": "colors-002",
+            "category": "colors",
+            "subcategory": "background-color",
+            "difficulty": "easy",
+            "tags": [
+                "color",
+                "background",
+                "red"
+            ],
+            "css": "background-color: #EF4444;",
+            "acceptedAnswers": [
+                "bg-red-500"
+            ],
+            "explanation": "bg-red-500 sets background color to red-500.",
+            "hint": "This sets background color to red. Use the bg- prefix with color name.",
+            "cssMapping": {
+                "background-color": "rgb(239 68 68)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"bg-red-500 p-4\">Red background</div>",
+                    "description": "Sets background color to red"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-006",
+                "colors-013"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/background-color"
+        },
+        {
+            "id": "colors-003",
+            "category": "colors",
+            "subcategory": "border-color",
+            "difficulty": "medium",
+            "tags": [
+                "color",
+                "border",
+                "green"
+            ],
+            "css": "border-color: #10B981;",
+            "acceptedAnswers": [
+                "border-green-500"
+            ],
+            "explanation": "border-green-500 sets border color to green-500.",
+            "hint": "This sets border color to green. Use the border- prefix with color name.",
+            "cssMapping": {
+                "border-color": "rgb(16 185 129)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"border border-green-500 p-4\">Green border</div>",
+                    "description": "Sets border color to green"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-009",
+                "colors-015"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/border-color"
+        },
+        {
+            "id": "colors-004",
+            "category": "colors",
+            "subcategory": "gradients",
+            "difficulty": "hard",
+            "tags": [
+                "color",
+                "gradient",
+                "background"
+            ],
+            "css": "background: linear-gradient(to right, #3B82F6, #8B5CF6);",
+            "acceptedAnswers": [
+                "bg-gradient-to-r from-blue-500 to-purple-500"
+            ],
+            "explanation": "Creates a horizontal gradient from blue to purple.",
+            "hint": "This creates a gradient. Use bg-gradient direction and from/to colors.",
+            "cssMapping": {
+                "background-image": "linear-gradient(to right, var(--tw-gradient-stops))"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"bg-gradient-to-r from-blue-500 to-purple-500 p-4\">Gradient</div>",
+                    "description": "Creates a horizontal gradient"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-008",
+                "colors-012"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/gradient-color-stops"
+        },
+        {
+            "id": "colors-005",
+            "category": "colors",
+            "subcategory": "opacity",
+            "difficulty": "medium",
+            "tags": [
+                "color",
+                "opacity",
+                "alpha"
+            ],
+            "css": "color: rgba(107, 114, 128, 0.5);",
+            "acceptedAnswers": [
+                "text-gray-500/50"
+            ],
+            "explanation": "Sets text color to gray-500 with 50% opacity.",
+            "hint": "This sets color with opacity. Use color/opacity notation.",
+            "cssMapping": {
+                "color": "rgb(107 114 128 / 0.5)"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"text-gray-500/50\">Semi-transparent text</p>",
+                    "description": "Sets text with 50% opacity"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-010"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/text-color#changing-opacity"
+        },
+        {
+            "id": "colors-009",
+            "category": "colors",
+            "subcategory": "border-color",
+            "difficulty": "medium",
+            "tags": [
+                "color",
+                "border",
+                "gray"
+            ],
+            "css": "border-color: #6B7280;",
+            "acceptedAnswers": [
+                "border-gray-500"
+            ],
+            "explanation": "border-gray-500 sets border color to medium gray.",
+            "hint": "This sets border color to gray. Use the border- prefix.",
+            "cssMapping": {
+                "border-color": "rgb(107 114 128)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"border border-gray-500 p-4\">Gray border</div>",
+                    "description": "Sets border color to gray"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-003",
+                "colors-015"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/border-color"
+        },
+        {
+            "id": "colors-010",
+            "category": "colors",
+            "subcategory": "opacity",
+            "difficulty": "medium",
+            "tags": [
+                "color",
+                "background",
+                "opacity"
+            ],
+            "css": "background-color: rgba(59, 130, 246, 0.1);",
+            "acceptedAnswers": [
+                "bg-blue-500/10"
+            ],
+            "explanation": "Sets background to blue-500 with 10% opacity.",
+            "hint": "This sets background with low opacity. Use color/opacity notation.",
+            "cssMapping": {
+                "background-color": "rgb(59 130 246 / 0.1)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"bg-blue-500/10 p-4\">Semi-transparent blue</div>",
+                    "description": "Sets background with 10% opacity"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-005"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/background-color#changing-opacity"
+        },
+        {
+            "id": "colors-011",
+            "category": "colors",
+            "subcategory": "text-color",
+            "difficulty": "easy",
+            "tags": [
+                "color",
+                "text",
+                "red"
+            ],
+            "css": "color: #DC2626;",
+            "acceptedAnswers": [
+                "text-red-600"
+            ],
+            "explanation": "text-red-600 sets text color to a darker red.",
+            "hint": "This sets text color to dark red. Use the text- prefix.",
+            "cssMapping": {
+                "color": "rgb(220 38 38)"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"text-red-600\">Dark red text</p>",
+                    "description": "Sets text color to dark red"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-001",
+                "colors-007"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/text-color"
+        },
+        {
+            "id": "colors-012",
+            "category": "colors",
+            "subcategory": "gradients",
+            "difficulty": "hard",
+            "tags": [
+                "color",
+                "gradient",
+                "diagonal"
+            ],
+            "css": "background: linear-gradient(45deg, #8B5CF6, #EC4899);",
+            "acceptedAnswers": [
+                "bg-gradient-to-br from-purple-500 to-pink-500"
+            ],
+            "explanation": "Creates a diagonal gradient from purple to pink.",
+            "hint": "This creates a diagonal gradient. Use bg-gradient-to-br with from/to colors.",
+            "cssMapping": {
+                "background-image": "linear-gradient(45deg, var(--tw-gradient-stops))"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"bg-gradient-to-br from-purple-500 to-pink-500 p-4\">Diagonal gradient</div>",
+                    "description": "Creates a diagonal gradient"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-004",
+                "colors-008"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/gradient-color-stops"
+        },
+        {
+            "id": "colors-013",
+            "category": "colors",
+            "subcategory": "background-color",
+            "difficulty": "easy",
+            "tags": [
+                "color",
+                "background",
+                "black"
+            ],
+            "css": "background-color: #000000;",
+            "acceptedAnswers": [
+                "bg-black"
+            ],
+            "explanation": "bg-black sets background color to pure black.",
+            "hint": "This sets background to black. Use the bg- prefix.",
+            "cssMapping": {
+                "background-color": "rgb(0 0 0)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"bg-black text-white p-4\">Black background</div>",
+                    "description": "Sets background to black"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-002",
+                "colors-006"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/background-color"
+        },
+        {
+            "id": "colors-014",
+            "category": "colors",
+            "subcategory": "text-color",
+            "difficulty": "easy",
+            "tags": [
+                "color",
+                "text",
+                "green"
+            ],
+            "css": "color: #059669;",
+            "acceptedAnswers": [
+                "text-green-600"
+            ],
+            "explanation": "text-green-600 sets text color to a darker green.",
+            "hint": "This sets text color to dark green. Use the text- prefix.",
+            "cssMapping": {
+                "color": "rgb(5 150 105)"
+            },
+            "examples": [
+                {
+                    "html": "<p class=\"text-green-600\">Dark green text</p>",
+                    "description": "Sets text color to dark green"
+                }
+            ],
+            "relatedQuestions": [],
+            "learnMore": "https://tailwindcss.com/docs/text-color"
+        },
+        {
+            "id": "colors-015",
+            "category": "colors",
+            "subcategory": "border-color",
+            "difficulty": "medium",
+            "tags": [
+                "color",
+                "border",
+                "purple"
+            ],
+            "css": "border-color: #7C3AED;",
+            "acceptedAnswers": [
+                "border-purple-600"
+            ],
+            "explanation": "border-purple-600 sets border color to a darker purple.",
+            "hint": "This sets border color to dark purple. Use the border- prefix.",
+            "cssMapping": {
+                "border-color": "rgb(124 58 237)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"border border-purple-600 p-4\">Purple border</div>",
+                    "description": "Sets border color to purple"
+                }
+            ],
+            "relatedQuestions": [
+                "colors-003",
+                "colors-009"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/border-color"
+        },
+        {
+            "id": "spacing-004",
+            "category": "spacing",
+            "subcategory": "height",
+            "difficulty": "medium",
+            "tags": [
+                "spacing",
+                "height",
+                "viewport"
+            ],
+            "css": "height: 50vh;",
+            "acceptedAnswers": [
+                "h-screen/2"
+            ],
+            "explanation": "h-screen/2 sets height to 50% of viewport height.",
+            "hint": "This sets height to half screen. Use the h- prefix with fraction.",
+            "cssMapping": {
+                "height": "50vh"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"h-screen/2 bg-purple-100\">Half screen height</div>",
+                    "description": "Sets height to 50% of viewport"
+                }
+            ],
+            "relatedQuestions": [
+                "spacing-012"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/height"
+        },
+        {
+            "id": "spacing-005",
+            "category": "spacing",
+            "subcategory": "max-width",
+            "difficulty": "medium",
+            "tags": [
+                "spacing",
+                "width",
+                "constraint"
+            ],
+            "css": "max-width: 28rem;",
+            "acceptedAnswers": [
+                "max-w-md"
+            ],
+            "explanation": "max-w-md sets maximum width to 28rem (448px).",
+            "hint": "This constrains maximum width. Use the max-w- prefix.",
+            "cssMapping": {
+                "max-width": "28rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"max-w-md bg-yellow-100\">Constrained width</div>",
+                    "description": "Sets maximum width constraint"
+                }
+            ],
+            "relatedQuestions": [],
+            "learnMore": "https://tailwindcss.com/docs/max-width"
+        },
+        {
+            "id": "spacing-006",
+            "category": "spacing",
+            "subcategory": "gap",
+            "difficulty": "medium",
+            "tags": [
+                "spacing",
+                "gap",
+                "flexbox",
+                "grid"
+            ],
+            "css": "gap: 1rem;",
+            "acceptedAnswers": [
+                "gap-4"
+            ],
+            "explanation": "gap-4 sets gap between flex/grid items to 1rem.",
+            "hint": "This sets space between items. Use the gap- prefix.",
+            "cssMapping": {
+                "gap": "1rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"flex gap-4\"><div>Item 1</div><div>Item 2</div></div>",
+                    "description": "Sets gap between flex items"
+                }
+            ],
+            "relatedQuestions": [],
+            "learnMore": "https://tailwindcss.com/docs/gap"
+        },
+        {
+            "id": "spacing-007",
+            "category": "spacing",
+            "subcategory": "centering",
+            "difficulty": "medium",
+            "tags": [
+                "spacing",
+                "margin",
+                "centering"
+            ],
+            "css": "margin-left: auto;\\nmargin-right: auto;",
+            "acceptedAnswers": [
+                "mx-auto"
+            ],
+            "explanation": "mx-auto centers an element horizontally.",
+            "hint": "This centers an element horizontally. Use the mx- prefix with auto.",
+            "cssMapping": {
+                "margin-left": "auto",
+                "margin-right": "auto"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"mx-auto w-32 bg-indigo-100\">Centered element</div>",
+                    "description": "Centers element horizontally"
+                }
+            ],
+            "relatedQuestions": [],
+            "learnMore": "https://tailwindcss.com/docs/margin"
+        },
+        {
+            "id": "spacing-008",
+            "category": "spacing",
+            "subcategory": "padding",
+            "difficulty": "easy",
+            "tags": [
+                "spacing",
+                "padding",
+                "vertical"
+            ],
+            "css": "padding-top: 2rem;\\npadding-bottom: 2rem;",
+            "acceptedAnswers": [
+                "py-8"
+            ],
+            "explanation": "py-8 applies padding of 2rem to top and bottom.",
+            "hint": "This sets vertical padding. Use the py- prefix.",
+            "cssMapping": {
+                "padding-top": "2rem",
+                "padding-bottom": "2rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"py-8 bg-teal-100\">Vertical padding</div>",
+                    "description": "Applies vertical padding"
+                }
+            ],
+            "relatedQuestions": [
+                "spacing-002",
+                "spacing-015"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/padding"
+        },
+        {
+            "id": "spacing-009",
+            "category": "spacing",
+            "subcategory": "margin",
+            "difficulty": "easy",
+            "tags": [
+                "spacing",
+                "margin",
+                "top"
+            ],
+            "css": "margin-top: 1.5rem;",
+            "acceptedAnswers": [
+                "mt-6"
+            ],
+            "explanation": "mt-6 applies margin-top of 1.5rem (24px).",
+            "hint": "This sets top margin. Use the mt- prefix.",
+            "cssMapping": {
+                "margin-top": "1.5rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"mt-6 bg-orange-100\">Top margin</div>",
+                    "description": "Applies top margin"
+                }
+            ],
+            "relatedQuestions": [
+                "spacing-001",
+                "spacing-014"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/margin"
+        },
+        {
+            "id": "spacing-010",
+            "category": "spacing",
+            "subcategory": "padding",
+            "difficulty": "medium",
+            "tags": [
+                "spacing",
+                "padding",
+                "large"
+            ],
+            "css": "padding: 3rem;",
+            "acceptedAnswers": [
+                "p-12"
+            ],
+            "explanation": "p-12 applies padding of 3rem (48px) on all sides.",
+            "hint": "This sets large padding on all sides. Use the p- prefix.",
+            "cssMapping": {
+                "padding": "3rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"p-12 bg-pink-100\">Large padding</div>",
+                    "description": "Applies large padding on all sides"
+                }
+            ],
+            "relatedQuestions": [],
+            "learnMore": "https://tailwindcss.com/docs/padding"
+        },
+        {
+            "id": "spacing-011",
+            "category": "spacing",
+            "subcategory": "width",
+            "difficulty": "easy",
+            "tags": [
+                "spacing",
+                "width",
+                "fraction"
+            ],
+            "css": "width: 50%;",
+            "acceptedAnswers": [
+                "w-1/2"
+            ],
+            "explanation": "w-1/2 sets width to 50% of the parent container.",
+            "hint": "This sets width to half. Use the w- prefix with fraction.",
+            "cssMapping": {
+                "width": "50%"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"w-1/2 bg-cyan-100\">Half width</div>",
+                    "description": "Sets width to 50%"
+                }
+            ],
+            "relatedQuestions": [
+                "spacing-003"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/width"
+        },
+        {
+            "id": "spacing-012",
+            "category": "spacing",
+            "subcategory": "height",
+            "difficulty": "easy",
+            "tags": [
+                "spacing",
+                "height",
+                "viewport"
+            ],
+            "css": "height: 100vh;",
+            "acceptedAnswers": [
+                "h-screen"
+            ],
+            "explanation": "h-screen sets height to 100% of viewport height.",
+            "hint": "This sets height to full screen. Use the h- prefix.",
+            "cssMapping": {
+                "height": "100vh"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"h-screen bg-lime-100\">Full screen height</div>",
+                    "description": "Sets height to full viewport"
+                }
+            ],
+            "relatedQuestions": [
+                "spacing-004"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/height"
+        },
+        {
+            "id": "spacing-013",
+            "category": "spacing",
+            "subcategory": "min-height",
+            "difficulty": "medium",
+            "tags": [
+                "spacing",
+                "height",
+                "minimum"
+            ],
+            "css": "min-height: 100vh;",
+            "acceptedAnswers": [
+                "min-h-screen"
+            ],
+            "explanation": "min-h-screen sets minimum height to 100% of viewport height.",
+            "hint": "This sets minimum height to screen. Use the min-h- prefix.",
+            "cssMapping": {
+                "min-height": "100vh"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"min-h-screen bg-emerald-100\">Minimum screen height</div>",
+                    "description": "Sets minimum height to viewport"
+                }
+            ],
+            "relatedQuestions": [],
+            "learnMore": "https://tailwindcss.com/docs/min-height"
+        },
+        {
+            "id": "spacing-014",
+            "category": "spacing",
+            "subcategory": "margin",
+            "difficulty": "easy",
+            "tags": [
+                "spacing",
+                "margin",
+                "bottom"
+            ],
+            "css": "margin-bottom: 0.5rem;",
+            "acceptedAnswers": [
+                "mb-2"
+            ],
+            "explanation": "mb-2 applies margin-bottom of 0.5rem (8px).",
+            "hint": "This sets bottom margin. Use the mb- prefix.",
+            "cssMapping": {
+                "margin-bottom": "0.5rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"mb-2 bg-rose-100\">Bottom margin</div>",
+                    "description": "Applies bottom margin"
+                }
+            ],
+            "relatedQuestions": [
+                "spacing-001",
+                "spacing-009"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/margin"
+        },
+        {
+            "id": "spacing-015",
+            "category": "spacing",
+            "subcategory": "padding",
+            "difficulty": "easy",
+            "tags": [
+                "spacing",
+                "padding",
+                "horizontal"
+            ],
+            "css": "padding-left: 1.25rem;\\npadding-right: 1.25rem;",
+            "acceptedAnswers": [
+                "px-5"
+            ],
+            "explanation": "px-5 applies horizontal padding of 1.25rem (20px).",
+            "hint": "This sets horizontal padding. Use the px- prefix.",
+            "cssMapping": {
+                "padding-left": "1.25rem",
+                "padding-right": "1.25rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"px-5 bg-violet-100\">Horizontal padding</div>",
+                    "description": "Applies horizontal padding"
+                }
+            ],
+            "relatedQuestions": [
+                "spacing-002",
+                "spacing-008"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/padding"
+        },
+        {
+            "id": "effects-008",
+            "category": "effects",
+            "subcategory": "border-radius",
+            "difficulty": "easy",
+            "tags": [
+                "effects",
+                "border",
+                "radius",
+                "circle"
+            ],
+            "css": "border-radius: 9999px;",
+            "acceptedAnswers": [
+                "rounded-full"
+            ],
+            "explanation": "rounded-full creates perfectly circular elements.",
+            "hint": "This creates a perfect circle. Use the rounded- prefix with full.",
+            "cssMapping": {
+                "border-radius": "9999px"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"rounded-full w-16 h-16 bg-pink-100\">Circle</div>",
+                    "description": "Creates a perfect circle"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-003",
+                "effects-015"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/border-radius"
+        },
+        {
+            "id": "effects-009",
+            "category": "effects",
+            "subcategory": "shadows",
+            "difficulty": "medium",
+            "tags": [
+                "effects",
+                "shadow",
+                "extra-large"
+            ],
+            "css": "box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);",
+            "acceptedAnswers": [
+                "shadow-2xl"
+            ],
+            "explanation": "shadow-2xl applies an extra large shadow for dramatic depth.",
+            "hint": "This creates an extra large shadow. Use the shadow- prefix with xl size.",
+            "cssMapping": {
+                "box-shadow": "0 25px 50px -12px rgb(0 0 0 / 0.25)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"shadow-2xl p-4 bg-white\">Extra large shadow</div>",
+                    "description": "Applies dramatic depth with large shadow"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-001",
+                "effects-002"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/box-shadow"
+        },
+        {
+            "id": "effects-010",
+            "category": "effects",
+            "subcategory": "transform",
+            "difficulty": "medium",
+            "tags": [
+                "effects",
+                "transform",
+                "translate"
+            ],
+            "css": "transform: translateX(0.5rem);",
+            "acceptedAnswers": [
+                "translate-x-2"
+            ],
+            "explanation": "translate-x-2 moves element 0.5rem to the right.",
+            "hint": "This moves an element horizontally. Use the translate-x- prefix.",
+            "cssMapping": {
+                "transform": "translateX(0.5rem)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"translate-x-2 p-4 bg-indigo-100\">Moved right</div>",
+                    "description": "Moves element to the right"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-020"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/translate"
+        },
+        {
+            "id": "effects-011",
+            "category": "effects",
+            "subcategory": "backdrop-filter",
+            "difficulty": "hard",
+            "tags": [
+                "effects",
+                "filter",
+                "blur",
+                "backdrop"
+            ],
+            "css": "backdrop-filter: blur(8px);",
+            "acceptedAnswers": [
+                "backdrop-blur-sm"
+            ],
+            "explanation": "backdrop-blur-sm applies a small blur effect to the background.",
+            "hint": "This blurs the background behind an element. Use the backdrop-blur- prefix.",
+            "cssMapping": {
+                "backdrop-filter": "blur(8px)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"backdrop-blur-sm p-4 bg-white/50\">Blurred backdrop</div>",
+                    "description": "Applies background blur effect"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-018"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/backdrop-blur"
+        },
+        {
+            "id": "effects-012",
+            "category": "effects",
+            "subcategory": "transitions",
+            "difficulty": "medium",
+            "tags": [
+                "effects",
+                "transition",
+                "transform"
+            ],
+            "css": "transition: transform 0.2s ease;",
+            "acceptedAnswers": [
+                "transition-transform duration-200"
+            ],
+            "explanation": "Creates smooth transitions for transform properties over 200ms.",
+            "hint": "This transitions only transform properties. Use transition- and duration- prefixes.",
+            "cssMapping": {
+                "transition-property": "transform",
+                "transition-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)",
+                "transition-duration": "200ms"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"transition-transform duration-200 hover:scale-110 p-4 bg-teal-100\">Transform transition</div>",
+                    "description": "Smooth transitions for transforms only"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-005",
+                "effects-019"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/transition-property"
+        },
+        {
+            "id": "effects-013",
+            "category": "effects",
+            "subcategory": "filters",
+            "difficulty": "hard",
+            "tags": [
+                "effects",
+                "filter",
+                "grayscale"
+            ],
+            "css": "filter: grayscale(100%);",
+            "acceptedAnswers": [
+                "grayscale"
+            ],
+            "explanation": "grayscale converts element to grayscale (black and white).",
+            "hint": "This removes color from an element. Use the filter name directly.",
+            "cssMapping": {
+                "filter": "grayscale(100%)"
+            },
+            "examples": [
+                {
+                    "html": "<img class=\"grayscale\" src=\"image.jpg\" alt=\"Grayscale image\">",
+                    "description": "Converts image to grayscale"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-018"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/grayscale"
+        },
+        {
+            "id": "effects-014",
+            "category": "effects",
+            "subcategory": "transform",
+            "difficulty": "hard",
+            "tags": [
+                "effects",
+                "transform",
+                "skew"
+            ],
+            "css": "transform: skew(-12deg, 0);",
+            "acceptedAnswers": [
+                "skew-x-12"
+            ],
+            "explanation": "skew-x-12 skews element 12 degrees along the X-axis.",
+            "hint": "This skews an element horizontally. Use the skew-x- prefix with angle.",
+            "cssMapping": {
+                "transform": "skewX(-12deg)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"skew-x-12 p-4 bg-orange-100\">Skewed element</div>",
+                    "description": "Skews element along X-axis"
+                }
+            ],
+            "relatedQuestions": [],
+            "learnMore": "https://tailwindcss.com/docs/skew"
+        },
+        {
+            "id": "effects-015",
+            "category": "effects",
+            "subcategory": "border-radius",
+            "difficulty": "easy",
+            "tags": [
+                "effects",
+                "border",
+                "radius",
+                "default"
+            ],
+            "css": "border-radius: 0.25rem;",
+            "acceptedAnswers": [
+                "rounded"
+            ],
+            "explanation": "rounded applies default border radius for slightly rounded corners.",
+            "hint": "This creates slight rounded corners. Use rounded without suffix.",
+            "cssMapping": {
+                "border-radius": "0.25rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"rounded p-4 bg-cyan-100\">Slightly rounded</div>",
+                    "description": "Applies default border radius"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-003",
+                "effects-008"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/border-radius"
+        },
+        {
+            "id": "effects-016",
+            "category": "effects",
+            "subcategory": "shadows",
+            "difficulty": "medium",
+            "tags": [
+                "effects",
+                "shadow",
+                "inset"
+            ],
+            "css": "box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);",
+            "acceptedAnswers": [
+                "shadow-inner"
+            ],
+            "explanation": "shadow-inner applies an inset shadow for depressed appearance.",
+            "hint": "This creates an inset shadow. Use the shadow- prefix with inner.",
+            "cssMapping": {
+                "box-shadow": "inset 0 2px 4px 0 rgb(0 0 0 / 0.05)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"shadow-inner p-4 bg-gray-100\">Inset shadow</div>",
+                    "description": "Creates depressed appearance with inset shadow"
+                }
+            ],
+            "relatedQuestions": [],
+            "learnMore": "https://tailwindcss.com/docs/box-shadow"
+        },
+        {
+            "id": "effects-017",
+            "category": "effects",
+            "subcategory": "transform",
+            "difficulty": "medium",
+            "tags": [
+                "effects",
+                "transform",
+                "scale",
+                "down"
+            ],
+            "css": "transform: scale(0.95);",
+            "acceptedAnswers": [
+                "scale-95"
+            ],
+            "explanation": "scale-95 scales element to 95% of its original size.",
+            "hint": "This scales an element down. Use the scale- prefix with percentage.",
+            "cssMapping": {
+                "transform": "scale(0.95)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"scale-95 p-4 bg-lime-100\">Scaled down</div>",
+                    "description": "Scales element to 95%"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-004"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/scale"
+        },
+        {
+            "id": "effects-018",
+            "category": "effects",
+            "subcategory": "filters",
+            "difficulty": "hard",
+            "tags": [
+                "effects",
+                "filter",
+                "blur"
+            ],
+            "css": "filter: blur(4px);",
+            "acceptedAnswers": [
+                "blur-sm"
+            ],
+            "explanation": "blur-sm applies a small blur effect to the element.",
+            "hint": "This blurs the element itself. Use the blur- prefix with size.",
+            "cssMapping": {
+                "filter": "blur(4px)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"blur-sm p-4 bg-violet-100\">Blurred element</div>",
+                    "description": "Applies blur to the element"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-011",
+                "effects-013"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/blur"
+        },
+        {
+            "id": "effects-019",
+            "category": "effects",
+            "subcategory": "transitions",
+            "difficulty": "hard",
+            "tags": [
+                "effects",
+                "transition",
+                "opacity",
+                "timing"
+            ],
+            "css": "transition: opacity 0.5s ease-in-out;",
+            "acceptedAnswers": [
+                "transition-opacity duration-500 ease-in-out"
+            ],
+            "explanation": "Creates smooth opacity transitions over 500ms with ease-in-out timing.",
+            "hint": "This transitions opacity with custom timing. Use transition-, duration-, and ease- prefixes.",
+            "cssMapping": {
+                "transition-property": "opacity",
+                "transition-duration": "500ms",
+                "transition-timing-function": "cubic-bezier(0.4, 0, 0.2, 1)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"transition-opacity duration-500 ease-in-out hover:opacity-50 p-4 bg-rose-100\">Opacity transition</div>",
+                    "description": "Smooth opacity transitions with custom timing"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-005",
+                "effects-012"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/transition-property"
+        },
+        {
+            "id": "effects-020",
+            "category": "effects",
+            "subcategory": "transform",
+            "difficulty": "medium",
+            "tags": [
+                "effects",
+                "transform",
+                "translate",
+                "vertical"
+            ],
+            "css": "transform: translateY(-0.25rem);",
+            "acceptedAnswers": [
+                "translate-y-1"
+            ],
+            "explanation": "translate-y-1 moves element 0.25rem upward.",
+            "hint": "This moves an element vertically up. Use the translate-y- prefix with negative value.",
+            "cssMapping": {
+                "transform": "translateY(-0.25rem)"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"translate-y-1 p-4 bg-emerald-100\">Moved up</div>",
+                    "description": "Moves element upward"
+                }
+            ],
+            "relatedQuestions": [
+                "effects-010"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/translate"
+        },
+        {
+            "id": "responsive-003",
+            "category": "responsive",
+            "subcategory": "typography",
+            "difficulty": "easy",
+            "tags": [
+                "responsive",
+                "font-size",
+                "text"
+            ],
+            "css": "@media (min-width: 640px) {\\n  font-size: 1.5rem;\\n}",
+            "acceptedAnswers": [
+                "sm:text-2xl"
+            ],
+            "explanation": "sm:text-2xl applies larger text on small screens and up (640px+).",
+            "hint": "This increases text size on small screens and up. Use the sm: prefix.",
+            "cssMapping": {
+                "font-size": "1.5rem",
+                "line-height": "2rem"
+            },
+            "examples": [
+                {
+                    "html": "<h1 class=\"text-xl sm:text-2xl\">Responsive heading</h1>",
+                    "description": "Responsive text sizing"
+                }
+            ],
+            "relatedQuestions": [
+                "responsive-012"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/font-size"
+        },
+        {
+            "id": "responsive-004",
+            "category": "responsive",
+            "subcategory": "spacing",
+            "difficulty": "medium",
+            "tags": [
+                "responsive",
+                "padding",
+                "spacing"
+            ],
+            "css": "@media (min-width: 1280px) {\\n  padding: 2rem;\\n}",
+            "acceptedAnswers": [
+                "xl:p-8"
+            ],
+            "explanation": "xl:p-8 applies larger padding on extra large screens (1280px+).",
+            "hint": "This increases padding on extra large screens. Use the xl: prefix.",
+            "cssMapping": {
+                "padding": "2rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"p-4 xl:p-8\">Responsive padding</div>",
+                    "description": "Increases padding on larger screens"
+                }
+            ],
+            "relatedQuestions": [
+                "responsive-008"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/padding"
+        },
+        {
+            "id": "responsive-005",
+            "category": "responsive",
+            "subcategory": "flexbox",
+            "difficulty": "medium",
+            "tags": [
+                "responsive",
+                "flexbox",
+                "direction"
+            ],
+            "css": "@media (min-width: 768px) {\\n  flex-direction: row;\\n}",
+            "acceptedAnswers": [
+                "md:flex-row"
+            ],
+            "explanation": "md:flex-row changes flex direction to row on medium screens and up.",
+            "hint": "This changes flex direction on medium screens. Use the md: prefix.",
+            "cssMapping": {
+                "flex-direction": "row"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"flex flex-col md:flex-row\">Responsive flex direction</div>",
+                    "description": "Changes from column to row layout"
+                }
+            ],
+            "relatedQuestions": [
+                "responsive-011"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/flex-direction"
+        },
+        {
+            "id": "responsive-006",
+            "category": "responsive",
+            "subcategory": "display",
+            "difficulty": "medium",
+            "tags": [
+                "responsive",
+                "display",
+                "hide",
+                "show"
+            ],
+            "css": "@media (max-width: 639px) {\\n  display: none;\\n}",
+            "acceptedAnswers": [
+                "hidden sm:block"
+            ],
+            "explanation": "hidden sm:block hides on mobile, shows on small screens and up.",
+            "hint": "This hides on mobile but shows on larger screens. Use hidden then sm:block.",
+            "cssMapping": {
+                "display": "none"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"hidden sm:block\">Hidden on mobile</div>",
+                    "description": "Element hidden on mobile devices"
+                }
+            ],
+            "relatedQuestions": [
+                "responsive-001"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/display"
+        },
+        {
+            "id": "responsive-007",
+            "category": "responsive",
+            "subcategory": "width",
+            "difficulty": "easy",
+            "tags": [
+                "responsive",
+                "width",
+                "sizing"
+            ],
+            "css": "@media (min-width: 1024px) {\\n  width: 50%;\\n}",
+            "acceptedAnswers": [
+                "lg:w-1/2"
+            ],
+            "explanation": "lg:w-1/2 sets width to 50% on large screens and up.",
+            "hint": "This sets width to half on large screens. Use the lg: prefix.",
+            "cssMapping": {
+                "width": "50%"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"w-full lg:w-1/2\">Responsive width</div>",
+                    "description": "Changes from full to half width"
+                }
+            ],
+            "relatedQuestions": [
+                "responsive-010"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/width"
+        },
+        {
+            "id": "responsive-008",
+            "category": "responsive",
+            "subcategory": "spacing",
+            "difficulty": "easy",
+            "tags": [
+                "responsive",
+                "margin",
+                "spacing"
+            ],
+            "css": "@media (min-width: 768px) {\\n  margin: 2rem;\\n}",
+            "acceptedAnswers": [
+                "md:m-8"
+            ],
+            "explanation": "md:m-8 applies larger margin on medium screens and up.",
+            "hint": "This increases margin on medium screens. Use the md: prefix.",
+            "cssMapping": {
+                "margin": "2rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"m-4 md:m-8\">Responsive margin</div>",
+                    "description": "Increases margin on larger screens"
+                }
+            ],
+            "relatedQuestions": [
+                "responsive-004"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/margin"
+        },
+        {
+            "id": "responsive-009",
+            "category": "responsive",
+            "subcategory": "grid",
+            "difficulty": "medium",
+            "tags": [
+                "responsive",
+                "grid",
+                "columns"
+            ],
+            "css": "@media (min-width: 640px) {\\n  grid-template-columns: repeat(2, 1fr);\\n}",
+            "acceptedAnswers": [
+                "sm:grid-cols-2"
+            ],
+            "explanation": "sm:grid-cols-2 creates 2 columns on small screens and up.",
+            "hint": "This creates 2 columns on small screens and up. Use the sm: prefix.",
+            "cssMapping": {
+                "grid-template-columns": "repeat(2, minmax(0, 1fr))"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"grid grid-cols-1 sm:grid-cols-2\">Responsive 2-column grid</div>",
+                    "description": "Creates 2-column layout on small screens+"
+                }
+            ],
+            "relatedQuestions": [
+                "responsive-002"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/grid-template-columns"
+        },
+        {
+            "id": "responsive-010",
+            "category": "responsive",
+            "subcategory": "width",
+            "difficulty": "hard",
+            "tags": [
+                "responsive",
+                "width",
+                "max-width",
+                "container"
+            ],
+            "css": "@media (min-width: 1536px) {\\n  max-width: 80rem;\\n}",
+            "acceptedAnswers": [
+                "2xl:max-w-7xl"
+            ],
+            "explanation": "2xl:max-w-7xl sets large max-width on 2xl screens (1536px+).",
+            "hint": "This sets max-width on 2xl screens. Use the 2xl: prefix with max-w.",
+            "cssMapping": {
+                "max-width": "80rem"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"max-w-4xl 2xl:max-w-7xl\">Responsive container</div>",
+                    "description": "Larger container on 2xl screens"
+                }
+            ],
+            "relatedQuestions": [
+                "responsive-007"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/max-width"
+        },
+        {
+            "id": "responsive-011",
+            "category": "responsive",
+            "subcategory": "flexbox",
+            "difficulty": "medium",
+            "tags": [
+                "responsive",
+                "flexbox",
+                "justify"
+            ],
+            "css": "@media (min-width: 768px) {\\n  justify-content: space-between;\\n}",
+            "acceptedAnswers": [
+                "md:justify-between"
+            ],
+            "explanation": "md:justify-between applies space-between on medium screens and up.",
+            "hint": "This changes flex justification on medium screens. Use the md: prefix.",
+            "cssMapping": {
+                "justify-content": "space-between"
+            },
+            "examples": [
+                {
+                    "html": "<div class=\"flex justify-center md:justify-between\">Responsive justify</div>",
+                    "description": "Changes flex justification on larger screens"
+                }
+            ],
+            "relatedQuestions": [
+                "responsive-005"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/justify-content"
+        },
+        {
+            "id": "responsive-012",
+            "category": "responsive",
+            "subcategory": "typography",
+            "difficulty": "medium",
+            "tags": [
+                "responsive",
+                "font-size",
+                "large"
+            ],
+            "css": "@media (min-width: 1024px) {\\n  font-size: 3rem;\\n}",
+            "acceptedAnswers": [
+                "lg:text-5xl"
+            ],
+            "explanation": "lg:text-5xl applies very large text on large screens and up.",
+            "hint": "This creates very large text on large screens. Use the lg: prefix.",
+            "cssMapping": {
+                "font-size": "3rem",
+                "line-height": "1"
+            },
+            "examples": [
+                {
+                    "html": "<h1 class=\"text-3xl lg:text-5xl\">Responsive large heading</h1>",
+                    "description": "Very large text on large screens"
+                }
+            ],
+            "relatedQuestions": [
+                "responsive-003"
+            ],
+            "learnMore": "https://tailwindcss.com/docs/font-size"
         }
     ],
     "challenges": {
@@ -604,7 +3451,12 @@
             "config": {
                 "allowHints": true,
                 "allowPreview": true,
-                "categories": ["layout", "typography", "colors", "spacing"]
+                "categories": [
+                    "layout",
+                    "typography",
+                    "colors",
+                    "spacing"
+                ]
             }
         },
         "speed_round": {
@@ -616,7 +3468,10 @@
                 "questionCount": 15,
                 "allowHints": false,
                 "allowPreview": false,
-                "difficulties": ["easy", "medium"]
+                "difficulties": [
+                    "easy",
+                    "medium"
+                ]
             }
         },
         "flexbox_master": {
@@ -624,7 +3479,9 @@
             "description": "Master flexbox layouts",
             "type": "themed",
             "config": {
-                "tags": ["flexbox"],
+                "tags": [
+                    "flexbox"
+                ],
                 "questionCount": 20,
                 "allowHints": true,
                 "allowPreview": true
